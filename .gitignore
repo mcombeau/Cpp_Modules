@@ -32,6 +32,7 @@
 *.app
 *megaphone
 *FMN-PhoneBook
+*test-GBU
 
 # VS Code
 .vscode
