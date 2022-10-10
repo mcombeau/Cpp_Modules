@@ -30,6 +30,9 @@
 *.exe
 *.out
 *.app
+*megaphone
+*FMN-PhoneBook
 
 # VS Code
+.vscode
 */*.vscode

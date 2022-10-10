@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 13:30:07 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/08 17:41:42 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:49:45 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,18 @@ class	Contact {
 		Contact(void);
 		~Contact(void);
 
+		bool				isEmpty(void) const;
 		std::string const	getFirstname(void) const;
 		std::string const	getLastname(void) const;
 		std::string const	getNickname(void) const;
 		std::string const	getNumber(void) const;
 		std::string const	getSecret(void) const;
-		bool				setFirstname(std::string const str);
-		bool				setLastname(std::string const str);
-		bool				setNickname(std::string const str);
+		bool				setFirstname(std::string str);
+		bool				setLastname(std::string str);
+		bool				setNickname(std::string str);
 		bool				setNumber(std::string const str);
 		bool				setSecret(std::string const str);
-		void				displayContactInfo(void) const;
+		bool				displayContactInfo(void) const;
 };
 
 #endif

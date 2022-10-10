@@ -1,5 +1,5 @@
 # Program file name
-NAME	= forgetfulphonebook
+NAME	= FMN-PhoneBook
 
 # Compiler and compilation flags
 CC		= g++
