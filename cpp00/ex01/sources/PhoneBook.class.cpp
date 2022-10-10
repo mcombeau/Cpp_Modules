@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 13:30:13 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/10 17:30:11 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/10/10 18:49:41 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,15 +117,15 @@ void	PhoneBook::_printContactInfoToTable(int const index) {
 	_printTableString(this->_contactList[index].getFirstname());
 	_printTableString(this->_contactList[index].getLastname());
 	_printTableString(this->_contactList[index].getNickname());
-	std::cout << std::endl;
-	std::cout << "+----------+----------+----------+----------+" << std::endl;
+	std::cout	<< std::endl
+				<< "+----------+----------+----------+----------+" << std::endl;
 	return ;
 }
 
 void	PhoneBook::_displayContactTable(void) {
-	std::cout << "+----------+----------+----------+----------+" << std::endl;
-	std::cout << "|  INDEX   |FIRST NAME| LAST NAME| NICKNAME |" << std::endl;
-	std::cout << "+----------+----------+----------+----------+" << std::endl;
+	std::cout	<< "+----------+----------+----------+----------+" << std::endl
+				<< "|  INDEX   |FIRST NAME| LAST NAME| NICKNAME |" << std::endl
+				<< "+----------+----------+----------+----------+" << std::endl;
 	for (int i = 0; i < 8; i++) {
 		_printContactInfoToTable(i);
 	}

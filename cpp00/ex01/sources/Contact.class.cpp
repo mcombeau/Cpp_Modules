@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 13:30:10 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/10 17:04:15 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/10/10 18:50:42 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,10 +137,10 @@ bool	Contact::setSecret(std::string const str) {
 bool	Contact::displayContactInfo(void) const {
 	if (this->isEmpty())
 		return (false);
-	std::cout << "+ First name\t: "	<< this->getFirstname()	<< std::endl;
-	std::cout << "+ Last name\t: "	<< this->getLastname()	<< std::endl;
-	std::cout << "+ Nickname\t: "		<< this->getNickname()	<< std::endl;
-	std::cout << "+ Phone number\t: "	<< this->getNumber() 	<< std::endl;
-	std::cout << "+ Darkest secret: "<< this->getSecret()	<< std::endl;
+	std::cout	<< "+ First name\t: "	<< this->getFirstname()	<< std::endl
+				<< "+ Last name\t: "	<< this->getLastname()	<< std::endl
+				<< "+ Nickname\t: "		<< this->getNickname()	<< std::endl
+				<< "+ Phone number\t: "	<< this->getNumber() 	<< std::endl
+				<< "+ Darkest secret: "	<< this->getSecret()	<< std::endl;
 	return (true);
 }
