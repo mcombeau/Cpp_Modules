@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 13:30:03 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/10 17:29:57 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:21:27 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ class	PhoneBook {
 		void		_displayContactTable(void);
 		void		_printContactInfoToTable(int const index);
 		void		_printTableString(std::string str);
+
 	public:
 		PhoneBook(void);
 		~PhoneBook(void);
