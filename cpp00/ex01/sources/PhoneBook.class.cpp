@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 13:30:13 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/10 18:49:41 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:04:34 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	PhoneBook::displayContact(int index) {
 		if (this->_contactList[index].displayContactInfo())
 			return ;
 	}
-	std::cout << "That contact does not exist!" << std::endl;
+	std::cout << "Error: No record for the requested contact." << std::endl;
 }
 
 void PhoneBook::_printTableString(std::string str) {
@@ -144,12 +144,12 @@ bool	PhoneBook::_displayContactByIndex(std::string const input) {
 			if (this->_contactList[index].displayContactInfo())
 				return (true);
 			else {
-				std::cout << "No record at index [" << index << "]. Please ADD a contact and try again." << std::endl;
+				std::cout << "Error: No record at index [" << index << "]. Please ADD a contact and try again." << std::endl;
 				return (false);
 			}
 		}
 	}
-	std::cout << "\'" << input << "' is not a valid index (0-7). Please try again." << std::endl;
+	std::cout << "Error: \'" << input << "' is not a valid index (a digit between 0 and 7). Please try again later." << std::endl;
 	return (false);
 }
 
