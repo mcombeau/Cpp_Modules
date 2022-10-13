@@ -5,3 +5,6 @@
 </p>
 
 A collection of small 42 school projects about C++.
+
+## Status
+Work in progess...
