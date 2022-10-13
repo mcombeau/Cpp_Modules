@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 13:30:03 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/11 16:21:27 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:00:30 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ class	PhoneBook {
 
 		std::string	_getInput(std::string const prompt);
 		void		_incrementIndex(void);
-		bool		_displayContactByIndex(std::string const input);
-		void		_displayContactTable(void);
-		void		_printContactInfoToTable(int const index);
-		void		_printTableString(std::string str);
+		bool		_displayContactByIndex(std::string const input) const;
+		void		_displayContactTable(void) const;
+		void		_printContactInfoToTable(int const index) const;
+		void		_printTableString(std::string str) const;
 
 	public:
 		PhoneBook(void);
@@ -35,7 +35,7 @@ class	PhoneBook {
 
 		std::string	trimBlank(std::string str);
 		bool		addContact(void);
-		void		displayContact(int index);
+		void		displayContact(int index) const;
 		bool		searchContact(void);
 };
 

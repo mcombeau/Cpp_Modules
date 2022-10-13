@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 13:30:13 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/11 16:51:27 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:00:31 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	PhoneBook::_incrementIndex(void) {
 }
 
 /*	Displays the list of recorded contacts in table form.	*/
-void	PhoneBook::_displayContactTable(void) {
+void	PhoneBook::_displayContactTable(void) const {
 	std::cout	<< "+----------+----------+----------+----------+" << std::endl
 				<< "|  INDEX   |FIRST NAME| LAST NAME| NICKNAME |" << std::endl
 				<< "+----------+----------+----------+----------+" << std::endl;
@@ -73,7 +73,7 @@ void	PhoneBook::_displayContactTable(void) {
 
 /*	Displays a table line filled with the contact at index's information.
 	Displays nothing if the contact is empty.	*/
-void	PhoneBook::_printContactInfoToTable(int const index) {
+void	PhoneBook::_printContactInfoToTable(int const index) const {
 	if (this->_contactList[index].isEmpty())
 		return ;
 	std::cout << "|" << std::setw(10) << index << "|";
@@ -87,7 +87,7 @@ void	PhoneBook::_printContactInfoToTable(int const index) {
 
 /*	Formats and prints a 10 character-wide cell in the contact table.
 	If the string to display is too long, truncates it and adds a ".".	*/
-void PhoneBook::_printTableString(std::string str) {
+void PhoneBook::_printTableString(std::string str) const {
 	if (str.length() > 10) {
 		str.resize(9);
 		str += ".";
@@ -98,7 +98,7 @@ void PhoneBook::_printTableString(std::string str) {
 
 /*	Analyses user input and displays contact information for the requested
 	index, or an error message if the input is invalid.	*/
-bool	PhoneBook::_displayContactByIndex(std::string const input) {
+bool	PhoneBook::_displayContactByIndex(std::string const input) const {
 
 	int			index;
 
@@ -179,7 +179,7 @@ bool 	PhoneBook::addContact(void) {
 /*	Displays the information for contact at the specified index.
 	Displays an error message if the contact could not be displayed (should
 	never occur).	*/
-void	PhoneBook::displayContact(int index) {
+void	PhoneBook::displayContact(int index) const {
 	if (index >= 0 && index <= 7) {
 		if (this->_contactList[index].displayContactInfo())
 			return ;
