@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:48:51 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/16 13:37:51 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:09:17 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 #define BLUE "\e[34m"
 #define PURPLE "\e[35m"
 #define CYAN "\e[36m"
+
+Zombie	*newZombie(std::string name);
+void	randomChump(std::string name);
 
 std::string	colorZombieName(std::string const color, std::string const name) {
 	std::string	colorName(name);

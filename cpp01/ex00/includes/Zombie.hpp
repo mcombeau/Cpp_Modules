@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 17:01:44 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/16 13:39:29 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:09:05 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,5 @@ class	Zombie
 
 		void		announce(void);
 };
-
-Zombie	*newZombie(std::string name);
-void	randomChump(std::string name);
 
 #endif

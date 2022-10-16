@@ -3,7 +3,7 @@ NAME	= brainzz
 
 # Compiler
 CC		= c++
-CFLAGS	= -Werror -Wextra -Wall -std=c++98 -MMD -MP
+CFLAGS	= -Werror -Wextra -Wall -std=c++98
 
 # Build files
 INC_PATH	= ./includes/
@@ -19,8 +19,6 @@ SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJ_PATH	= ./objects/
 OBJ			= $(SRC:.cpp=.o)
 OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
-
-DEPS		=	$(addprefix $(OBJ_PATH), $(SRCS:.cpp=.d))
 
 # Build rule
 all: $(OBJ_PATH) $(NAME)
@@ -45,7 +43,5 @@ fclean: clean
 
 # Remake
 re: fclean all
-
--include $(DEPS)
 
 .PHONY: all re clean fclean
