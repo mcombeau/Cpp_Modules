@@ -4,7 +4,7 @@ The first module of 42 school's C++ piscine is an introduction to C++ and Object
 
 ## Status
 
-Awaiting evaluation.
+Validated 21/11/2022. Grade: 100%.
 
 ## Ex00 - Megaphone
 
