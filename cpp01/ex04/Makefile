@@ -21,10 +21,7 @@ $(NAME): $(OBJS)
 
 # Clean rules
 
-reset:
-	rm -rf $(wildcard ./test/*.replace)
-
-clean: reset
+clean:
 	rm -rf $(OBJS)
 
 fclean: clean
