@@ -6,14 +6,15 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:14:47 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/17 13:57:35 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/11/27 15:12:27 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string>
 #include <iostream>
 
-int	main(void) {
+int	main( void )
+{
 	std::string	const	str = "HI THIS IS BRAIN";
 	std::string	const	*stringPTR = &str;
 	std::string	const	&stringREF = str;
@@ -27,5 +28,5 @@ int	main(void) {
 				<< "Value of string:\t\t[" << str << "]\n"
 				<< "Value pointed to by stringPTR:\t[" << *stringPTR << "]\n"
 				<< "Value pointed to by stringREF:\t[" << stringREF << "]" << std::endl;
-	return (0);
+	return ( 0 );
 }

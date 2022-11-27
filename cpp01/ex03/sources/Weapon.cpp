@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:33:18 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/11/25 16:17:29 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/11/27 15:18:21 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@
 /******************************************************************************/
 
 /*	Constructor	*/
-Weapon::Weapon(std::string const type) : _type(type) {
+Weapon::Weapon( std::string const type ) : _type( type )
+{
 	return ;
 }
 
 /*	Desctructor	*/
-Weapon::~Weapon(void) {
+Weapon::~Weapon( void )
+{
 	return ;
 }
 
@@ -34,24 +36,31 @@ Weapon::~Weapon(void) {
 /*								GETTERS										  */
 /******************************************************************************/
 
-std::string const	&Weapon::getType(void) const {
-	return (this->_type);
+std::string const	&Weapon::getType( void ) const
+{
+	return ( this->_type );
 }
 
 /******************************************************************************/
 /*								SETTERS										  */
 /******************************************************************************/
 
-void	Weapon::setType(std::string const newType) {
-	if (newType.empty() && !(this->getType().empty()))
+void	Weapon::setType( std::string const newType )
+{
+	if ( newType.empty() && !(this->getType().empty()) )
+	{
 		std::cout << GREEN
 			<< "The " << this->getType() << " vanishes!"
 			<< RESET << std::endl;
-	else if (!(this->getType().empty()))
+	}
+	else if ( !(this->getType().empty()) )
+	{
 		std::cout << GREEN
 			<< "The " << this->getType() << " magically turns into a " << newType
 			<< RESET << std::endl;
-	else {
+	}
+	else
+	{
 		std::cout << GREEN
 			<< "A " << newType << " magically appears!"
 			<< RESET << std::endl;

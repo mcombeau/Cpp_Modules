@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:33:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/11/25 15:18:39 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/11/27 15:12:48 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@
 # include <string>
 # include "Weapon.hpp"
 
-class	HumanA {
+class	HumanA
+{
 	private:
 		std::string const	_name;
 		Weapon const 		&_weapon;
 		
 	public:
-		HumanA(std::string const aName, Weapon const &aWeapon);
-		~HumanA(void);
+		HumanA( std::string const aName, Weapon const &aWeapon );
+		~HumanA( void );
 
-		void	attack(void) const;
+		void	attack( void ) const;
 };
 
 #endif

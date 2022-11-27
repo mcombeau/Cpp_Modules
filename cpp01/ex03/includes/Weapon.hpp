@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:33:21 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/10/17 14:52:09 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/11/27 15:13:34 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 # include <string>
 
-class	Weapon {
+class	Weapon
+{
 	private:
 		std::string	_type;
 
 	public:
-		Weapon(std::string const type);
-		~Weapon(void);
-
-		std::string const	&getType(void) const;
-		void				setType(std::string const newType);
+		Weapon( std::string const type );
+		~Weapon( void );
+		std::string const	&getType( void ) const;
+		void				setType( std::string const newType );
 };
 
 #endif
