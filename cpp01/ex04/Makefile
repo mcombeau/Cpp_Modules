@@ -13,11 +13,11 @@ OBJS	= $(SRCS:.cpp=.o)
 all: $(NAME)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Program build rule
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INC)
+	$(CC) $(CFLAGS) $(OBJS) -o $@
 
 # Clean rules
 
