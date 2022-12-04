@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 12:19:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 14:04:51 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:19:13 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,28 @@
 Point::Point( void ) : _x( 0 ), _y( 0 )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cerr << "Point default constructor called." << std::endl;
+		std::cerr << CYAN "Point default constructor called." RESET << std::endl;
 	return ;
 }
 
 Point::Point( Fixed const x, Fixed const y ) : _x( x ), _y( y )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cerr << "Point fixed constructor called." << std::endl;
+		std::cerr << CYAN "Point fixed constructor called." RESET << std::endl;
 	return ;
 }
 
 Point::Point( Point const & src ) : _x( src.getX() ), _y( src.getY() )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cerr << "Point copy constructor called." << std::endl;
+		std::cerr << CYAN "Point copy constructor called." RESET << std::endl;
 	return ;
 }
 
 Point::~Point( void )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cerr << "Point destructor called." << std::endl;
+		std::cerr << CYAN "Point destructor called." RESET << std::endl;
 	return ;
 }
 
@@ -57,12 +57,17 @@ Point::~Point( void )
 Point &	Point::operator=( Point const & rhs )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cerr << "Point assignment operator called." << std::endl;
+		std::cerr << YELLOW "Point assignment operator called." RESET << std::endl;
+	/* TODO : COME BACK HERE AND FIX THIS!!! CREATES INFINITE LOOP.
+		Cannot assign rhs._x to this->_x because this->_x is const... Find another
+		way.
 	if ( this != &rhs )
 	{
 		Point copy(rhs.getX(), rhs.getY());
 		*this = copy;
 	}
+	*/
+	(void)rhs;
 	return ( *this );
 }
 

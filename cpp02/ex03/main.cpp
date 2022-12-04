@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:38:09 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 12:50:34 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:18:55 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool bsp( Point const a, Point const b, Point const c, Point const p );
 
 void	printIsPointInsideTriangle(Point const a, Point const b, Point const c, Point const p, bool expected )
 {
-	std::cerr << CYAN "-- Triangle: A(" << a.getX() << ", " << a.getY() << ") "
+	std::cerr << YELLOW "-- Triangle: A(" << a.getX() << ", " << a.getY() << ") "
 		<< "B(" << b.getX() << ", " << b.getY() << ") "
 		<< "C(" << c.getX() << ", " << c.getY() << ")" << std::endl
 		<< "-- Point: P(" << p.getX() << ", " << p.getY() << ")" RESET << std::endl;
