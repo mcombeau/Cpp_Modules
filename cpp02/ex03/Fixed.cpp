@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:38:01 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/03 14:37:47 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:11:34 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@
 Fixed::Fixed( void ) : _raw( 0 )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cout << CYAN "Default constructor called." RESET << std::endl;
+		std::cerr << CYAN "Default constructor called." RESET << std::endl;
 	return ;
 }
 
 Fixed::Fixed( Fixed const & src )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cout << CYAN "Copy constructor called." RESET << std::endl;
+		std::cerr << CYAN "Copy constructor called." RESET << std::endl;
 	*this = src;
 	return ;
 }
@@ -42,21 +42,21 @@ Fixed::Fixed( Fixed const & src )
 Fixed::Fixed( int const n ) : _raw( n << _fractionalBits )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cout << CYAN "Int constructor called." RESET << std::endl;
+		std::cerr << CYAN "Int constructor called." RESET << std::endl;
 	return ;
 }
 
 Fixed::Fixed( float const f ) : _raw( roundf(f * (1 << _fractionalBits)) )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cout << CYAN "Float constructor called." RESET << std::endl;
+		std::cerr << CYAN "Float constructor called." RESET << std::endl;
 	return ;
 }
 
 Fixed::~Fixed( void )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cout << CYAN "Destructor called." RESET << std::endl;
+		std::cerr << CYAN "Destructor called." RESET << std::endl;
 	return ;
 }
 
@@ -67,7 +67,7 @@ Fixed::~Fixed( void )
 Fixed &	Fixed::operator=( Fixed const & src )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cout << YELLOW "Copy assignment operator called." RESET << std::endl;
+		std::cerr << YELLOW "Copy assignment operator called." RESET << std::endl;
 	if ( this != &src )
 		this->_raw = src.getRawBits();
 	return ( *this );
@@ -169,7 +169,7 @@ Fixed Fixed::operator--( int ) // Postfix, i.e. fixed--
 int	Fixed::getRawBits( void ) const
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cout << GREEN "getRawBits member function called." RESET << std::endl;
+		std::cerr << GREEN "getRawBits member function called." RESET << std::endl;
 	return ( this->_raw );
 }
 
@@ -179,7 +179,7 @@ int	Fixed::getRawBits( void ) const
 void	Fixed::setRawBits( int const raw )
 {
 	if ( PRINT_MESSAGE == 1 )
-		std::cout << GREEN "setRawBits member funtion called." RESET << std::endl;
+		std::cerr << GREEN "setRawBits member funtion called." RESET << std::endl;
 	this->_raw = raw;
 	return ;
 }

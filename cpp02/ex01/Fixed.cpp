@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:38:01 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/03 11:39:12 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:12:50 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 /*	Default Constructor	*/
 Fixed::Fixed( void ) : _raw( 0 )
 {
-	std::cout << CYAN "Default constructor called." RESET << std::endl;
+	std::cerr << CYAN "Default constructor called." RESET << std::endl;
 	return ;
 }
 
 /*	Copy Constructor	*/
 Fixed::Fixed( Fixed const & src )
 {
-	std::cout << CYAN "Copy constructor called." RESET << std::endl;
+	std::cerr << CYAN "Copy constructor called." RESET << std::endl;
 	*this = src;
 	return ;
 }
@@ -41,21 +41,21 @@ Fixed::Fixed( Fixed const & src )
 /*	Constructor from integer	*/
 Fixed::Fixed( int const n ) : _raw( n << _fractionalBits )
 {
-	std::cout << CYAN "Int constructor called." RESET << std::endl;
+	std::cerr << CYAN "Int constructor called." RESET << std::endl;
 	return ;
 }
 
 /*	Constructor from float		*/
 Fixed::Fixed( float const f ) : _raw( roundf(f * (1 << _fractionalBits)) )
 {
-	std::cout << CYAN "Float constructor called." RESET << std::endl;
+	std::cerr << CYAN "Float constructor called." RESET << std::endl;
 	return ;
 }
 
 /*	Desctructor	*/
 Fixed::~Fixed( void )
 {
-	std::cout << CYAN "Destructor called." RESET << std::endl;
+	std::cerr << CYAN "Destructor called." RESET << std::endl;
 	return ;
 }
 
@@ -64,7 +64,7 @@ Fixed::~Fixed( void )
 /******************************************************************************/
 Fixed &	Fixed::operator=( Fixed const & src )
 {
-	std::cout << YELLOW "Copy assignment operator called." RESET << std::endl;
+	std::cerr << YELLOW "Copy assignment operator called." RESET << std::endl;
 	if ( this != &src )
 		this->_raw = src.getRawBits();
 	return ( *this );
@@ -75,7 +75,7 @@ Fixed &	Fixed::operator=( Fixed const & src )
 /******************************************************************************/
 int	Fixed::getRawBits( void ) const
 {
-	std::cout << GREEN "getRawBits member function called." RESET << std::endl;
+	std::cerr << GREEN "getRawBits member function called." RESET << std::endl;
 	return ( this->_raw );
 }
 
@@ -84,7 +84,7 @@ int	Fixed::getRawBits( void ) const
 /******************************************************************************/
 void	Fixed::setRawBits( int const raw )
 {
-	std::cout << GREEN "setRawBits member funtion called." RESET << std::endl;
+	std::cerr << GREEN "setRawBits member funtion called." RESET << std::endl;
 	this->_raw = raw;
 	return ;
 }
