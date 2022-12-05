@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:27:48 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 18:48:18 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:17:15 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ FragTrap &	FragTrap::operator=(FragTrap const & src) {
 void	FragTrap::highFivesGuys(void) {
 	if (this->_hitPoints == 0)
 		std::cout << PURPLE << this->_name
-			<< " extends a fingerless hand from its debris for a high-five"
+			<< " extends a fingerless hand from its debris for a high-five."
 			RESET << std::endl;
 	else
 		std::cout << PURPLE << this->_name << "jumps around trying to get "

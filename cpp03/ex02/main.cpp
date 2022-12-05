@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:43:19 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 18:54:21 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:16:42 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(void) {
 	}
 	scavTrap.beRepaired(20);
 	fragTrap.highFivesGuys();
-	clapTrap.beRepaired(1);
+	fragTrap.takeDamage(5000);
+	fragTrap.highFivesGuys();
 	return (0);
 }
