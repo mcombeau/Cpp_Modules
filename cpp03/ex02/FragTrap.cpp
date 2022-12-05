@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:27:48 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/05 11:17:15 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:27:19 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	FragTrap::highFivesGuys(void) {
 			<< " extends a fingerless hand from its debris for a high-five."
 			RESET << std::endl;
 	else
-		std::cout << PURPLE << this->_name << "jumps around trying to get "
+		std::cout << PURPLE << this->_name << " jumps around trying to get "
 			"someone to high-five it." RESET << std::endl;
 	return ;
 }
