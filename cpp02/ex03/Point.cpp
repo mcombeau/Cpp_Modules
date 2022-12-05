@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 12:19:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 14:19:13 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:11:46 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,8 @@ Point &	Point::operator=( Point const & rhs )
 {
 	if ( PRINT_MESSAGE == 1 )
 		std::cerr << YELLOW "Point assignment operator called." RESET << std::endl;
-	/* TODO : COME BACK HERE AND FIX THIS!!! CREATES INFINITE LOOP.
-		Cannot assign rhs._x to this->_x because this->_x is const... Find another
-		way.
-	if ( this != &rhs )
-	{
-		Point copy(rhs.getX(), rhs.getY());
-		*this = copy;
-	}
-	*/
+	std::cerr << "Warning: cannot assign to Point const attributes. "
+		"Use a Point copy constructor instead." << std::endl;
 	(void)rhs;
 	return ( *this );
 }
