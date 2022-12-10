@@ -28,12 +28,12 @@ echo -e "$BOLD--- No args:$RESET"
 
 echo -e "$CYAN> $NAME$RESET"
 $NAME
-echo -e "$CYAN> $NAME $F_LOREM$RESET"
-$NAME $F_LOREM
-echo -e "$CYAN> $NAME $F_LOREM x$RESET"
-$NAME $F_LOREM x
-echo -e "$CYAN> $NAME $F_LOREM x y z$RESET"
-$NAME $F_LOREM x y z
+echo -e "$CYAN> $NAME $F_MAN_BASH$RESET"
+$NAME $F_MAN_BASH
+echo -e "$CYAN> $NAME $F_MAN_BASH x$RESET"
+$NAME $F_MAN_BASH x
+echo -e "$CYAN> $NAME $F_MAN_BASH x y z$RESET"
+$NAME $F_MAN_BASH x y z
 echo
 
 echo -e "$BOLD--- Non-existant file:$RESET"
