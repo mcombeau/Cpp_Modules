@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:28:00 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/05 12:07:31 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:45:06 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class FragTrap : virtual public ClapTrap
 	public:
 		FragTrap(std::string name);
 		FragTrap(FragTrap const & src);
-		~FragTrap();
+		~FragTrap(void);
 
 		FragTrap &	operator=(FragTrap const & src);
 
