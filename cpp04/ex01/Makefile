@@ -3,7 +3,7 @@ NAME	= animal
 
 # Compiler
 CC		= c++
-CFLAGS	= -Werror -Wextra -Wall -std=c++98
+CFLAGS	= -Werror -Wextra -Wall -g -std=c++98
 
 # Build files
 INC_PATH	= ./includes/

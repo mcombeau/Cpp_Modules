@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:17:38 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/16 14:16:21 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:58:35 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 #define CYAN "\e[36m"
 #define PURPLE "\e[34m"
 
-Dog::Dog(void) : Animal("Dog"), _brain(new Brain())
+Dog::Dog(void) : Animal(), _brain(new Brain())
 {
 	std::cout << CYAN "Dog default constructor called." RESET << std::endl;
 	this->_type = "Dog";
 	return ;
 }
 
-Dog::Dog(Dog const & src) : Animal(src._type), _brain(NULL)
+Dog::Dog(Dog const & src) : Animal(), _brain(NULL)
 {
 	std::cout << CYAN "Dog copy constructor called." RESET << std::endl;
 	*this = src;

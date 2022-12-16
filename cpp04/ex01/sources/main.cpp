@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:16:46 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/16 15:32:19 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:11:43 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void testCopyCat(void)
 	std::cout << std::endl << "-- Creating a copy of \"Norminet\" cat" << std::endl;
 	Cat * copyCat = new Cat(*norminet);
 
-	std::cout << std::endl << "-- Copy cat should have the same ideas as Norminet." << std::endl;
+	std::cout << std::endl << "-- CopyCat should have the same ideas as Norminet." << std::endl;
 	std::cout << "CopyCat idea0: \"" << copyCat->getBrain()->getIdea(0) << "\"" << std::endl;
 	std::cout << "CopyCat idea1: \"" << copyCat->getBrain()->getIdea(1) << "\"" << std::endl;
 	std::cout << "CopyCat idea2: \"" << copyCat->getBrain()->getIdea(2) << "\"" << std::endl;
@@ -80,12 +80,21 @@ void testCopyCat(void)
 	std::cout << "Norminet idea 1: \"" << norminet->getBrain()->getIdea(1) << "\"" << std::endl;
 	std::cout << "Norminet idea 2: \"" << norminet->getBrain()->getIdea(2) << "\"" << std::endl;
 	
-	std::cout << std::endl << "-- Copy cat's ideas should not have changed." << std::endl;
+	std::cout << std::endl << "-- CopyCat's ideas should not have changed." << std::endl;
 	std::cout << "CopyCat idea0: \"" << copyCat->getBrain()->getIdea(0) << "\"" << std::endl;
 	std::cout << "CopyCat idea1: \"" << copyCat->getBrain()->getIdea(1) << "\"" << std::endl;
 	std::cout << "CopyCat idea2: \"" << copyCat->getBrain()->getIdea(2) << "\"" << std::endl;
 
-	std::cout << std::endl << "-- Deleting Norminet and the copy cat." << std::endl;
+	std::cout << std::endl << "-- Setting CopyCat = Norminet." << std::endl;
+	*copyCat = *norminet;
+
+	std::cout << std::endl << "-- CopyCat's ideas should have changed to Norminet's." << std::endl;
+	std::cout << "CopyCat idea0: \"" << copyCat->getBrain()->getIdea(0) << "\"" << std::endl;
+	std::cout << "CopyCat idea1: \"" << copyCat->getBrain()->getIdea(1) << "\"" << std::endl;
+	std::cout << "CopyCat idea2: \"" << copyCat->getBrain()->getIdea(2) << "\"" << std::endl;
+
+
+	std::cout << std::endl << "-- Deleting Norminet and CopyCat." << std::endl;
 	delete norminet;
 	delete copyCat;
 	std::cout << std::endl;
@@ -108,7 +117,7 @@ void testCopyDog(void)
 	std::cout << std::endl << "-- Creating a copy of \"Moulinet\" dog." << std::endl;
 	Dog * copyDog = new Dog(*moulinet);
 	
-	std::cout << std::endl << "-- Copy dog should have the same ideas as Moulinet." << std::endl;
+	std::cout << std::endl << "-- CopyDog should have the same ideas as Moulinet." << std::endl;
 	std::cout << "CopyDog idea0: \"" << copyDog->getBrain()->getIdea(0) << "\"" << std::endl;
 	std::cout << "CopyDog idea1: \"" << copyDog->getBrain()->getIdea(1) << "\"" << std::endl;
 	
@@ -119,11 +128,11 @@ void testCopyDog(void)
 	std::cout << "Moulinet idea 0: \"" << moulinet->getBrain()->getIdea(0) << "\"" << std::endl;
 	std::cout << "Moulinet idea 1: \"" << moulinet->getBrain()->getIdea(1) << "\"" << std::endl;
 	
-	std::cout << std::endl << "-- Copy dog's ideas should not have changed." << std::endl;
+	std::cout << std::endl << "-- CopyDog's ideas should not have changed." << std::endl;
 	std::cout << "CopyDog idea0: \"" << copyDog->getBrain()->getIdea(0) << "\"" << std::endl;
 	std::cout << "CopyDog idea1: \"" << copyDog->getBrain()->getIdea(1) << "\"" << std::endl;
 
-	std::cout << std::endl << "-- Deleting Moulinet and the copy dog." << std::endl;
+	std::cout << std::endl << "-- Deleting Moulinet and CopyDog." << std::endl;
 	delete moulinet;
 	delete copyDog;
 	std::cout << std::endl;
