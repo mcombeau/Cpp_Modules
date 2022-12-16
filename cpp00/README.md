@@ -16,7 +16,7 @@ streams and the string class.
 Clone the repository and cd into `cpp00/ex00`. Compile with `make`. To run the program:
 
 ```
-./megaphone "String" "to capitalize"
+./megaphone "Strings" "to capitalize"
 ```
 
 ## Ex01 - PhoneBook
