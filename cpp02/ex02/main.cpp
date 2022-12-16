@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:38:09 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/03 11:45:46 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/16 10:46:24 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,11 @@ void	colorTestUnary( Fixed & a, int operation )
 	Fixed	result;
 	int		expected = 0;
 
+	// TODO for repush: Don't use a reference to Fixed, use
+	// a regular copy of fixed in this function's parameters.
+	// This already increments once before returning to the test
+	// which increments again (double incrementation on the test
+	// result)
 	switch ( operation )
 	{
 		case PRE_INCREMENT:

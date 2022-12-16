@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:38:01 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 14:12:21 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/16 10:42:23 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ Fixed &	Fixed::operator=( Fixed const & src )
 
 bool	Fixed::operator>( Fixed const & rhs ) const
 {
+	// TODO for repush: can simply
+	//	return ( this->_raw > rhs.getRawBits() );
 	if ( this->_raw > rhs.getRawBits() )
 		return ( true );
 	return ( false );

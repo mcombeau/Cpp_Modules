@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 14:13:40 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/11/27 15:20:41 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/16 10:40:41 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	replaceBuffer( std::string *buffer, std::string const target, std::string c
 		buffer->erase( pos, target.length() );
 		if ( !subst.empty() )
 			buffer->insert(pos, subst);
+		// TODO for repush: move position after replaced section
+		// to avoid infinite loop in case of replace "a" with "aa"
 	}
 }
 
