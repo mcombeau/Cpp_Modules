@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:16:46 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/16 16:11:43 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/16 17:39:44 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,13 @@ void testCopyDog(void)
 	std::cout << std::endl << "-- CopyDog's ideas should not have changed." << std::endl;
 	std::cout << "CopyDog idea0: \"" << copyDog->getBrain()->getIdea(0) << "\"" << std::endl;
 	std::cout << "CopyDog idea1: \"" << copyDog->getBrain()->getIdea(1) << "\"" << std::endl;
+
+	std::cout << std::endl << "-- Setting CopyDog = Moulinet." << std::endl;
+	*copyDog = *moulinet;
+
+	std::cout << std::endl << "-- CopyDog's ideas should have changed to Moulinet's." << std::endl;
+	std::cout << "CopyCat idea0: \"" << copyDog->getBrain()->getIdea(0) << "\"" << std::endl;
+	std::cout << "CopyCat idea1: \"" << copyDog->getBrain()->getIdea(1) << "\"" << std::endl;
 
 	std::cout << std::endl << "-- Deleting Moulinet and CopyDog." << std::endl;
 	delete moulinet;
