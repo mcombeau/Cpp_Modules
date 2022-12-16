@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:16:46 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/16 15:22:09 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:32:19 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <string>
 #include <iostream>
 
-#define NUMBER_ANIMALS 5
+#define NUMBER_ANIMALS 4
 
 void	testAnimalArray(void)
 {
