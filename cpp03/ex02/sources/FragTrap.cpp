@@ -6,20 +6,14 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:27:48 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/05 12:27:08 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:34:42 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Colors.h"
 #include "FragTrap.hpp"
 #include <iostream>
 #include <string>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
-#define PURPLE "\e[34m"
 
 FragTrap::FragTrap(void) : ClapTrap() {
 	std::cout << CYAN "FragTrap default constructor called." RESET << std::endl;
@@ -32,7 +26,7 @@ FragTrap::FragTrap(void) : ClapTrap() {
 	return ;
 }
 
-FragTrap::FragTrap(std::string name) : ClapTrap(name) {
+FragTrap::FragTrap(std::string & name) : ClapTrap(name) {
 	std::cout << CYAN "A FragTrap named \"" << name << "\" was constructed."
 		RESET << std::endl;
 	this->_hitPoints = FRAGTRAP_DEFAULT_HIT_POINTS;

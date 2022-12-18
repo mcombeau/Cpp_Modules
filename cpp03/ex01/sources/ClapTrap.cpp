@@ -6,34 +6,35 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:42:50 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 18:11:48 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:32:37 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
+#include "Colors.h"
 #include <iostream>
 #include <string>
 
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
-
 ClapTrap::ClapTrap(void)
 	: _name("Default"),
-	_hitPoints(ClapTrap::defaultHitPoints),
-	_energyPoints(ClapTrap::defaultEnergyPoints),
-	_attackDamage(ClapTrap::defaultAttackDamage) {
+	_hitPoints(CLAPTRAP_DEFAULT_HIT_POINTS),
+	_energyPoints(CLAPTRAP_DEFAULT_ENERGY_POINTS),
+	_attackDamage(CLAPTRAP_DEFAULT_ATTACK_DAMAGE),
+	_maxHitPoints(CLAPTRAP_DEFAULT_HIT_POINTS),
+	_maxEnergyPoints(CLAPTRAP_DEFAULT_ENERGY_POINTS),
+	_maxAttackDamage(CLAPTRAP_DEFAULT_ATTACK_DAMAGE) {
 	std::cerr << CYAN "ClapTrap default constructor called." RESET << std::endl;
 	return ;
 }
 
 ClapTrap::ClapTrap(std::string name)
 	: _name(name),
-	_hitPoints(ClapTrap::defaultHitPoints),
-	_energyPoints(ClapTrap::defaultEnergyPoints),
-	_attackDamage(ClapTrap::defaultAttackDamage) {
+	_hitPoints(CLAPTRAP_DEFAULT_HIT_POINTS),
+	_energyPoints(CLAPTRAP_DEFAULT_ENERGY_POINTS),
+	_attackDamage(CLAPTRAP_DEFAULT_ATTACK_DAMAGE),
+	_maxHitPoints(CLAPTRAP_DEFAULT_HIT_POINTS),
+	_maxEnergyPoints(CLAPTRAP_DEFAULT_ENERGY_POINTS),
+	_maxAttackDamage(CLAPTRAP_DEFAULT_ATTACK_DAMAGE) {
 	std::cerr << CYAN "A ClapTrap named \"" << name << "\" was constructed." RESET << std::endl;
 	return ;
 }
@@ -97,19 +98,19 @@ void	ClapTrap::attack(std::string & target) {
 
 void	ClapTrap::takeDamage(unsigned int amount) {
 	if (this->_hitPoints == 0) {
-		std::cout << RED "ClapTrap " << this->_name
+		std::cout << RED << this->_name
 			<< " can't take anymore damage: it is already beyond repair!" RESET
 			<< std::endl;
 		return;
 	}
 	if ((int)this->_hitPoints - (int)amount <= 0) {
 		this->_hitPoints = 0;
-		std::cout << RED "ClapTrap " << this->_name
+		std::cout << RED << this->_name
 			<< " takes " << amount << " damage and is destroyed!" RESET << std::endl;
 	}
 	else {
 		this->_hitPoints -= amount;
-		std::cout << RED "ClapTrap " << this->_name
+		std::cout << RED << this->_name
 			<< " takes " << amount << " damage!" RESET << std::endl;
 	}
 	return ;
@@ -117,28 +118,28 @@ void	ClapTrap::takeDamage(unsigned int amount) {
 
 void	ClapTrap::beRepaired(unsigned int amount) {
 	if (this->_hitPoints == 0) {
-		std::cout << GREEN "ClapTrap " << this->_name
+		std::cout << GREEN << this->_name
 			<< " can't repair itself: it is too severely damaged." RESET << std::endl;
 		return ;
 	}
 	if (this->_energyPoints == 0) {
-		std::cout << GREEN "ClapTrap " << this->_name
+		std::cout << GREEN << this->_name
 			<< " can't repair itself: its battery is depleted and needs recharging."
 			RESET << std::endl;
 		return ;
 	}
-	if ((this->_hitPoints + amount) > ClapTrap::defaultHitPoints)
-		amount = ClapTrap::defaultHitPoints - this->_hitPoints;
+	if ((this->_hitPoints + amount) > this->_maxHitPoints)
+		amount = this->_maxHitPoints - this->_hitPoints;
 	if (amount == 0) {
 		this->_energyPoints--;
-		std::cout << GREEN "ClapTrap " << this->_name
+		std::cout << GREEN << this->_name
 			<< " wastes energy trying to repair itself when it is already in tip top shape."
 			RESET << std::endl;
 		return ;
 	}
 	this->_energyPoints--;
 	this->_hitPoints += amount;
-	std::cout << GREEN "ClapTrap " << this->_name << " repairs itself for "
+	std::cout << GREEN << this->_name << " repairs itself for "
 		<< amount << "." RESET << std::endl;
 	return ;
 }

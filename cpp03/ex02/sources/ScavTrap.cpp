@@ -6,20 +6,14 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 16:59:01 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/05 12:24:14 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:34:49 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Colors.h"
 #include "ScavTrap.hpp"
 #include <iostream>
 #include <string>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
-#define PURPLE "\e[34m"
 
 ScavTrap::ScavTrap(void) : ClapTrap() {
 	std::cout << CYAN "ScavTrap default constructor called." RESET << std::endl;
@@ -32,7 +26,7 @@ ScavTrap::ScavTrap(void) : ClapTrap() {
 	return ;
 }
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
+ScavTrap::ScavTrap(std::string & name) : ClapTrap(name) {
 	std::cout << CYAN "A ScavTrap named \"" << name << "\" was constructed."
 		RESET << std::endl;
 	this->_hitPoints = SCAVTRAP_DEFAULT_HIT_POINTS;
@@ -81,8 +75,8 @@ void	ScavTrap::attack(std::string & target) {
 	if (target == this->_name)
 		target = "itself";
 	_energyPoints--;
-	std::cout << YELLOW << this->_name
-		<< " leaps on " << target << " and crushes it for " << this->_attackDamage
+	std::cout << YELLOW "ScavTrap " << this->_name
+		<< " attacks " << target << " and hits for " << this->_attackDamage
 		<< " damage!" RESET << std::endl; 
 }
 

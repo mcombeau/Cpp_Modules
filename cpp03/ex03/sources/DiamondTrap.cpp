@@ -6,19 +6,13 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:20:35 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/05 12:20:22 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:36:27 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Colors.h"
 #include "DiamondTrap.hpp"
 #include <iostream>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
-#define PURPLE "\e[34m"
 
 DiamondTrap::DiamondTrap(void) : FragTrap(), ScavTrap()
 {

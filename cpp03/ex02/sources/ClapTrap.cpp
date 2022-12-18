@@ -6,19 +6,14 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:42:50 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 18:10:30 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:34:35 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Colors.h"
 #include "ClapTrap.hpp"
 #include <iostream>
 #include <string>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
 
 ClapTrap::ClapTrap(void)
 	: _name("Default"),
@@ -83,12 +78,12 @@ unsigned int	ClapTrap::getAttackDamage(void) const {
 
 void	ClapTrap::attack(std::string & target) {
 	if (this->_hitPoints == 0) {
-		std::cout << YELLOW "ClapTrap " << this->_name
+		std::cout << YELLOW << this->_name
 			<< " can't attack: it is destroyed." RESET << std::endl;
 		return ;
 	}
 	if (this->_energyPoints == 0) {
-		std::cout << YELLOW "ClapTrap " << this->_name
+		std::cout << YELLOW << this->_name
 			<< " can't attack: its battery is depleted." RESET
 			<< std::endl;
 		return ;
@@ -96,7 +91,7 @@ void	ClapTrap::attack(std::string & target) {
 	if (target == this->_name)
 		target = "itself";
 	this->_energyPoints--;
-	std::cout << YELLOW "ClapTrap " << this->_name
+	std::cout << YELLOW << this->_name
 		<< " attacks " << target << " and hits for " << this->_attackDamage
 		<< " damage!" RESET << std::endl; 
 }

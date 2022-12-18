@@ -6,20 +6,14 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 16:59:01 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 18:21:02 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:32:44 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Colors.h"
 #include "ScavTrap.hpp"
 #include <iostream>
 #include <string>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
-#define PURPLE "\e[34m"
 
 ScavTrap::ScavTrap(void) : ClapTrap() {
 	std::cout << CYAN "ScavTrap default constructor called." RESET << std::endl;

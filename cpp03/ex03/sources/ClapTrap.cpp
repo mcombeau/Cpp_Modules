@@ -6,19 +6,14 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:42:50 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/04 18:37:00 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:36:19 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
+#include "Colors.h"
 #include <iostream>
 #include <string>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
 
 ClapTrap::ClapTrap(void)
 	: _name("Default"),
