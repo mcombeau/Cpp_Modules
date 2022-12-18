@@ -3,24 +3,16 @@ NAME	= animal
 
 # Compiler
 CC		= c++
-CFLAGS	= -Werror -Wextra -Wall -std=c++98
+CFLAGS	= -Werror -Wextra -Wall -g -std=c++98
 
 # Build files
 INC_PATH	= ./includes/
 INC			= -I $(INC_PATH)
 
 SRC_PATH	= ./sources/
-SRC			=	Animal.cpp \
-				Cat.cpp \
-				Dog.cpp	\
-				WrongAnimal.cpp \
-				WrongCat.cpp \
-				main.cpp			
-SRCS		= $(addprefix $(SRC_PATH), $(SRC))
-
+SRC			= $(wildcard $(SRC_PATH)*.cpp)
 OBJ_PATH	= ./objects/
-OBJ			= $(SRC:.cpp=.o)
-OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
+OBJ			= $(SRC:$(SRC_PATH)%.cpp=$(OBJ_PATH)%.o)
 
 # Build rule
 all: $(OBJ_PATH) $(NAME)
@@ -33,8 +25,8 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
 # Program-building rule
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INC)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $@ $(INC)
 
 # Cleaning rules
 clean:
