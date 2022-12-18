@@ -6,20 +6,14 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:17:38 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/16 15:58:35 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:23:39 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Colors.h"
 #include "Dog.hpp"
 #include <string>
 #include <iostream>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
-#define PURPLE "\e[34m"
 
 Dog::Dog(void) : Animal(), _brain(new Brain())
 {

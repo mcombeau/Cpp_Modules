@@ -6,20 +6,14 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:17:10 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/16 14:47:36 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:23:30 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
+#include "Colors.h"
 #include <string>
 #include <iostream>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
-#define PURPLE "\e[34m"
 
 Cat::Cat(void) : Animal(), _brain(new Brain())
 {

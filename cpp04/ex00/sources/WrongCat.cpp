@@ -6,20 +6,14 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:17:10 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/14 18:32:44 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:22:38 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Colors.h"
 #include "WrongCat.hpp"
 #include <string>
 #include <iostream>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define GREEN "\e[32m"
-#define YELLOW "\e[33m"
-#define CYAN "\e[36m"
-#define PURPLE "\e[34m"
 
 WrongCat::WrongCat(void) : WrongAnimal()
 {
