@@ -1,3 +1,6 @@
+
+.PHONY: all re clean fclean
+
 # Program name
 NAME	= trap
 
@@ -37,5 +40,3 @@ fclean: clean
 
 # Remake
 re: fclean all
-
-.PHONY: all re clean fclean
