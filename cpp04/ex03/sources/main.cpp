@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:16:46 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/19 15:00:42 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:16:21 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	testMateriaDuelBetweenTwoCharacters(void)
 		<<  "-------------------------------" << std::endl;
 	std::cout << std::endl << "-- CREATING MATERIA SOURCE" << std::endl;
 	MateriaSource * source = new MateriaSource();
-	source->learnMateria(new Cure);
+	source->learnMateria(new Cure());
 	source->learnMateria(new Ice());
 
 	std::cout << std::endl << "-- MATERIA SOURCE CREATES ITEMS ON THE FLOOR" << std::endl;
@@ -186,7 +186,7 @@ void	testMateriaDuelBetweenTwoCharacters(void)
 	std::cout << std::endl;
 
 	std::cout << std::endl << "-- CREATING CHARACTERS" << std::endl;
-	Character * igor = new Character("Igor");
+	ICharacter * igor = new Character("Igor");
 	Character *	jessica = new Character("Jessica");
 
 	std::cout << std::endl << "-- EQUIPPING CHARACTERS" << std::endl;
