@@ -30,9 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Exercise-related
 *megaphone
 *FMN-PhoneBook
 *test-GBU
+*_shrubbery
 
 # VS Code
 .vscode
