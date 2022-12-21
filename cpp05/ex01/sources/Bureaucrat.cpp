@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:02:50 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/21 13:27:27 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:54:44 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	Bureaucrat::decrementGrade(int i)
 	return ;
 }
 
-void	Bureaucrat::signForm(Form & form)
+void	Bureaucrat::signForm(Form & form) const
 {
 	try
 	{

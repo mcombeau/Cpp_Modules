@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:02:04 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/21 15:26:55 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:54:37 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ class Bureaucrat
 		void	decrementGrade(void);
 		void	decrementGrade(int i);
 
-		void	signForm(Form & form);
+		void	signForm(Form & form) const;
 
 		static int const	highestGrade = 1;
 		static int const	lowestGrade = 150;
