@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:31:59 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/21 15:01:29 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:27:04 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <string>
 
 class Bureaucrat;
-class Form;
-
 class Form
 {
 	public:

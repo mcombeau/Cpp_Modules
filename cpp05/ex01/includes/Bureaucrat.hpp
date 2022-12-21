@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:02:04 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/21 14:40:22 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:26:55 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "Form.hpp"
 # include <string>
 
-class Bureaucrat;
 class Form;
 
 class Bureaucrat
