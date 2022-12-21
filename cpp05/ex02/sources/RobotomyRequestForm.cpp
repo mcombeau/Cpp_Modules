@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:05:44 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/21 18:41:20 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/21 18:46:18 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 
 RobotomyRequestForm::RobotomyRequestForm(void)
-		:	AForm("Robotony Request Form",
+		:	AForm("Robotomy Request Form",
 					RobotomyRequestForm::gradeToSign,
 					RobotomyRequestForm::gradeToExecute),
 			_target("Unknown")
@@ -44,7 +44,7 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const & src)
 }
 
 RobotomyRequestForm::RobotomyRequestForm(std::string const & target)
-		:	AForm("Robotony Request Form",
+		:	AForm("Robotomy Request Form",
 					RobotomyRequestForm::gradeToSign,
 					RobotomyRequestForm::gradeToExecute),
 			_target(target)
