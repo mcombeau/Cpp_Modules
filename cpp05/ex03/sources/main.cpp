@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:03:10 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/22 12:18:06 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/22 12:37:46 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int	main(void)
 	testInternFormCreation(robotomyFormName, "Unsuspecting Customer");
 	testInternFormCreation(presidentialFormName, "Jesus");
 	testInternFormCreation("Bad Form Name", "Mr. X");
-	testInternFormCreation("", "Mr. X");	
+	testInternFormCreation("", "");	
 	return (0);
 }
