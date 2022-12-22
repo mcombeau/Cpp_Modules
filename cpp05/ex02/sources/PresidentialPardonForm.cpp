@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:07:25 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/21 17:53:28 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/22 12:32:03 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ PresidentialPardonForm::PresidentialPardonForm(std::string const & target)
 {
 	std::cout << CYAN "PresidentialPardonForm attribute constructor called."
 		RESET << std::endl;
+	if (_target.empty())
+		_target = "Unknown";
 	return ;
 }
 

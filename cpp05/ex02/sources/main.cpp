@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:03:10 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/21 18:42:21 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/22 12:34:14 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(void)
 			"\t" << averageBureaucrat << "\n"
 			"\t" << highBureaucrat << std::endl << std::endl;
 	
-	ShrubberyCreationForm	shrubForm("ShrubberyForest");
+	ShrubberyCreationForm	shrubForm("Forest");
 	RobotomyRequestForm		robotomyForm("CEO");
 	PresidentialPardonForm	pardonForm(highBureaucrat.getName());
 

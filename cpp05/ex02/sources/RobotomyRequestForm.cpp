@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:05:44 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/21 18:46:18 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/22 12:32:13 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ RobotomyRequestForm::RobotomyRequestForm(std::string const & target)
 {
 	std::cout << CYAN "RobotomyRequestForm attribute constructor called."
 		RESET << std::endl;
+	if (_target.empty())
+		_target = "Unknown";
 	return ;
 }
 
