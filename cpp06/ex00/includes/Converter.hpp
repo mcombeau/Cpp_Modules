@@ -6,21 +6,19 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:54 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/23 19:03:33 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:04:53 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONVERTER_CLASS_H
 # define CONVERTER_CLASS_H
 
-# include <string>
-# include <limits>
-# include <string>
-# include <iostream>
-# include <limits>
 # include <cctype>
 # include <cstdlib>
 # include <iomanip>
+# include <iostream>
+# include <limits>
+# include <string>
 
 class Converter
 {
