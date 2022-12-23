@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:54 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/23 18:37:45 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:01:37 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ class Converter
 		{
 			OK = 0x00,
 			INT_OVERFLOW = 0x01,
-			FLOAT_OVERFLOW = 0x02,
-			DOUBLE_OVERFLOW = 0x04,
-			CHAR_OVERFLOW = 0x08,
-			CHAR_UNPRINTABLE = 0x10
+			CHAR_OVERFLOW = 0x02,
+			CHAR_UNPRINTABLE = 0x04
 		};
 		enum	e_types
 		{

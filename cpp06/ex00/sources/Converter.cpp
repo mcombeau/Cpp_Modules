@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:40 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/23 18:42:41 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:01:36 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,8 +288,6 @@ void	Converter::_setConversionErrorFlags(void)
 			this->_errorFlags += CHAR_OVERFLOW;
 		if (this->_asDouble > intMax || this->_asDouble < intMin)
 			this->_errorFlags += INT_OVERFLOW;
-		if (this->_asDouble > floatMax || this->_asDouble < floatMin)
-			this->_errorFlags += FLOAT_OVERFLOW;
 	}
 }
 
@@ -305,13 +303,6 @@ bool	Converter::isIntConversionOk(void) const
 {
 	if (this->_errorFlags & INT_OVERFLOW
 		|| this->_errorFlags & INT_OVERFLOW)
-		return (false);
-	return (true);
-}
-
-bool	Converter::isFloatConversionOk(void) const
-{
-	if (this->_errorFlags & FLOAT_OVERFLOW)
 		return (false);
 	return (true);
 }
@@ -332,14 +323,6 @@ std::string	Converter::getIntConversionMessage(void) const
 	return ("unknown error");
 }
 
-std::string	Converter::getFloatConversionMessage(void) const
-{
-	if (this->_errorFlags & FLOAT_OVERFLOW)
-		return ("impossible");
-	// TODO: Is float overflow == inff???!!!!
-	return ("unknown error");
-}
-
 const char *	Converter::NotALiteralException::what(void) const throw()
 {
 	return ("Input is not a literal scalar type (char, int, float or double).");
@@ -349,7 +332,7 @@ std::ostream &	operator<<(std::ostream &os, Converter const &converter)
 {
 	os << "- as char\t: ";
 	if (converter.isCharConversionOk() == true)
-		os << converter.getAsChar();
+		os << "\'" << converter.getAsChar() << "\'";
 	else
 		os << converter.getCharConversionMessage();
 	os << "\n- as int\t: ";
@@ -358,15 +341,10 @@ std::ostream &	operator<<(std::ostream &os, Converter const &converter)
 	else
 		os << converter.getIntConversionMessage();
 	os << "\n- as float\t: ";
-	if (converter.isFloatConversionOk() == true)
-	{
 		if (converter.getAsFloat() == static_cast<int>(converter.getAsFloat()))
 			os << std::fixed << std::setprecision(1) << converter.getAsFloat() << "f";
 		else
 			os << converter.getAsFloat() << "f";
-	}
-	else
-		os << converter.getFloatConversionMessage();
 	os << "\n- as double\t: "
 		<< converter.getAsDouble();
 	return (os);
