@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:54 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/23 19:01:37 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:03:33 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ class Converter
 
 		bool	isCharConversionOk(void) const;
 		bool	isIntConversionOk(void) const;
-		bool	isFloatConversionOk(void) const;
 
 		std::string	getCharConversionMessage(void) const;
 		std::string getIntConversionMessage(void) const;
-		std::string getFloatConversionMessage(void) const;
 
 		static int const	intMax;
 		static int const	intMin;
