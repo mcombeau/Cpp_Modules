@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:40 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/23 19:05:02 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:15:08 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,28 +265,26 @@ void	Converter::_castScalarsFromChar(void)
 
 void	Converter::_setConversionErrorFlags(void)
 {
-	if (this->_type == NON_NUM)
-		return ;
-	if (this->_type == CHARACTER)
-		return ;
-	if (this->_type == INTEGER)
+	switch (_type)
 	{
-		if (this->_asInt > charMax || this->_asInt < charMin)
-			this->_errorFlags += CHAR_OVERFLOW;
-	}
-	if (this->_type == FLOAT)
-	{
-		if (this->_asFloat > charMax || this->_asFloat < charMin)
-			this->_errorFlags += CHAR_OVERFLOW;
-		if (this->_asFloat > intMax || this->_asFloat < intMin)
-			this->_errorFlags += INT_OVERFLOW;
-	}
-	if (this->_type == DOUBLE)
-	{
-		if (this->_asDouble > charMax || this->_asDouble < charMin)
-			this->_errorFlags += CHAR_OVERFLOW;
-		if (this->_asDouble > intMax || this->_asDouble < intMin)
-			this->_errorFlags += INT_OVERFLOW;
+		case INTEGER:
+			if (this->_asInt > charMax || this->_asInt < charMin)
+				this->_errorFlags += CHAR_OVERFLOW;
+			break ;
+		case FLOAT:
+			if (this->_asFloat > charMax || this->_asFloat < charMin)
+				this->_errorFlags += CHAR_OVERFLOW;
+			if (this->_asFloat > intMax || this->_asFloat < intMin)
+				this->_errorFlags += INT_OVERFLOW;
+			break ;
+		case DOUBLE:
+			if (this->_asDouble > charMax || this->_asDouble < charMin)
+				this->_errorFlags += CHAR_OVERFLOW;
+			if (this->_asDouble > intMax || this->_asDouble < intMin)
+				this->_errorFlags += INT_OVERFLOW;
+			break ;
+		default:
+			return ;
 	}
 }
 
