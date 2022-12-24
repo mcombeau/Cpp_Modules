@@ -6,14 +6,12 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:40 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/23 19:15:08 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/24 12:51:24 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Converter.hpp"
-
-#define RESET "\e[0m"
-#define CYAN "\e[36m"
+#include "Colors.h"
 
 #define	PRINT_MSG 0
 

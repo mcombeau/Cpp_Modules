@@ -6,16 +6,13 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/23 19:05:57 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/24 12:51:37 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Converter.hpp"
+#include "Colors.h"
 #include <iostream>
-
-#define RESET "\e[0m"
-#define RED "\e[31m"
-#define YELLOW "\e[33m"
 
 int	main(int ac, char ** av)
 {
