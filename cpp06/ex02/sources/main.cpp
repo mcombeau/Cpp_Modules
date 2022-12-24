@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/24 14:03:42 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/24 14:47:56 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include <stdexcept>
 
 Base *	generate(void)
 {
