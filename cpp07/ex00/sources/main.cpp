@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/24 17:53:43 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/25 12:36:23 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,48 +35,56 @@ void	testSubjectExamples(void)
 void	testInt(int a, int b)
 {
 	std::cout << "Pre-swap:\t";
-	::printValues(a, b);
-	std::cout << "\t-> Max: " << ::max(a, b) << " / Min: " << ::min(a, b) << std::endl;
-	::swap(a, b);
+	::printValues<int>(a, b);
+	std::cout << "\t-> Max: " << ::max<int>(a, b)
+		<< " / Min: " << ::min<int>(a, b) << std::endl;
+	::swap<int>(a, b);
 	std::cout << "Post-swap:\t";
-	::printValues(a, b);
-	std::cout << "\t-> Max: " << ::max(a, b) << " / Min: " << ::min(a, b) << std::endl;
+	::printValues<int>(a, b);
+	std::cout << "\t-> Max: " << ::max<int>(a, b)
+		<< " / Min: " << ::min<int>(a, b) << std::endl;
 	std::cout << std::endl;
 }
 
 void	testFloat(float a, float b)
 {
 	std::cout << "Pre-swap:\t";
-	::printValues(a, b);
-	std::cout << "\t-> Max: " << ::max(a, b) << " / Min: " << ::min(a, b) << std::endl;
-	::swap(a, b);
+	::printValues<float>(a, b);
+	std::cout << "\t-> Max: " << ::max<float>(a, b)
+		<< " / Min: " << ::min<float>(a, b) << std::endl;
+	::swap<float>(a, b);
 	std::cout << "Post-swap:\t";
-	::printValues(a, b);
-	std::cout << "\t-> Max: " << ::max(a, b) << " / Min: " << ::min(a, b) << std::endl;
+	::printValues<float>(a, b);
+	std::cout << "\t-> Max: " << ::max<float>(a, b)
+		<< " / Min: " << ::min<float>(a, b) << std::endl;
 	std::cout << std::endl;
 }
 
 void	testChar(char a, char b)
 {
 	std::cout << "Pre-swap:\t";
-	::printValues(a, b);
-	std::cout << "\t-> Max: " << ::max(a, b) << " / Min: " << ::min(a, b) << std::endl;
-	::swap(a, b);
+	::printValues<char>(a, b);
+	std::cout << "\t-> Max: " << ::max<char>(a, b)
+		<< " / Min: " << ::min<char>(a, b) << std::endl;
+	::swap<char>(a, b);
 	std::cout << "Post-swap:\t";
-	::printValues(a, b);
-	std::cout << "\t-> Max: " << ::max(a, b) << " / Min: " << ::min(a, b) << std::endl;
+	::printValues<char>(a, b);
+	std::cout << "\t-> Max: " << ::max<char>(a, b)
+		<< " / Min: " << ::min<char>(a, b) << std::endl;
 	std::cout << std::endl;
 }
 
 void	testString(std::string a, std::string b)
 {
 	std::cout << "Pre-swap:\t";
-	::printValues(a, b);
-	std::cout << "\t-> Max: " << ::max(a, b) << " / Min: " << ::min(a, b) << std::endl;
-	::swap(a, b);
+	::printValues<std::string>(a, b);
+	std::cout << "\t-> Max: " << ::max<std::string>(a, b)
+		<< " / Min: " << ::min<std::string>(a, b) << std::endl;
+	::swap<std::string>(a, b);
 	std::cout << "Post-swap:\t";
-	::printValues(a, b);
-	std::cout << "\t-> Max: " << ::max(a, b) << " / Min: " << ::min(a, b) << std::endl;
+	::printValues<std::string>(a, b);
+	std::cout << "\t-> Max: " << ::max<std::string>(a, b)
+		<< " / Min: " << ::min<std::string>(a, b) << std::endl;
 	std::cout << std::endl;
 }
 
