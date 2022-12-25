@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/25 12:36:23 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/25 12:40:04 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void	testInt(int a, int b)
 	::printValues<int>(a, b);
 	std::cout << "\t-> Max: " << ::max<int>(a, b)
 		<< " / Min: " << ::min<int>(a, b) << std::endl;
+	
 	::swap<int>(a, b);
+	
 	std::cout << "Post-swap:\t";
 	::printValues<int>(a, b);
 	std::cout << "\t-> Max: " << ::max<int>(a, b)
@@ -52,7 +54,9 @@ void	testFloat(float a, float b)
 	::printValues<float>(a, b);
 	std::cout << "\t-> Max: " << ::max<float>(a, b)
 		<< " / Min: " << ::min<float>(a, b) << std::endl;
+	
 	::swap<float>(a, b);
+	
 	std::cout << "Post-swap:\t";
 	::printValues<float>(a, b);
 	std::cout << "\t-> Max: " << ::max<float>(a, b)
@@ -66,7 +70,9 @@ void	testChar(char a, char b)
 	::printValues<char>(a, b);
 	std::cout << "\t-> Max: " << ::max<char>(a, b)
 		<< " / Min: " << ::min<char>(a, b) << std::endl;
+	
 	::swap<char>(a, b);
+	
 	std::cout << "Post-swap:\t";
 	::printValues<char>(a, b);
 	std::cout << "\t-> Max: " << ::max<char>(a, b)
@@ -80,7 +86,9 @@ void	testString(std::string a, std::string b)
 	::printValues<std::string>(a, b);
 	std::cout << "\t-> Max: " << ::max<std::string>(a, b)
 		<< " / Min: " << ::min<std::string>(a, b) << std::endl;
+	
 	::swap<std::string>(a, b);
+	
 	std::cout << "Post-swap:\t";
 	::printValues<std::string>(a, b);
 	std::cout << "\t-> Max: " << ::max<std::string>(a, b)
