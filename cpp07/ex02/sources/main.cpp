@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/26 12:21:34 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:21:42 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	testSubscriptOperator(Array<int> & array);
 void	testSubscriptOperatorByIndex(Array<int> & array, int index);
 void	testAssignmentOperator(Array<int> & array);
 
-int main(int, char **)
+int main(void)
 {
 	{
 		std::cout << std::endl << "------------------------------------" << std::endl
