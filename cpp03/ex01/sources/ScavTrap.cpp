@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 16:59:01 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/18 18:32:44 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/26 11:02:38 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	ScavTrap::attack(std::string & target) {
 		target = "itself";
 	_energyPoints--;
 	std::cout << YELLOW "ScavTrap " << this->_name
-		<< " attacks " << target << " and hits for " << this->_attackDamage
-		<< " damage!" RESET << std::endl; 
+		<< " leaps on " << target << " and crushes it for " << this->_attackDamage
+		<< " damage!" RESET << std::endl;  
 }
 
 void	ScavTrap::guardGate(void) {
