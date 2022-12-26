@@ -6,12 +6,14 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/26 15:10:17 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/26 16:01:05 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "easyfind.hpp"
 #include <iostream>
+#include <list>
+#include <deque>
 #include <vector>
 
 #define RESET	"\e[0m"
@@ -21,37 +23,81 @@
 #define YELLOW	"\e[33m"
 #define CYAN	"\e[36m"
 
-void	testSearchVector(std::vector<int> & container, int toFind);
+template <typename T>
+void	testSearch(std::string containerType, T & container, int toFind);
 
 int main(void)
 {
-	std::vector<int>	container;
-	for (int i = -4; i < 10; i++)
-		container.push_back(i * 2);
-	
-	std::cout << "Vector container: ";
-	for (std::vector<int>::iterator it = container.begin(); it != container.end(); ++it)
-		std::cout << "[" << *it << "] ";
-	std::cout << std::endl;
+	{
+		std::cout << std::endl << "---- TEST VECTOR CONTAINER" << std::endl;
+		std::vector<int>	container;
+		for (int i = -4; i < 10; i++)
+			container.push_back(i * 2);
+		
+		std::cout << "Vector container: ";
+		for (std::vector<int>::iterator it = container.begin(); it != container.end(); ++it)
+			std::cout << "[" << *it << "] ";
+		std::cout << std::endl;
 
-	testSearchVector(container, 0);
-	testSearchVector(container, 10);
-	testSearchVector(container, -6);
-	testSearchVector(container, 42);
-	testSearchVector(container, -1);
-	testSearchVector(container, 12);
-	testSearchVector(container, 17);
+		testSearch("Vector", container, 0);
+		testSearch("Vector", container, 10);
+		testSearch("Vector", container, -6);
+		testSearch("Vector", container, 42);
+		testSearch("Vector", container, -1);
+		testSearch("Vector", container, 12);
+		testSearch("Vector", container, 17);
+	}
+	{
+		std::cout << std::endl << "---- TEST LIST CONTAINER" << std::endl;
+		std::list<int>	container;
+		
+		for (int i = -4; i < 20; i++)
+			container.push_front(i * 10 + i);
+		
+		std::cout << "List container: ";
+		for (std::list<int>::iterator it = container.begin(); it != container.end(); ++it)
+			std::cout << "[" << *it << "] ";
+		std::cout << std::endl;
+
+		testSearch("List", container, 0);
+		testSearch("List", container, 99);
+		testSearch("List", container, -44);
+		testSearch("List", container, 42);
+		testSearch("List", container, -1);
+		testSearch("List", container, 22);
+		testSearch("List", container, 17);
+	}
+	{
+		std::cout << std::endl << "---- TEST DEQUE CONTAINER" << std::endl;
+		std::deque<int>	container;
+		for (int i = 0; i < 15; i++)
+			container.push_back((i - 4) * 100 + i + 3);
+		
+		std::cout << "Deque container: ";
+		for (std::deque<int>::iterator it = container.begin(); it != container.end(); ++it)
+			std::cout << "[" << *it << "] ";
+		std::cout << std::endl;
+
+		testSearch("Deque", container, 7);
+		testSearch("Deque", container, 916);
+		testSearch("Deque", container, -296);
+		testSearch("Deque", container, -1);
+		testSearch("Deque", container, 42);
+		testSearch("Deque", container, 202);
+		testSearch("Deque", container, 512);
+	}
 	return (0);
 }
 
-void	testSearchVector(std::vector<int> & container, int toFind)
+template <typename T>
+void	testSearch(std::string containerType, T & container, int toFind)
 {
-	std::cout << std::endl << "--- Searching for " BOLD CYAN "[" << toFind << "]" RESET << std::endl;
+	std::cout << std::endl << "- Searching for " BOLD CYAN "[" << toFind << "]" RESET << std::endl;
 	bool	expectToFind = false;
 	int		result = 0;
 
-	std::cout << "Vector container: ";
-	for (std::vector<int>::iterator it = container.begin(); it != container.end(); ++it)
+	std::cout << containerType << " container: ";
+	for (typename T::iterator it = container.begin(); it != container.end(); ++it)
 	{
 		if (*it == toFind && expectToFind == false)
 		{
