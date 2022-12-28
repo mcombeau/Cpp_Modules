@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/28 16:20:57 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/28 17:03:26 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,23 @@ int main()
 	testSubject();
 	{
 		std::cout << std::endl << "---- TEST 0" << std::endl;
-		unsigned int	spanSize = SPAN_SIZE;
-		Span sp(spanSize);
+		Span sp(SPAN_SIZE);
 		displaySpanShortestLongest(sp);
 	}
 	{
 		std::cout << std::endl << "---- TEST 1" << std::endl;
-		unsigned int	spanSize = SPAN_SIZE;
-		Span sp(spanSize);
-		addNumbersToSpanOneByOne(sp, spanSize);
+		Span sp(SPAN_SIZE);
+		addNumbersToSpanOneByOne(sp, SPAN_SIZE);
 		displaySpanShortestLongest(sp);
 	}
 	{
 		std::cout << std::endl << "---- TEST 2" << std::endl;
-		unsigned int	spanSize = SPAN_SIZE;
-		Span sp(spanSize);
-		addRangeOfNumbersToSpan(sp, spanSize);
+		Span sp(SPAN_SIZE);
+		addRangeOfNumbersToSpan(sp, SPAN_SIZE);
 		displaySpanShortestLongest(sp);
-		addRangeOfNumbersToSpan(sp, spanSize);
+		addRangeOfNumbersToSpan(sp, SPAN_SIZE);
 		displaySpanShortestLongest(sp);
-		addRangeOfNumbersToSpan(sp, spanSize);
+		addRangeOfNumbersToSpan(sp, SPAN_SIZE);
 		displaySpanShortestLongest(sp);
 	}
 	return 0;
