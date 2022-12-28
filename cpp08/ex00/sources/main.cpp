@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/26 16:01:05 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:57:54 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,17 @@ int main(void)
 {
 	{
 		std::cout << std::endl << "---- TEST VECTOR CONTAINER" << std::endl;
+		
 		std::vector<int>	container;
+
+		std::cout << "Vector container: ";
+		for (std::vector<int>::iterator it = container.begin(); it != container.end(); ++it)
+			std::cout << "[" << *it << "] ";
+		std::cout << std::endl;
+
+		testSearch("Vector", container, 0);
+		std::cout << std::endl;
+
 		for (int i = -4; i < 10; i++)
 			container.push_back(i * 2);
 		
@@ -50,6 +60,14 @@ int main(void)
 	{
 		std::cout << std::endl << "---- TEST LIST CONTAINER" << std::endl;
 		std::list<int>	container;
+
+		std::cout << "List container: ";
+		for (std::list<int>::iterator it = container.begin(); it != container.end(); ++it)
+			std::cout << "[" << *it << "] ";
+		std::cout << std::endl;
+
+		testSearch("List", container, 0);
+		std::cout << std::endl;
 		
 		for (int i = -4; i < 20; i++)
 			container.push_front(i * 10 + i);
@@ -70,6 +88,15 @@ int main(void)
 	{
 		std::cout << std::endl << "---- TEST DEQUE CONTAINER" << std::endl;
 		std::deque<int>	container;
+
+		std::cout << "Deque container: ";
+		for (std::deque<int>::iterator it = container.begin(); it != container.end(); ++it)
+			std::cout << "[" << *it << "] ";
+		std::cout << std::endl;
+
+		testSearch("Deque", container, 0);
+		std::cout << std::endl;
+
 		for (int i = 0; i < 15; i++)
 			container.push_back((i - 4) * 100 + i + 3);
 		
