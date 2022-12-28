@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:04:48 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/26 17:52:20 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:29:03 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ unsigned int	Span::shortestSpan(void) const
 	int	shortest = std::numeric_limits<int>::max();
 	for (unsigned int i = 1; i < tmp.size(); i++)
 	{
-		if (tmp[i] - tmp[i - 1] < shortest)
-			shortest = tmp[i] - tmp[i - 1];
+		if (std::abs(tmp[i] - tmp[i - 1]) < shortest)
+			shortest = std::abs(tmp[i] - tmp[i - 1]);
 	}
 	return (shortest);
 }
@@ -85,13 +85,18 @@ unsigned int	Span::longestSpan(void) const
 	return (largest - smallest);
 }
 
-template <typename T>
-void	Span::fillFromIntContainer(T const & container)
-{
-	for (typename T::const_iterator	it = container.begin(); it != container.end(); ++it)
-		this->addNumber(*it);
-	return ;
-}
+// template <typename T>
+// void	Span::addNumberRange(typename T::iterator & begin,
+// 						typename T::iterator & end)
+// {
+// 	unsigned int	distance = std::abs(std::distance(begin, end));
+	
+// 	if (distance > (this->_maxSize - this->_range.size()))
+// 		throw (Span::FullRangeException());
+// 	else if (distance != 0)
+// 		this->_range.insert(this->_range.end(), begin, end);
+// 	return ;
+// }
 
 const char *	Span::FullRangeException::what(void) const throw()
 {

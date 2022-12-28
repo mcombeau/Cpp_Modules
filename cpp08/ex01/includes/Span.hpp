@@ -6,15 +6,16 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:04:12 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/26 17:51:29 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:28:56 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPAN_CLASS_H
 # define SPAN_CLASS_H
 
-# include <vector>
+# include <algorithm>
 # include <iostream>
+# include <vector>
 
 class Span
 {
@@ -33,7 +34,17 @@ class Span
 		unsigned int	longestSpan(void) const;
 
 		template <typename T>
-		void			fillFromIntContainer(T const & container);
+		void	addNumberRange(typename T::iterator & begin,
+								typename T::iterator & end)
+		{
+			unsigned int	distance = std::distance(begin, end);
+			
+			if (distance > (this->_maxSize - this->_range.size()))
+				throw (Span::FullRangeException());
+			else if (distance != 0)
+				this->_range.insert(this->_range.end(), begin, end);
+			return ;
+		}
 
 		class	FullRangeException : public std::exception {
 			public:
