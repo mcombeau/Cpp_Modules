@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/28 16:57:54 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/28 18:23:26 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main(void)
 			std::cout << "[" << *it << "] ";
 		std::cout << std::endl;
 
-		testSearch("Vector", container, 0);
+		::testSearch("Vector", container, 0);
 		std::cout << std::endl;
 
 		for (int i = -4; i < 10; i++)
@@ -49,13 +49,13 @@ int main(void)
 			std::cout << "[" << *it << "] ";
 		std::cout << std::endl;
 
-		testSearch("Vector", container, 0);
-		testSearch("Vector", container, 10);
-		testSearch("Vector", container, -6);
-		testSearch("Vector", container, 42);
-		testSearch("Vector", container, -1);
-		testSearch("Vector", container, 12);
-		testSearch("Vector", container, 17);
+		::testSearch("Vector", container, 0);
+		::testSearch("Vector", container, 10);
+		::testSearch("Vector", container, -6);
+		::testSearch("Vector", container, 42);
+		::testSearch("Vector", container, -1);
+		::testSearch("Vector", container, 12);
+		::testSearch("Vector", container, 17);
 	}
 	{
 		std::cout << std::endl << "---- TEST LIST CONTAINER" << std::endl;
@@ -66,7 +66,7 @@ int main(void)
 			std::cout << "[" << *it << "] ";
 		std::cout << std::endl;
 
-		testSearch("List", container, 0);
+		::testSearch("List", container, 0);
 		std::cout << std::endl;
 		
 		for (int i = -4; i < 20; i++)
@@ -77,13 +77,13 @@ int main(void)
 			std::cout << "[" << *it << "] ";
 		std::cout << std::endl;
 
-		testSearch("List", container, 0);
-		testSearch("List", container, 99);
-		testSearch("List", container, -44);
-		testSearch("List", container, 42);
-		testSearch("List", container, -1);
-		testSearch("List", container, 22);
-		testSearch("List", container, 17);
+		::testSearch("List", container, 0);
+		::testSearch("List", container, 99);
+		::testSearch("List", container, -44);
+		::testSearch("List", container, 42);
+		::testSearch("List", container, -1);
+		::testSearch("List", container, 22);
+		::testSearch("List", container, 17);
 	}
 	{
 		std::cout << std::endl << "---- TEST DEQUE CONTAINER" << std::endl;
@@ -94,7 +94,7 @@ int main(void)
 			std::cout << "[" << *it << "] ";
 		std::cout << std::endl;
 
-		testSearch("Deque", container, 0);
+		::testSearch("Deque", container, 0);
 		std::cout << std::endl;
 
 		for (int i = 0; i < 15; i++)
@@ -105,13 +105,13 @@ int main(void)
 			std::cout << "[" << *it << "] ";
 		std::cout << std::endl;
 
-		testSearch("Deque", container, 7);
-		testSearch("Deque", container, 916);
-		testSearch("Deque", container, -296);
-		testSearch("Deque", container, -1);
-		testSearch("Deque", container, 42);
-		testSearch("Deque", container, 202);
-		testSearch("Deque", container, 512);
+		::testSearch("Deque", container, 7);
+		::testSearch("Deque", container, 916);
+		::testSearch("Deque", container, -296);
+		::testSearch("Deque", container, -1);
+		::testSearch("Deque", container, 42);
+		::testSearch("Deque", container, 202);
+		::testSearch("Deque", container, 512);
 	}
 	return (0);
 }
@@ -136,7 +136,7 @@ void	testSearch(std::string containerType, T & container, int toFind)
 	std::cout << std::endl;
 	try
 	{
-		result = *(easyfind(container, toFind));
+		result = *(::easyfind(container, toFind));
 		if (expectToFind == false)
 			std::cout << RED BOLD "KO. " RESET
 				RED "Easyfind found " << result << ". (Expected exception!)" RESET << std::endl;

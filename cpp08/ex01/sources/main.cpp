@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/28 17:03:26 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/28 18:21:01 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	displaySpanShortestLongest(Span & sp);
 void	addNumbersToSpanOneByOne(Span & sp, unsigned int spanSize);
 void	addRangeOfNumbersToSpan(Span & sp, unsigned int spanSize);
 
-int main()
+int main(void)
 {
 	std::srand(std::time(NULL));
 
@@ -40,23 +40,23 @@ int main()
 	{
 		std::cout << std::endl << "---- TEST 0" << std::endl;
 		Span sp(SPAN_SIZE);
-		displaySpanShortestLongest(sp);
+		::displaySpanShortestLongest(sp);
 	}
 	{
 		std::cout << std::endl << "---- TEST 1" << std::endl;
 		Span sp(SPAN_SIZE);
-		addNumbersToSpanOneByOne(sp, SPAN_SIZE);
-		displaySpanShortestLongest(sp);
+		::addNumbersToSpanOneByOne(sp, SPAN_SIZE);
+		::displaySpanShortestLongest(sp);
 	}
 	{
 		std::cout << std::endl << "---- TEST 2" << std::endl;
 		Span sp(SPAN_SIZE);
-		addRangeOfNumbersToSpan(sp, SPAN_SIZE);
-		displaySpanShortestLongest(sp);
-		addRangeOfNumbersToSpan(sp, SPAN_SIZE);
-		displaySpanShortestLongest(sp);
-		addRangeOfNumbersToSpan(sp, SPAN_SIZE);
-		displaySpanShortestLongest(sp);
+		::addRangeOfNumbersToSpan(sp, SPAN_SIZE);
+		::displaySpanShortestLongest(sp);
+		::addRangeOfNumbersToSpan(sp, SPAN_SIZE);
+		::displaySpanShortestLongest(sp);
+		::addRangeOfNumbersToSpan(sp, SPAN_SIZE);
+		::displaySpanShortestLongest(sp);
 	}
 	return 0;
 }
