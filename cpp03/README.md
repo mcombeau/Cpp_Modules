@@ -3,7 +3,7 @@
 This module of 42 school's C++ piscine explores issues of class inheritance.
 
 ## Status
-Awaiting evaluation...
+Validated 27/12/2022. Grade: 100%.
 
 ## Ex00 - ClapTrap
 In the first exercise, we must implement a simple class, ClapTrap, which has the ability to attack, take damage and be repaired. The class also has private attributes: a name, hit points, energy points and attack damage.
