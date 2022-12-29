@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/24 14:47:56 by mcombeau         ###   ########.fr       */
+/*   Updated: 2022/12/29 13:57:13 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ void	identify(Base & p)
 	std::cout << "Identified as reference: ";
 	try
 	{
-		dynamic_cast<A &>(p);
+		(void) dynamic_cast<A &>(p);
 		std::cout << CYAN "A" RESET;
 	}
 	catch (std::exception & e) { }
 	try
 	{
-		dynamic_cast<B &>(p);
+		(void) dynamic_cast<B &>(p);
 		std::cout << YELLOW "B" RESET;
 	}
 	catch (std::exception & e) { }
 	try
 	{
-		dynamic_cast<C &>(p);
+		(void) dynamic_cast<C &>(p);
 		std::cout << PURPLE "C" RESET;
 	}
 	catch (std::exception & e) { }
