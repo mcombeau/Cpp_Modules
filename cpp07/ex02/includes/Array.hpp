@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:34:49 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/25 15:55:22 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:19:26 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <iostream>
 
-template <typename T>
+template <typename T = int>
 class Array
 {
 	public:
