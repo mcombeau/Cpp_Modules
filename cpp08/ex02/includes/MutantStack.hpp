@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:17:50 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/28 18:18:06 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:22:18 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ class MutantStack : public std::stack<T>
 			return (this->c.end());
 		}
 
-		MutantStack<T>::reverse_iterator	begin(void) {
+		MutantStack<T>::reverse_iterator	rbegin(void) {
 			return (this->c.rbegin());
 		}
 
-		MutantStack<T>::reverse_iterator	end(void) {
+		MutantStack<T>::reverse_iterator	rend(void) {
 			return (this->c.rend());
 		}
 
-		MutantStack<T>::const_reverse_iterator	begin(void) const {
+		MutantStack<T>::const_reverse_iterator	rbegin(void) const {
 			return (this->c.rbegin());
 		}
 
-		MutantStack<T>::const_reverse_iterator	end(void) const {
+		MutantStack<T>::const_reverse_iterator	rend(void) const {
 			return (this->c.rend());
 		}
 };
