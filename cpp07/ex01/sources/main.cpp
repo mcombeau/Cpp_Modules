@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/25 14:28:55 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/01/03 13:58:59 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,27 @@ void	appendSuffixString(std::string & s);
 int	main(void)
 {
 	{
-		std::cout << "---- INT ARRAY TEST" << std::endl;
+		std::cout << "---- EMPTY ARRAY TEST" << std::endl;
+		
+		int	intArray[] = {};
+		size_t	arraySize = 0;
+
+		std::cout << "Empty int array:\t\t";
+		::printArray<int>(intArray, arraySize);
+
+		::iter<int>(intArray, arraySize, ::addOne<int>);
+		
+		std::cout << "Empty int array add 1 iter:\t";
+		::printArray<int>(intArray, arraySize);
+		
+		::iter<int>(intArray, arraySize, ::multiplyIntByTwo);
+		
+		std::cout << "Empty int array double iter:\t";
+		::printArray<int>(intArray, arraySize);
+
+	}
+	{
+		std::cout << std::endl << "---- INT ARRAY TEST" << std::endl;
 		
 		int	intArray[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 		size_t	arraySize = 10;
@@ -39,7 +59,8 @@ int	main(void)
 		::iter<int>(intArray, arraySize, ::multiplyIntByTwo);
 		
 		std::cout << "Int array double iter:\t";
-		::printArray<int>(intArray, arraySize);		
+		::printArray<int>(intArray, arraySize);
+
 	}
 	{
 		std::cout << std::endl << "---- DOUBLE ARRAY TEST" << std::endl;
