@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:04:48 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/28 16:29:03 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:40:53 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <iterator>
 #include <limits>
+#include <numeric>
 
 Span::Span(void) : _range(), _maxSize(0)
 {
@@ -62,17 +63,17 @@ void	Span::addNumber(int number)
 
 unsigned int	Span::shortestSpan(void) const
 {
+	int	shortest;
+
 	if (this->_range.size() < 2)
 		throw (Span::RangeTooSmallException());
 
-	std::vector<int>	tmp(this->_range);
-	std::sort(tmp.begin(), tmp.end());
-	int	shortest = std::numeric_limits<int>::max();
-	for (unsigned int i = 1; i < tmp.size(); i++)
-	{
-		if (std::abs(tmp[i] - tmp[i - 1]) < shortest)
-			shortest = std::abs(tmp[i] - tmp[i - 1]);
-	}
+	std::vector<int>	sorted(this->_range);
+	std::sort(sorted.begin(), sorted.end());
+
+	std::vector<int>	difference(sorted);
+	std::adjacent_difference(sorted.begin(), sorted.end(), difference.begin());
+	shortest = *std::min_element(++(difference.begin()), difference.end());
 	return (shortest);
 }
 

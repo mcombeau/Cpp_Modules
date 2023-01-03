@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/28 18:21:01 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:42:59 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <list>
+#include <numeric>
 
 #define RESET	"\e[0m"
 #define BOLD	"\e[1m"
@@ -131,14 +132,26 @@ void	addRangeOfNumbersToSpan(Span & sp, unsigned int spanSize)
 void	displaySpanShortestLongest(Span & sp)
 {
 	std::cout << "Span (size " << sp.getRange().size() << "): " << sp << std::endl;
-	
+
 	std::vector<int>	tmp(sp.getRange());
+	
 	std::sort(tmp.begin(), tmp.end());
 	std::cout << CYAN "Sorted span: ";
 	for (std::vector<int>::const_iterator it = tmp.begin(); it != tmp.end(); ++it)
 		std::cout << "[" << *it << "] ";
 	std::cout << RESET << std::endl;
 	
+	if (sp.getRange().size() > 2)
+	{	
+		std::vector<int>	difference(tmp);
+	
+		std::adjacent_difference(tmp.begin(), tmp.end(), difference.begin());
+		difference.erase(difference.begin());
+		std::cout << CYAN "Adjacent difference: ";
+		for (std::vector<int>::const_iterator it = difference.begin(); it != difference.end(); ++it)
+			std::cout << "[" << *it << "] ";
+		std::cout << RESET << std::endl;
+	}
 	try
 	{
 		std::cout << "Shortest: " << sp.shortestSpan() << std::endl;
