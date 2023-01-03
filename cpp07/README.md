@@ -3,7 +3,7 @@
 This module of 42 school's C++ piscine is all about C++ templates.
 
 ## Status
-Awaiting evaluation. Grade: 100%.
+Awaiting evaluation. Grade: ??%.
 
 ## Ex00 - Swap, Min & Max
 In the first exercise, we must create simple template functions. These are swap, which swaps the values of two given arguments, min which returns the smallest of two arguments, and max which does the opposite. These functions can be called with any type of argument, be it an int, a float, a char, a string, etc.
