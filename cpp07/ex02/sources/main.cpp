@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/12/26 14:21:42 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:03:36 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ int main(void)
 		try
 		{
 			strings[3] = "Extra.";
-			std::cout << RED "Accessed out of bounds index [2], "
+			std::cout << RED "Accessed out of bounds index [3], "
 				"but no exception thrown..." RESET << std::endl;
 		}
 		catch(const std::exception & e)
 		{
-			std::cout << GREEN "Accessed out of bounds index [2], "
+			std::cout << GREEN "Accessed out of bounds index [3], "
 				"and got exception: " << e.what() << RESET << std::endl;
 		}
 	}
