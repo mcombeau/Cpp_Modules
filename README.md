@@ -13,6 +13,9 @@ Work in progess...
 * Cpp01: validated 12/12/2022 - grade: 90%
 * Cpp02: validated 15/12/2022 - grade: 90%
 * Cpp03: validated 27/12/2022 - grade: 100%
+* Cpp04: validated 29/12/2022 - grade: 100%
+* Cpp05: validated 30/12/2022 - grade: 100%
+* Cpp06: validated 02/01/2023 - grade: 100%
 
 ---
 Made by mcombeau: mcombeau@student.42.fr | LinkedIn: [mcombeau](https://www.linkedin.com/in/mia-combeau-86653420b/) | Website: [codequoi.com](https://www.codequoi.com)
