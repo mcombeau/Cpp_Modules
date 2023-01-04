@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/01/04 15:04:57 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:26:34 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,9 +287,9 @@ void	printMutantStackWithIterator(std::string name, MutantStack<T, C> mutantStac
 		<< CYAN "Iterator: " RESET << name << " contents end to begin: ";
 	it = mutantStack.begin();
 	ite--;
-	it--;
 	for (; ite != it; --ite)
 		std::cout << "[" << *ite << "] ";
+	std::cout << "[" << *ite << "] ";
 	std::cout << std::endl;
 }
 
@@ -305,9 +305,9 @@ void	printMutantStackWithConstIterator(std::string name, MutantStack<T, C> const
 		<< YELLOW "Const iterator: " RESET << name << " contents end to begin: ";
 	it = mutantStack.begin();
 	ite--;
-	it--;
 	for (; ite != it; --ite)
 		std::cout << "[" << *ite << "] ";
+	std::cout << "[" << *ite << "] ";
 	std::cout << std::endl;
 }
 
@@ -323,9 +323,9 @@ void	printMutantStackWithReverseIterator(std::string name, MutantStack<T, C> mut
 		<< BLUE "Reverse iterator: " RESET << name << " contents rend to rbegin: ";
 	itr = mutantStack.rbegin();
 	itre--;
-	itr--;
 	for (; itre != itr; --itre)
 		std::cout << "[" << *itre << "] ";
+	std::cout << "[" << *itre << "] ";
 	std::cout << std::endl;
 }
 
@@ -341,8 +341,8 @@ void	printMutantStackWithConstReverseIterator(std::string name, MutantStack<T, C
 		<< PURPLE "Const reverse iterator: " RESET << name << " contents rend to rbegin: ";
 	itr = mutantStack.rbegin();
 	itre--;
-	itr--;
 	for (; itre != itr; --itre)
 		std::cout << "[" << *itre << "] ";
+	std::cout << "[" << *itre << "] ";
 	std::cout << std::endl;
 }
