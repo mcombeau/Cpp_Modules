@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:38:28 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/01/04 15:26:34 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:45:16 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@
 
 void	testSubject(void);
 void	testCharDequeMutantStack(void);
+void	testFloatVectorMutantStack(void);
 void	testIntListMutantStack(void);
 void	testStringListMutantStack(void);
-void	testFloatVectorMutantStack(void);
-
 template <typename T, typename C>
 void	printMutantStackSize(std::string name, MutantStack<T, C> mutantStack);
 template <typename T, typename C>
@@ -182,8 +181,6 @@ void	testFloatVectorMutantStack(void)
 	::printMutantStackTop("MS", mutantStack);
 }
 
-
-
 void	testIntListMutantStack(void)
 {
 	std::cout << std::endl << "=========================================" << std::endl
@@ -253,7 +250,6 @@ void	testStringListMutantStack(void)
 	::printMutantStackSize("MS", mutantStack);
 	::printMutantStackTop("MS", mutantStack);
 }
-
 
 template <typename T, typename C>
 void	printMutantStackSize(std::string name, MutantStack<T, C> mutantStack)
