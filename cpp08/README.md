@@ -3,7 +3,7 @@
 This module of 42 school's C++ piscine explores templated containers, iterators, and algorithms. The use of STL and related algorithms is highly encouraged in this module.
 
 ## Status
-Awaiting evaluation. Grade: ??%.
+Validated 14/01/2023. Grade: 100%.
 
 ## Ex00 - Easyfind
 In the first exercise, we must create a simple template function, easyfind, which finds the first occurence of an integer in a container, whether it be a vector, a deque, a list...
