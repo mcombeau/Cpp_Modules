@@ -7,6 +7,8 @@
 #include <strings.h>
 #include <cstring>
 #include <iostream>
+#include <sstream>
+#include <limits>
 
 class BitcoinExchange
 {
@@ -14,8 +16,14 @@ class BitcoinExchange
 		std::map<time_t, double>_exchangeRate;
 
 		void _fillExchangeRateTable( void );
-		void _addExchangeRateEntry( std::string line );
-		time_t _convertDate( std::string date );
+		void _fillExchangeRateEntry( std::string line );
+		void _addExchangeRateEntry( time_t date, double value );
+		time_t _getEpochFromDate( std::string date );
+		std::string _getDateFromEpoch( time_t epochDate );
+		int _getYearFromString( std::string dateStr );
+		int _getMonthFromString( std::string dateStr );
+		int _getDayFromString( std::string dateStr );
+		double _getValueFromString( std::string valueStr );
 
 	public:
 		BitcoinExchange( void );
@@ -28,4 +36,13 @@ class BitcoinExchange
 		int getExchangeRateOnDate( std::string date );
 
 };
+
+template<typename T>
+std::string error_message( T arg, std::string const message )
+{
+	std::stringstream ss;
+	ss << "Error: " << arg << ": " << message;
+	return ( ss.str() );
+}
+
 #endif

@@ -1,15 +1,28 @@
 #include "BitcoinExchange.hpp"
 #include <cstdlib>
+#include <iomanip>
 #include <cstring>
 #include <ctime>
 #include <fstream>
+#include <limits>
+#include <sstream>
 #include <stdexcept>
 #include <strings.h>
 #include <utility>
+#include <time.h>
+#include "Colors.h"
 
 BitcoinExchange::BitcoinExchange( void )
 {
-	_fillExchangeRateTable();
+	try
+	{
+		_fillExchangeRateTable();
+	}
+	catch ( std::exception &e )
+	{
+		std::string error = e.what();
+		throw ( std::runtime_error( "Invalid exchange rate data: " + error ) );
+	}
 }
 
 BitcoinExchange::BitcoinExchange( BitcoinExchange & src )
@@ -32,7 +45,7 @@ void BitcoinExchange::_fillExchangeRateTable( void )
 	fs.open( "data/data.csv", std::fstream::in );
 	if ( fs.fail() )
 	{
-		throw ( std::runtime_error( "Error: Could not open data file" ) );
+		throw ( std::runtime_error( "Could not open data file" ) );
 	}
 	char line[100];
 	fs.getline( line, 100 );
@@ -42,48 +55,140 @@ void BitcoinExchange::_fillExchangeRateTable( void )
 		fs.getline( line, 100 );
 		if ( !fs.eof() && line[0] != '\0' )
 		{
-			_addExchangeRateEntry( std::string( line ) );
+			_fillExchangeRateEntry( std::string( line ) );
 		}
 	}
-
 }
 
-void BitcoinExchange::_addExchangeRateEntry( std::string line )
+void BitcoinExchange::_fillExchangeRateEntry( std::string line )
 {
-	size_t lenToDelim = line.find( ",", 0 );
-	std::string dateStr = line.substr( 0, lenToDelim );
-	std::string valueStr = line.substr( lenToDelim + 1, std::string::npos );
-	float value = std::strtof( valueStr.c_str(), NULL );
-	std::cout << "Date: [" << dateStr << "], value: [" << valueStr << "][";
-	std::cout << std::fixed;
-	std::cout.precision( 2 );
-	std::cout << value << "]" << std::endl;
-	time_t date = _convertDate( dateStr );
-	( void )date;
-	/* _exchangeRate.insert( std::pair<time_t, double>( date, value ) ); */
+	/* std::cout << "Line: " << line << std::endl; */
 
+	size_t delim = line.find( ",", 0 );
+	if ( delim == std::string::npos )
+	{
+		throw ( std::out_of_range( line + ": invalid input" ) );
+	}
+	std::string dateStr = line.substr( 0, delim );
+	std::string valueStr = line.substr( delim + 1, std::string::npos );
+	/* std::cout << PURPLE << "Str: [" << dateStr << "] [" << valueStr << "]" << RESET */
+	/*           << std::endl; */
+
+	time_t date = _getEpochFromDate( dateStr );
+	double value = _getValueFromString( valueStr );
+
+	/* std::cout << YELLOW << "Val: [" << _getDateFromEpoch( date ) << "] ["; */
+	/* std::cout << std::fixed; */
+	/* std::cout.precision( 2 ); */
+	/* std::cout << value << "]" << RESET << std::endl; */
+
+	_addExchangeRateEntry( date, value );
+
+	/* std::map<time_t, double>::iterator it = _exchangeRate.find( date ); */
+	/* std::cout << BRIGHT_YELLOW << "Map: [" << it->first << "] ["; */
+	/* std::cout << std::fixed; */
+	/* std::cout.precision( 2 ); */
+	/* std::cout << it->second << "]" << RESET << std::endl << std::endl; */
+	/* std::cout << BRIGHT_YELLOW << "Map: [" << _getDateFromEpoch( */
+	/*               it->first ) << "] ["; */
+	/* std::cout << std::fixed; */
+	/* std::cout.precision( 2 ); */
+	/* std::cout << it->second << "]" << RESET << std::endl << std::endl; */
 }
 
-time_t BitcoinExchange::_convertDate( std::string dateStr )
+void BitcoinExchange::_addExchangeRateEntry( time_t date, double value )
 {
+	std::map<time_t, double>::iterator it = _exchangeRate.find( date );
+	if ( it != _exchangeRate.end() )
+	{
+		it->second = value;
+	}
+	else
+	{
+		_exchangeRate.insert( std::pair<time_t, double>( date, value ) );
+	}
+}
+
+time_t BitcoinExchange::_getEpochFromDate( std::string dateStr )
+{
+	if ( dateStr.empty() )
+	{
+		throw ( std::runtime_error( "no date provided" ) );
+	}
 	struct tm tm;
 	bzero( &tm, sizeof( tm ) );
-	size_t lenYear = dateStr.find( "-", 0 );
-	std::string year = dateStr.substr( 0, lenYear );
-	tm.tm_year = std::atoi( year.c_str() );
-
-	size_t lenMon = dateStr.find( "-", lenYear + 1 );
-	std::string month = dateStr.substr( lenYear + 1, lenMon );
-	tm.tm_mon = std::atoi( month.c_str() );
-
-	size_t lenDay = dateStr.find( "\0", lenMon + 1 );
-	std::string day = dateStr.substr( lenMon + 1, lenDay );
-	tm.tm_mday = std::atoi( day.c_str() );
+	tm.tm_year = _getYearFromString( dateStr ) - 1900;
+	tm.tm_mon = _getMonthFromString( dateStr ) - 1;
+	tm.tm_mday = _getDayFromString( dateStr );
 
 	time_t date = mktime( &tm );
-	std::cout << "Date: " << dateStr << " is year [" << tm.tm_year << "] month [" <<
-	          tm.tm_mon << "] day [" << tm.tm_mday << "]" << " which is " << date <<
-	          std::endl;
-
 	return ( date );
+}
+
+int BitcoinExchange::_getYearFromString( std::string dateStr )
+{
+	size_t lenYear = dateStr.find( "-", 0 );
+	std::string yearStr = dateStr.substr( 0, lenYear );
+	int year = std::atoi( yearStr.c_str() );
+	if ( year < 0 || year > 2050 )
+	{
+		throw std::out_of_range( dateStr + ": invalid year" );
+	}
+	return ( year );
+}
+
+int BitcoinExchange::_getMonthFromString( std::string dateStr )
+{
+	size_t lenYear = dateStr.find( "-", 0 ) + 1;
+	size_t lenMon = dateStr.find( "-", lenYear ) - lenYear;
+	std::string monthStr = dateStr.substr( lenYear, lenMon );
+	int month = std::atoi( monthStr.c_str() );
+	if ( month < 1 || month > 12 )
+	{
+		throw std::out_of_range( dateStr + ": invalid month" );
+	}
+	return ( month );
+}
+
+int BitcoinExchange::_getDayFromString( std::string dateStr )
+{
+	size_t lenYear = dateStr.find( "-", 0 ) + 1;
+	size_t lenMon = dateStr.find( "-", lenYear ) + 1;
+	size_t lenDay = dateStr.length() - lenMon;
+	std::string dayStr = dateStr.substr( lenMon, lenDay );
+	int day = std::atoi( dayStr.c_str() );
+	if ( day < 1 || day > 31 )
+	{
+		throw std::out_of_range( dateStr + ": invalid day" );
+	}
+	return ( day );
+}
+
+std::string BitcoinExchange::_getDateFromEpoch( time_t epochDate )
+{
+	struct tm * date = localtime( &epochDate );
+	std::stringstream ss;
+
+	ss << std::setfill( '0' ) << std::setw( 4 ) << date->tm_year + 1900;
+	ss << "-" << std::setfill( '0' ) << std::setw( 2 ) << date->tm_mon + 1;
+	ss << "-" << std::setfill( '0' ) << std::setw( 2 ) << date->tm_mday;
+	return ( ss.str() );
+}
+
+double BitcoinExchange::_getValueFromString( std::string valueStr )
+{
+	if ( valueStr.empty() )
+	{
+		throw ( std::runtime_error( "no value provided" ) );
+	}
+	double value = std::strtod( valueStr.c_str(), NULL );
+	if ( value < 0 )
+	{
+		throw ( std::out_of_range( valueStr + ": not a positive value" ) );
+	}
+	else if ( value > std::numeric_limits<int>::max() )
+	{
+		throw ( std::out_of_range( valueStr + ": value too large" ) );
+	}
+	return ( value );
 }
