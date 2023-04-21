@@ -32,19 +32,27 @@ void checkArgs( int ac, char **av )
 	( void )av;
 	if ( ac != 2 )
 	{
-		throw ( std::runtime_error( "Usage: ./btc [file].txt" ) );
+		throw ( std::runtime_error( "Usage: ./btc [file]" ) );
 	}
 }
 
 std::fstream * openFileStream( char * filename )
 {
+	std::string path = filename;
+	struct stat filecheck;
+	if ( stat( filename, &filecheck ) != 0 )
+	{
+		throw ( std::runtime_error( path + ": invalid file" ) );
+	}
+	if ( ( filecheck.st_mode & S_IFREG ) == 0 )
+	{
+		throw ( std::runtime_error( path + ": is a directory" ) );
+	}
 	std::fstream * fs = new std::fstream();
 	fs->open( filename, std::fstream::in );
 	if ( fs->fail() )
 	{
-		/* TODO: what if it's a directory and not a file? */
-		throw ( std::runtime_error( "Could not open file \"" + std::string(
-		                                filename ) + "\"" ) );
+		throw ( std::runtime_error( path + ": could not open file" ) );
 	}
 	return ( fs );
 }

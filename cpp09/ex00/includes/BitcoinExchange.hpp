@@ -19,6 +19,7 @@
 #include <stdexcept>
 #include <string>
 #include <strings.h>
+#include <sys/stat.h>
 
 class BitcoinExchange
 {
