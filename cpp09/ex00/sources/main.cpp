@@ -1,35 +1,29 @@
-#include <exception>
-#include <ios>
-#include <iostream>
-#include <fstream>
-#include <stdexcept>
 #include "BitcoinExchange.hpp"
-#include "Colors.h"
-#include <sstream>
 
 void checkArgs( int ac, char **av );
-std::fstream & openFileStream( char * filename );
+std::fstream * openFileStream( char * filename );
 void evaluateInput( BitcoinExchange & btc, std::fstream & fs );
+bool shouldLineBeEvaluated( char * line );
 
 int	main( int ac, char **av )
 {
-	checkArgs( ac, av );
-	std::fstream & fs = openFileStream( av[1] );
-	( void )fs;
 	BitcoinExchange * btc = NULL;
+	std::fstream * fs = NULL;
 	try
 	{
+		checkArgs( ac, av );
+		fs = openFileStream( av[1] );
+		( void )fs;
 		btc = new BitcoinExchange();
-		evaluateInput( *btc, fs );
+		evaluateInput( *btc, *fs );
 	}
 	catch ( std::exception &e )
 	{
-		std::cerr << "Error: " << e.what() << std::endl;
+		std::cerr << RED "Error: " << e.what() << RESET << std::endl;
 		return ( 1 );
 	}
-
 	delete btc;
-	delete &fs;
+	delete fs;
 	return ( 0 );
 }
 
@@ -42,40 +36,68 @@ void checkArgs( int ac, char **av )
 	}
 }
 
-std::fstream & openFileStream( char * filename )
+std::fstream * openFileStream( char * filename )
 {
-	std::cout << CYAN "Opening filestream" RESET << std::endl;
 	std::fstream * fs = new std::fstream();
 	fs->open( filename, std::fstream::in );
 	if ( fs->fail() )
 	{
 		/* TODO: what if it's a directory and not a file? */
-		std::cerr << RED "Error : Could not open file \"" << filename << "\"" RESET <<
-		          std::endl;
+		throw ( std::runtime_error( "Could not open file \"" + std::string(
+		                                filename ) + "\"" ) );
 	}
-	return ( *fs );
+	return ( fs );
 }
 
 void evaluateInput( BitcoinExchange & btc, std::fstream & fs )
 {
-	char line[100];
-	fs.getline( line, 100 );
 	while ( !fs.eof() )
 	{
 		char line[100];
 		fs.getline( line, 100 );
-		/* if ( !fs.eof() && line[0] != '\0' ) */
-		/* { */
-		/* 	size_t delim = line.find( "|", 0 ); */
-		/* 	if ( delim == std::string::npos ) */
-		/* 	{ */
-		/* 		throw ( std::out_of_range( line + ": invalid input" ) ); */
-		/* 	} */
-		/* 	std::string dateStr = line.substr( 0, delim ); */
-		/* 	std::string valueStr = line.substr( delim + 1, std::string::npos ); */
-		/* 	std::string dateStr = line.substr( */
-		/* 	btc.calculateValue( std::string( line ) ); */
+		if ( fs.eof() || shouldLineBeEvaluated( line ) == false )
+		{
+			continue;
+		}
+		if ( VERBOSE )
+		{
+			std::cout << std::endl << CYAN "Input: " << line << RESET << std::endl;
+		}
+		std::string * split = NULL;
+		try
+		{
+			split = splitString( line, "|" );
+			btc.outputExchangeValueOnDate( split[DATE], split[VALUE] );
+		}
+		catch ( std::exception & e )
+		{
+			std::cerr << "Error: " << e.what() << " (line: " << line << ")" << std::endl;
+		}
+		delete [] ( split );
 	}
-	( void )btc;
+}
+
+bool shouldLineBeEvaluated( char * line )
+{
+	std::string lineStr( line );
+	if ( lineStr.empty() || lineStr == "date | value" )
+	{
+		return ( false );
+	}
+	return ( true );
+}
+
+std::string * splitString( std::string string, std::string sep )
+{
+	std::string * split = new std::string[2];
+	size_t delim = string.find( sep, 0 );
+	if ( delim == std::string::npos )
+	{
+		delete [] ( split );
+		throw ( std::out_of_range( string + ": invalid input" ) );
+	}
+	split[DATE] = string.substr( 0, delim );
+	split[VALUE] = string.substr( delim + sep.length(), std::string::npos );
+	return ( split );
 }
 

@@ -1,16 +1,4 @@
 #include "BitcoinExchange.hpp"
-#include <cstdlib>
-#include <iomanip>
-#include <cstring>
-#include <ctime>
-#include <fstream>
-#include <limits>
-#include <sstream>
-#include <stdexcept>
-#include <strings.h>
-#include <utility>
-#include <time.h>
-#include "Colors.h"
 
 BitcoinExchange::BitcoinExchange( void )
 {
@@ -38,6 +26,59 @@ BitcoinExchange & BitcoinExchange::operator=( BitcoinExchange & src )
 	return ( *this );
 }
 
+void BitcoinExchange::outputExchangeValueOnDate( std::string & dateStr,
+        std::string & valueStr )
+{
+	_checkInputStrings( dateStr, valueStr );
+	time_t date = _getEpochFromDateString( dateStr );
+	double value = _getValueFromString( valueStr );
+	time_t closestEpoch = _getClosestDateInTable( date );
+	std::string closestDate = _getDateFromEpoch( closestEpoch );
+	double exchangeRate = _getExchangeRateOnDate( date );
+	double exchangeValue = getExchangeValueOnDate( dateStr, valueStr );
+
+	if ( VERBOSE )
+	{
+		std::cout << YELLOW << "Closest exchange data: " << closestDate << " -> ";
+		std::cout << std::fixed;
+		std::cout.precision( 2 );
+		std::cout << _exchangeRate[closestEpoch] << RESET << std::endl;
+	}
+	std::cout << "[" << _getDateFromEpoch( date ) << "] " << value << " * ";
+	std::cout << std::fixed;
+	std::cout.precision( 2 );
+	std::cout << exchangeRate << " = " << exchangeValue << std::endl;
+}
+
+double BitcoinExchange::getExchangeValueOnDate( std::string & dateStr,
+        std::string & valueStr )
+{
+	_checkInputStrings( dateStr, valueStr );
+	double rate = _getExchangeRateOnDate( _getEpochFromDateString( dateStr ) );
+	double value = _getValueFromString( valueStr );
+	return ( value * rate );
+}
+
+double BitcoinExchange::_getExchangeRateOnDate( time_t date )
+{
+	time_t closestDate = _getClosestDateInTable( date );
+	return ( _exchangeRate[closestDate] );
+}
+
+time_t BitcoinExchange::_getClosestDateInTable( time_t date )
+{
+	std::map<time_t, double>::iterator it = _exchangeRate.find( date );
+	if ( date < _exchangeRate.begin()->first )
+	{
+		return ( _exchangeRate.begin()->first );
+	}
+	for ( int i = 0; it == _exchangeRate.end(); i++ )
+	{
+		time_t newDate = date - i * 24 * 60 * 60;
+		it = _exchangeRate.find( newDate );
+	}
+	return ( it->first );
+}
 
 void BitcoinExchange::_fillExchangeRateTable( void )
 {
@@ -62,38 +103,15 @@ void BitcoinExchange::_fillExchangeRateTable( void )
 
 void BitcoinExchange::_fillExchangeRateEntry( std::string line )
 {
-	/* std::cout << "Line: " << line << std::endl; */
+	std::string * split = splitString( line, "," );
+	_checkDateString( split[DATE] );
+	_checkValueString( split[VALUE] );
 
-	size_t delim = line.find( ",", 0 );
-	if ( delim == std::string::npos )
-	{
-		throw ( std::out_of_range( line + ": invalid input" ) );
-	}
-	std::string dateStr = line.substr( 0, delim );
-	std::string valueStr = line.substr( delim + 1, std::string::npos );
-	/* std::cout << PURPLE << "Str: [" << dateStr << "] [" << valueStr << "]" << RESET */
-	/*           << std::endl; */
-
-	time_t date = _getEpochFromDate( dateStr );
-	double value = _getValueFromString( valueStr );
-
-	/* std::cout << YELLOW << "Val: [" << _getDateFromEpoch( date ) << "] ["; */
-	/* std::cout << std::fixed; */
-	/* std::cout.precision( 2 ); */
-	/* std::cout << value << "]" << RESET << std::endl; */
+	time_t date = _getEpochFromDateString( split[DATE] );
+	double value = _getValueFromString( split[VALUE] );
 
 	_addExchangeRateEntry( date, value );
-
-	/* std::map<time_t, double>::iterator it = _exchangeRate.find( date ); */
-	/* std::cout << BRIGHT_YELLOW << "Map: [" << it->first << "] ["; */
-	/* std::cout << std::fixed; */
-	/* std::cout.precision( 2 ); */
-	/* std::cout << it->second << "]" << RESET << std::endl << std::endl; */
-	/* std::cout << BRIGHT_YELLOW << "Map: [" << _getDateFromEpoch( */
-	/*               it->first ) << "] ["; */
-	/* std::cout << std::fixed; */
-	/* std::cout.precision( 2 ); */
-	/* std::cout << it->second << "]" << RESET << std::endl << std::endl; */
+	delete [] ( split );
 }
 
 void BitcoinExchange::_addExchangeRateEntry( time_t date, double value )
@@ -109,7 +127,7 @@ void BitcoinExchange::_addExchangeRateEntry( time_t date, double value )
 	}
 }
 
-time_t BitcoinExchange::_getEpochFromDate( std::string dateStr )
+time_t BitcoinExchange::_getEpochFromDateString( std::string & dateStr )
 {
 	if ( dateStr.empty() )
 	{
@@ -125,41 +143,49 @@ time_t BitcoinExchange::_getEpochFromDate( std::string dateStr )
 	return ( date );
 }
 
-int BitcoinExchange::_getYearFromString( std::string dateStr )
+int BitcoinExchange::_getYearFromString( std::string & dateStr )
 {
 	size_t lenYear = dateStr.find( "-", 0 );
 	std::string yearStr = dateStr.substr( 0, lenYear );
 	int year = std::atoi( yearStr.c_str() );
-	if ( year < 0 || year > 2050 )
+	if ( yearStr.empty() || year < 0 || year > 2050 )
 	{
-		throw std::out_of_range( dateStr + ": invalid year" );
+		throw std::out_of_range( dateStr + ": invalid date" );
 	}
 	return ( year );
 }
 
-int BitcoinExchange::_getMonthFromString( std::string dateStr )
+int BitcoinExchange::_getMonthFromString( std::string & dateStr )
 {
 	size_t lenYear = dateStr.find( "-", 0 ) + 1;
 	size_t lenMon = dateStr.find( "-", lenYear ) - lenYear;
 	std::string monthStr = dateStr.substr( lenYear, lenMon );
 	int month = std::atoi( monthStr.c_str() );
-	if ( month < 1 || month > 12 )
+	if ( monthStr.empty() || month < 1 || month > 12 )
 	{
-		throw std::out_of_range( dateStr + ": invalid month" );
+		throw std::out_of_range( dateStr + ": invalid date" );
 	}
 	return ( month );
 }
 
-int BitcoinExchange::_getDayFromString( std::string dateStr )
+int BitcoinExchange::_getDayFromString( std::string & dateStr )
 {
 	size_t lenYear = dateStr.find( "-", 0 ) + 1;
 	size_t lenMon = dateStr.find( "-", lenYear ) + 1;
 	size_t lenDay = dateStr.length() - lenMon;
 	std::string dayStr = dateStr.substr( lenMon, lenDay );
-	int day = std::atoi( dayStr.c_str() );
-	if ( day < 1 || day > 31 )
+	try
 	{
-		throw std::out_of_range( dateStr + ": invalid day" );
+		_checkDayString( dayStr );
+	}
+	catch ( std::exception & e )
+	{
+		throw std::out_of_range( dateStr + ": invalid date" );
+	}
+	int day = std::atoi( dayStr.c_str() );
+	if ( dayStr.empty() || day < 1 || day > 31 )
+	{
+		throw std::out_of_range( dateStr + ": invalid date" );
 	}
 	return ( day );
 }
@@ -175,12 +201,8 @@ std::string BitcoinExchange::_getDateFromEpoch( time_t epochDate )
 	return ( ss.str() );
 }
 
-double BitcoinExchange::_getValueFromString( std::string valueStr )
+double BitcoinExchange::_getValueFromString( std::string & valueStr )
 {
-	if ( valueStr.empty() )
-	{
-		throw ( std::runtime_error( "no value provided" ) );
-	}
 	double value = std::strtod( valueStr.c_str(), NULL );
 	if ( value < 0 )
 	{
@@ -191,4 +213,59 @@ double BitcoinExchange::_getValueFromString( std::string valueStr )
 		throw ( std::out_of_range( valueStr + ": value too large" ) );
 	}
 	return ( value );
+}
+
+void BitcoinExchange::_checkInputStrings( std::string & dateStr,
+        std::string valueStr )
+{
+	_checkDateString( dateStr );
+	_checkValueString( valueStr );
+}
+
+void BitcoinExchange::_checkValueString( std::string & string )
+{
+	std::string required = "0123456789";
+	size_t pos = string.find_first_of( required, 0 );
+	if ( string.empty() || pos == std::string::npos )
+	{
+		throw ( std::runtime_error( "no value provided" ) );
+	}
+	std::string::iterator it = string.begin();
+	for ( ; it != string.end(); it++ )
+	{
+		if ( std::isalpha( *it ) || !std::isprint( *it ) )
+		{
+			throw ( std::runtime_error( "invalid value" ) );
+		}
+	}
+}
+
+void BitcoinExchange::_checkDateString( std::string & string )
+{
+	std::string required = "0123456789-";
+	size_t pos = string.find_first_of( required, 0 );
+	if ( string.empty() || pos == std::string::npos )
+	{
+		throw ( std::runtime_error( "no date provided" ) );
+	}
+	std::string::iterator it = string.begin();
+	for ( ; it != string.end(); it++ )
+	{
+		if ( std::isalpha( *it ) || !std::isprint( *it ) )
+		{
+			throw ( std::runtime_error( "invalid date" ) );
+		}
+	}
+}
+
+void BitcoinExchange::_checkDayString( std::string & string )
+{
+	std::string::iterator it = string.begin();
+	for ( ; it != string.end(); it++ )
+	{
+		if ( std::isdigit( *it ) == false && isblank( *it ) == false )
+		{
+			throw std::out_of_range( "invalid date" );
+		}
+	}
 }
