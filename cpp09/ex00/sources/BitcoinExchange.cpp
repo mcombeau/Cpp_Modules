@@ -15,14 +15,14 @@ BitcoinExchange::BitcoinExchange( void )
 
 BitcoinExchange::BitcoinExchange( BitcoinExchange & src )
 {
-	( void )src;
+	this->_exchangeRate = src._exchangeRate;
 }
 
 BitcoinExchange::~BitcoinExchange( void ) {}
 
 BitcoinExchange & BitcoinExchange::operator=( BitcoinExchange & src )
 {
-	( void )src;
+	this->_exchangeRate = src._exchangeRate;
 	return ( *this );
 }
 
