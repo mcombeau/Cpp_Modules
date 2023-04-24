@@ -59,12 +59,14 @@ std::fstream * openFileStream( char * filename )
 
 void evaluateInput( BitcoinExchange & btc, std::fstream & fs )
 {
+	int i = 0;
 	while ( !fs.eof() )
 	{
 		char line[100];
 		fs.getline( line, 100 );
 		if ( fs.eof() || shouldLineBeEvaluated( line ) == false )
 		{
+			i++;
 			continue;
 		}
 		if ( VERBOSE )
@@ -79,18 +81,37 @@ void evaluateInput( BitcoinExchange & btc, std::fstream & fs )
 		}
 		catch ( std::exception & e )
 		{
-			std::cerr << "Error: " << e.what() << " (line: " << line << ")" << std::endl;
+			std::cerr << "Error: " << e.what() << " (line " << i << ": " << line << ")" <<
+			          std::endl;
 		}
 		delete [] ( split );
+		i++;
 	}
 }
 
 bool shouldLineBeEvaluated( char * line )
 {
 	std::string lineStr( line );
-	if ( lineStr.empty() || lineStr == "date | value" )
+	if ( isStringEmpty( line ) == true || lineStr == "date | value" )
 	{
 		return ( false );
+	}
+	return ( true );
+}
+
+bool isStringEmpty( std::string string )
+{
+	if ( string.empty() )
+	{
+		return ( true );
+	}
+	std::string::iterator it = string.begin();
+	for ( ; it != string.end(); it++ )
+	{
+		if ( !isblank( *it ) )
+		{
+			return ( false );
+		}
 	}
 	return ( true );
 }

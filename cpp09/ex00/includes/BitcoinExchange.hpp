@@ -29,18 +29,22 @@ class BitcoinExchange
 		void _fillExchangeRateTable( void );
 		void _fillExchangeRateEntry( std::string line );
 		void _addExchangeRateEntry( time_t date, double value );
-		time_t _getEpochFromDateString( std::string & date );
-		std::string _getDateFromEpoch( time_t epochDate );
-		int _getYearFromString( std::string & dateStr );
-		int _getMonthFromString( std::string & dateStr );
-		int _getDayFromString( std::string & dateStr );
-		double _getValueFromString( std::string & valueStr );
 		time_t _getClosestDateInTable( time_t date );
 		double _getExchangeRateOnDate( time_t date );
-		void _checkInputStrings( std::string & dateStr, std::string valueStr );
-		void _checkValueString( std::string & string );
-		void _checkDateString( std::string & string );
-		void _checkDayString( std::string & string );
+
+		time_t _getEpochFromDateString( std::string & date ) const;
+		int _getYearFromString( std::string & dateStr ) const;
+		int _getMonthFromString( std::string & dateStr ) const;
+		int _getDayFromString( std::string & dateStr ) const;
+		std::string const _getDateFromEpoch( time_t epochDate ) const;
+		double _getValueFromString( std::string & valueStr ) const;
+
+		void _checkInputStrings( std::string & dateStr, std::string & valueStr ) const;
+		void _checkValueString( std::string & string ) const;
+		void _checkDateString( std::string & string ) const;
+		void _checkDayString( std::string & string ) const;
+
+		void _printClosestExchangeRate( time_t date );
 
 	public:
 		BitcoinExchange( void );
@@ -55,5 +59,6 @@ class BitcoinExchange
 };
 
 std::string * splitString( std::string string, std::string sep );
+bool isStringEmpty( std::string string );
 
 #endif
