@@ -34,20 +34,18 @@ class RPN
 
 		void _calculate( std::string & input );
 		std::string _getNextElement( std::string & input );
-		void _handleElement( std::string element );
-		void _handleOperand( std::string element );
-		void _handleOperator( std::string element );
+		void _handleElement( std::string & element );
+		void _handleOperand( std::string & element );
+		void _handleOperator( std::string & element );
 		int _getNextOperand( void );
-		int _calculateOperation( std::string operation, int first, int second );
+		int _calculateResult( std::string & operation, int first, int second );
 
-		bool _isOperand( std::string string );
-		bool _isOperator( std::string string );
+		bool _isOperand( std::string & string ) const;
+		bool _isOperator( std::string & string ) const;
 
 		void _checkInput( std::string & input );
-		void _checkOperandValidity( int operand, std::string element );
 		void _checkCalculatorValidity( void );
 
-		void _printCalculatorContents( void );
 		std::string _getCalculatorContentsAsString( void );
 
 		RPN( void );

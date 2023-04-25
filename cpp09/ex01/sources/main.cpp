@@ -24,6 +24,10 @@ int	main( int ac, char **av )
 	{
 		RPN rpn( ( std::string( av[1] ) ) );
 		int res = rpn.getResult();
+		if ( VERBOSE )
+		{
+			std::cout << YELLOW << "Result: " RESET;
+		}
 		std::cout << res << std::endl;
 	}
 	catch ( std::exception & e )

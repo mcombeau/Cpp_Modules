@@ -41,6 +41,10 @@ int RPN::getResult( void )
 
 void RPN::_calculate( std::string & input )
 {
+	if ( VERBOSE )
+	{
+		std::cout << YELLOW "  Oper\t:\tCalculator Stack" RESET << std::endl;
+	}
 	while ( 1 )
 	{
 		try
@@ -55,8 +59,12 @@ void RPN::_calculate( std::string & input )
 	}
 }
 
-void RPN::_handleElement( std::string element )
+void RPN::_handleElement( std::string & element )
 {
+	if ( VERBOSE )
+	{
+		std::cout << CYAN << "  " << element << "\t:\t";
+	}
 	if ( _isOperator( element ) )
 	{
 		_handleOperator( element );
@@ -65,78 +73,61 @@ void RPN::_handleElement( std::string element )
 	{
 		_handleOperand( element );
 	}
-	else
+	if ( VERBOSE )
 	{
-		throw ( std::out_of_range( element + ": invalid element" ) );
+		std::cout << _getCalculatorContentsAsString() << RESET << std::endl;
 	}
 }
 
-void RPN::_handleOperand( std::string element )
+void RPN::_handleOperand( std::string & element )
 {
 	int operand = std::atoi( element.c_str() );
-	_checkOperandValidity( operand, element );
 	_calculator.push( operand );
-	/* _printCalculatorContents(); */
 }
 
-void RPN::_handleOperator( std::string element )
+void RPN::_handleOperator( std::string & element )
 {
 	int second = _getNextOperand();
 	int first = _getNextOperand();
-	if ( VERBOSE )
-	{
-		std::cout << CYAN << "Calculating [" << first << " " << second << " " <<
-		          element << "] : ";
-	}
-	int res = _calculateOperation( element, first, second );
-	if ( VERBOSE )
-	{
-		std::cout << first << " " << element << " " << second << " = " << res << RESET
-		          << std::endl;
-	}
+	int res = _calculateResult( element, first, second );
 	_calculator.push( res );
-	/* _printCalculatorContents(); */
 }
 
 int RPN::_getNextOperand( void )
 {
 	if ( _calculator.empty() )
 	{
-		throw ( std::out_of_range( "invalid input: not enough operands for operators" ) );
+		throw ( std::out_of_range( "invalid input: missing operands for operator" ) );
 	}
 	int operand = _calculator.top();
 	_calculator.pop();
-
 	return ( operand );
 }
 
-int RPN::_calculateOperation( std::string operation, int first, int second )
+int RPN::_calculateResult( std::string & operation, int first, int second )
 {
 	int res = 0;
-	if ( operation == "+" )
+	switch ( operation[0] )
 	{
-		res = first + second;
-	}
-	else if ( operation == "-" )
-	{
-		res = first - second;
-	}
-	else if ( operation == "*" )
-	{
-		res = first * second;
-	}
-	else if ( operation == "/" )
-	{
-		res = first / second;
-	}
-	else
-	{
-		throw ( std::runtime_error( operation + ": invalid operator !" ) );
+		case '+':
+			res = first + second;
+			break;
+		case '-':
+			res = first - second;
+			break;
+		case '*':
+			res = first * second;
+			break;
+		case '/':
+			res = first / second;
+			break;
+		default:
+			throw ( std::runtime_error( operation + ": invalid operator !" ) );
 	}
 	return ( res );
 }
 
-bool RPN::_isOperand( std::string string )
+bool RPN::_isOperand( std::string & string ) const
 {
 	std::string::iterator it = string.begin();
 	for ( ; it != string.end(); it++ )
@@ -149,10 +140,10 @@ bool RPN::_isOperand( std::string string )
 	return ( true );
 }
 
-bool RPN::_isOperator( std::string string )
+bool RPN::_isOperator( std::string & string ) const
 {
-	std::string operands = "+-*/";
-	size_t pos = string.find_first_not_of( operands, 0 );
+	std::string operators = "+-*/";
+	size_t pos = string.find_first_not_of( operators, 0 );
 	if ( pos == std::string::npos && string.length() == 1 )
 	{
 		return ( true );
@@ -162,21 +153,16 @@ bool RPN::_isOperator( std::string string )
 
 std::string RPN::_getNextElement( std::string & input )
 {
-	static size_t i = 0;
-	while ( i <= input.length() )
+	static std::string::iterator it = input.begin();
+	for ( ; it != input.end(); it++ )
 	{
-		size_t begin = i;
-		size_t end = input.find( " ", begin );
-		if ( end == std::string::npos )
+		if ( *it == ' ' )
 		{
-			end = input.length();
+			continue;
 		}
-		std::string elem = input.substr( begin, end - begin );
-		i = end + 1;
-		if ( !elem.empty() )
-		{
-			return ( elem );
-		}
+		std::string elem = std::string( 1, *it );
+		it++;
+		return ( elem );
 	}
 	throw ( RPN::EndOfInputException() );
 }
@@ -184,37 +170,25 @@ std::string RPN::_getNextElement( std::string & input )
 void RPN::_checkInput( std::string & input )
 {
 	std::string requiredDigits = "0123456789";
-	std::string requiredOperands = "+-*/";
-	std::string allowed = requiredDigits + requiredOperands + " ";
+	std::string requiredOperators = "+-*/";
+	std::string allowed = requiredDigits + requiredOperators + " ";
+
 	size_t pos = input.find_first_not_of( allowed, 0 );
 	if ( pos != std::string::npos )
 	{
-		throw ( std::out_of_range ( input +
-		                            ": invalid input: can only contain " + allowed ) );
+		throw ( std::out_of_range ( "invalid input: can only contain " + allowed ) );
 	}
 	pos = input.find_first_of( requiredDigits, 0 );
 	if ( pos == std::string::npos )
 	{
-		throw ( std::out_of_range ( input +
-		                            ": invalid input: requires at least one digit" ) );
+		throw ( std::out_of_range ( "invalid input: requires at least one of " +
+		                            requiredDigits ) );
 	}
-	pos = input.find_first_of( requiredOperands, 0 );
+	pos = input.find_first_of( requiredOperators, 0 );
 	if ( pos == std::string::npos )
 	{
-		throw ( std::out_of_range ( input +
-		                            ": invalid input: requires at least one operator +-*/" ) );
-	}
-}
-
-void RPN::_checkOperandValidity( int operand, std::string element )
-{
-	if ( operand >= 10 )
-	{
-		throw ( std::out_of_range ( element + ": operand cannot be above 9" ) );
-	}
-	if ( operand <= -10 )
-	{
-		throw ( std::out_of_range ( element + ": operand cannot be below -9 " ) );
+		throw ( std::out_of_range ( "invalid input: requires at least one of " +
+		                            requiredOperators ) );
 	}
 }
 
@@ -222,8 +196,7 @@ void RPN::_checkCalculatorValidity( void )
 {
 	if ( _calculator.size() != 1 )
 	{
-		throw ( std::out_of_range( "invalid input: missing operator(s): result contains "
-		                           + _getCalculatorContentsAsString() ) );
+		throw ( std::out_of_range( "invalid input: missing operator(s)" ) );
 	}
 }
 
@@ -239,17 +212,6 @@ std::string RPN::_getCalculatorContentsAsString( void )
 		contents << "[" << nb << "]";
 	}
 	return ( contents.str() );
-}
-
-void RPN::_printCalculatorContents( void )
-{
-	if ( !VERBOSE )
-	{
-		return ;
-	}
-	std::cout << PURPLE << "Calculator contains: ";
-	std::string contents = _getCalculatorContentsAsString();
-	std::cout << contents << RESET << std::endl;
 }
 
 const char * RPN::EndOfInputException::what( void ) const throw()
