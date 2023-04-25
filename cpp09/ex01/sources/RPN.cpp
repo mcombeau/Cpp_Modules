@@ -165,10 +165,6 @@ std::string RPN::_getNextElement( std::string & input )
 	static size_t i = 0;
 	while ( i <= input.length() )
 	{
-		while ( isblank( input[i] ) )
-		{
-			i++;
-		}
 		size_t begin = i;
 		size_t end = input.find( " ", begin );
 		if ( end == std::string::npos )
@@ -177,7 +173,10 @@ std::string RPN::_getNextElement( std::string & input )
 		}
 		std::string elem = input.substr( begin, end - begin );
 		i = end + 1;
-		return ( elem );
+		if ( !elem.empty() )
+		{
+			return ( elem );
+		}
 	}
 	throw ( RPN::EndOfInputException() );
 }
