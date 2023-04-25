@@ -11,6 +11,8 @@
 #include <stdexcept>
 #include <string>
 
+#define VERBOSE 1
+
 class RPN
 {
 	private:
@@ -18,10 +20,18 @@ class RPN
 
 		void _calculate( std::string & input );
 		void _checkInput( std::string & input );
+		void _checkOperandValidity( int operand, std::string element );
+		void _checkCalculatorValidity( void );
 		std::string _getNextElement( std::string & input );
 		void _handleElement( std::string element );
+		void _handleOperand( std::string element );
+		void _handleOperator( std::string element );
+		int _getNextOperand( void );
+		int _calculateOperation( std::string operation, int first, int second );
 		bool _isOperand( std::string string );
 		bool _isOperator( std::string string );
+		void _printCalculatorContents( void );
+		std::string _getCalculatorContentsAsString( void );
 
 		RPN( void );
 
@@ -32,7 +42,7 @@ class RPN
 
 		RPN & operator=( RPN & src );
 
-		int getResult( void ) const;
+		int getResult( void );
 
 		class NoMoreInputException : public std::exception
 		{

@@ -13,7 +13,8 @@ int	main( int ac, char **av )
 	try
 	{
 		RPN rpn( ( std::string( av[1] ) ) );
-		/* int result = rpn.calculate( std::string( av[1] ); */
+		int res = rpn.getResult();
+		std::cout << res << std::endl;
 
 	}
 	catch ( std::exception & e )
