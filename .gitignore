@@ -40,3 +40,8 @@
 # VS Code
 .vscode
 */*.vscode
+
+# Misc
+*.json
+.cache
+forbidden*
