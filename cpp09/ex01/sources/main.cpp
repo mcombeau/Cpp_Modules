@@ -16,7 +16,8 @@ int	main( int ac, char **av )
 {
 	if ( ac != 2 )
 	{
-		std::cerr << RED "Usage: ./RPN [argument]" RESET << std::endl;
+		std::cerr << RED "Usage: ./RPN [reverse Polish notation expression]" RESET <<
+		          std::endl;
 		return ( 1 );
 	}
 	try
