@@ -24,10 +24,13 @@ class PmergeMe
 	private:
 		bool _container;
 
-		std::vector<int> _unsortedVector;
-		std::vector<int> _sortedVector;
+		std::vector<int> * _unsortedVector;
+		std::vector<int> * _sortedVector;
 
-		std::list<int> _unsortedList;
+		std::list<int> * _unsortedList;
+		std::list<int> * _sortedList;
+
+		int _straggler;
 
 		void _fillVectorFromArray( int * array );
 		void _fillListFromArray( int * array );
@@ -41,10 +44,13 @@ class PmergeMe
 		void _insertElement( std::vector< std::pair<int, int> > & splitVector,
 		                     std::pair<int, int> element, int n );
 		void _createSortedSequence( std::vector< std::pair<int, int> > & splitVector );
+		std::vector<int> _createIndexInsertSequence(int pendingSize);
 		std::vector<int> _buildJacobstahlInsertionSequence( int size );
 		int _getJacobstahlNumber( int n );
 		void _insertAtBisectedIndex( std::vector<int> & vector, int element );
 		int _bisectVector( std::vector<int> vector, int x );
+		void _extractStraggler( void );
+		void _insertStraggler( void );
 
 		void _sortList( void );
 
@@ -64,6 +70,7 @@ class PmergeMe
 
 		PmergeMe & operator=( PmergeMe & src );
 		void sort( void );
+		std::vector<int> & getSortedVector( void );
 };
 
 #endif

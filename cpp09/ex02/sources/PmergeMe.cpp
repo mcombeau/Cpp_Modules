@@ -1,5 +1,6 @@
 #include "PmergeMe.hpp"
 #include <ios>
+#include <list>
 #include <sstream>
 #include <utility>
 #include <vector>
@@ -8,6 +9,10 @@ PmergeMe::PmergeMe( void ) {}
 
 PmergeMe::PmergeMe( int* array, bool container ) : _container( container )
 {
+	_unsortedVector = new std::vector<int>();
+	_sortedVector = new std::vector<int>();
+	_unsortedList = new std::list<int>();
+	_sortedList = new std::list<int>();
 	if ( container == VECTOR )
 	{
 		_fillVectorFromArray( array );
@@ -18,12 +23,25 @@ PmergeMe::PmergeMe( int* array, bool container ) : _container( container )
 	}
 }
 
+void PmergeMe::_fillVectorFromArray( int * array )
+{
+	for ( int i = 0; array[i]; i++ )
+	{
+		_unsortedVector->push_back( array[i] );
+	}
+}
+
 PmergeMe::PmergeMe( PmergeMe & src )
 {
 	( void )src;
 }
 
-PmergeMe::~PmergeMe( void ) {}
+PmergeMe::~PmergeMe( void ) {
+	delete _unsortedVector;
+	delete _sortedVector;
+	delete _unsortedList;
+	delete _sortedList;
+}
 
 PmergeMe & PmergeMe::operator=( PmergeMe & src )
 {
@@ -43,43 +61,36 @@ void PmergeMe::sort( void )
 	}
 }
 
+std::vector<int> & PmergeMe::getSortedVector( void )
+{
+	return (*_sortedVector);
+}
+
 void PmergeMe::_sortVector( void )
 {
-	_printVector( _unsortedVector, "Unsorted", RED );
-	bool hasStraggler = _unsortedVector.size() % 2 != 0;
-	std::cout << CYAN "Vector has straggler = " << std::boolalpha <<
-	          hasStraggler << RESET << std::endl;
-	int straggler = 0;
+	_printVector( *_unsortedVector, "Unsorted", PURPLE );
+	bool hasStraggler = _unsortedVector->size() % 2 != 0;
 	if ( hasStraggler )
 	{
-		straggler = _unsortedVector.back();
-		_unsortedVector.pop_back();
-		std::cout << CYAN "Straggler = " << straggler << std::endl;
-		_printVector( _unsortedVector, "Unsorted", RED );
+		_extractStraggler();
 	}
 	std::vector< std::pair<int, int> > splitVector = _splitUnsortedVector();
-	_printVector( splitVector, "Split pair", YELLOW );
 	_sortEachPair( splitVector );
-	_printVector( splitVector, "Split pair", YELLOW );
 	_sortPairsByLargestValue( splitVector );
-	_printVector( splitVector, "Split pair", YELLOW );
 	_createSortedSequence( splitVector );
 	if ( hasStraggler )
 	{
-		std::cout << "Inserting straggler " << straggler << std::endl;
-		_insertAtBisectedIndex( _sortedVector, straggler );
+		_insertStraggler();
 	}
-	_printVector( _sortedVector, "Sorted", GREEN );
 }
 
 std::vector< std::pair<int, int> > PmergeMe::_splitUnsortedVector( void )
 {
 	std::vector< std::pair<int, int> > splitVector;
 	int first = 0;
-	std::vector<int>::iterator it = _unsortedVector.begin();
-	for ( ; it != _unsortedVector.end(); it++ )
+	std::vector<int>::iterator it = _unsortedVector->begin();
+	for ( ; it != _unsortedVector->end(); it++ )
 	{
-
 		if ( first == 0 )
 		{
 			first = *it;
@@ -90,6 +101,7 @@ std::vector< std::pair<int, int> > PmergeMe::_splitUnsortedVector( void )
 			first = 0;
 		}
 	}
+	_printVector( splitVector, "Split pair", YELLOW );
 	return ( splitVector );
 }
 
@@ -105,6 +117,7 @@ void PmergeMe::_sortEachPair( std::vector< std::pair<int, int> > & splitVector )
 			it->second = tmp;
 		}
 	}
+	_printVector( splitVector, "Split pair", YELLOW );
 }
 
 void PmergeMe::_sortPairsByLargestValue( std::vector< std::pair<int, int> > &
@@ -112,6 +125,7 @@ void PmergeMe::_sortPairsByLargestValue( std::vector< std::pair<int, int> > &
 {
 	int length = splitVector.size();
 	_insertionSortPairs( splitVector, length - 1 );
+	_printVector( splitVector, "Split pair", YELLOW );
 }
 
 void PmergeMe::_insertionSortPairs( std::vector< std::pair<int, int> > &
@@ -166,35 +180,53 @@ void PmergeMe::_createSortedSequence( std::vector< std::pair<int, int> > &
                                       splitVector )
 {
 	std::vector<int> pending;
-	_printVector( _sortedVector, "Sorted", GREEN );
-	_printVector( pending, "Pending", CYAN );
 
 	std::vector< std::pair<int, int> >::iterator it = splitVector.begin();
 	for ( ; it != splitVector.end(); it++ )
 	{
-		_sortedVector.push_back( it->second );
+		_sortedVector->push_back( it->second );
 		pending.push_back( it->first );
 	}
-	_sortedVector.insert( _sortedVector.begin(), pending[0] );
-	pending.erase( pending.begin() );
-	_printVector( _sortedVector, "Sorted", GREEN );
+	_printVector( *_sortedVector, "Sorted", GREEN );
 	_printVector( pending, "Pending", CYAN );
+	std::vector<int> indexSequence = _createIndexInsertSequence(pending.size());
 
+	_printVector( indexSequence, "Index Seq", PURPLE );
+	std::vector<int>::iterator isit = indexSequence.begin();
+	if (VERBOSE)
+	{
+		std::cout << CYAN "Inserting...\t\t\t\t";
+	}
+	for (; isit != indexSequence.end(); isit++)
+	{
+		int numberToInsert = pending[*isit - 1];
+		if (VERBOSE)
+		{
+			std::cout << "[" << numberToInsert << "]";
+		}
+		_insertAtBisectedIndex( *_sortedVector, numberToInsert );
+	}
+	if (VERBOSE)
+	{
+		std::cout << RESET << std::endl;
+		_printVector( *_sortedVector, "Sorted", GREEN );
+	}
+}
+
+std::vector<int> PmergeMe::_createIndexInsertSequence( int pendingSize )
+{
 	bool lastWasJacobNumber = false;
 	std::vector<int> jacobSequence = _buildJacobstahlInsertionSequence(
-	                                     pending.size() );
+	                                     pendingSize);
 	_printVector( jacobSequence, "Jacobstahl", PURPLE );
 	std::vector<int> indexSequence;
-	int numberToInsert = -1;
 
-	int pendingSize = pending.size();
-
+	indexSequence.push_back(1);
 	for ( int i = 1; i <= pendingSize; i++ )
 	{
 		if ( jacobSequence.size() != 0 && lastWasJacobNumber == false )
 		{
 			indexSequence.push_back( jacobSequence[0] );
-			numberToInsert = pending[jacobSequence[0] - 1];
 			jacobSequence.erase( jacobSequence.begin() );
 			lastWasJacobNumber = true;
 		}
@@ -208,13 +240,11 @@ void PmergeMe::_createSortedSequence( std::vector< std::pair<int, int> > &
 					i++;
 				}
 			}
-			numberToInsert = pending[i - 1];
 			indexSequence.push_back( i );
 			lastWasJacobNumber = false;
 		}
-		_insertAtBisectedIndex( _sortedVector, numberToInsert );
-		_printVector( _sortedVector, "Sorted", GREEN );
 	}
+	return (indexSequence);
 }
 
 void PmergeMe::_insertAtBisectedIndex( std::vector<int> & vector, int element )
@@ -225,7 +255,6 @@ void PmergeMe::_insertAtBisectedIndex( std::vector<int> & vector, int element )
 
 std::vector<int> PmergeMe::_buildJacobstahlInsertionSequence( int size )
 {
-	std::cout << "Jacobstahl pending array is size " << size << std::endl;
 	std::vector<int> jacobSequence;
 	int jacobIndex = 3;
 	while ( _getJacobstahlNumber( jacobIndex ) < size - 1 )
@@ -269,15 +298,24 @@ int PmergeMe::_bisectVector( std::vector<int> vector, int x )
 	return ( lo );
 }
 
-void PmergeMe::_sortList( void )
+void PmergeMe::_extractStraggler( void )
 {
+	_straggler = _unsortedVector->back();
+	_unsortedVector->pop_back();
+	if (VERBOSE)
+	{
+		std::cout << CYAN "Straggler = " << _straggler << std::endl;
+		_printVector( *_unsortedVector, "Unsorted", PURPLE );
+	}
 }
 
-void PmergeMe::_fillVectorFromArray( int * array )
+void PmergeMe::_insertStraggler( void )
 {
-	for ( int i = 0; array[i]; i++ )
+	_insertAtBisectedIndex( *_sortedVector, _straggler );
+	if (VERBOSE)
 	{
-		_unsortedVector.push_back( array[i] );
+		std::cout << CYAN "Inserting straggler...\t\t\t[" << _straggler << "]" RESET << std::endl;
+		_printVector( *_sortedVector, "Sorted", GREEN );
 	}
 }
 
@@ -287,10 +325,19 @@ void PmergeMe::_fillListFromArray( int * array )
 	( void )array;
 }
 
+void PmergeMe::_sortList( void )
+{
+}
+
+
 template <typename T>
 void PmergeMe::_printVector( std::vector<T> & vector, std::string name,
                              std::string color )
 {
+	if (!VERBOSE)
+	{
+		return ;
+	}
 	std::cout << color << name
 	          << " vector (size " << vector.size() << ") contains:\t"
 	          << _getVectorContentsAsString( vector ) << RESET << std::endl;
