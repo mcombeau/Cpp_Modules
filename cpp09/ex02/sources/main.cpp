@@ -53,20 +53,34 @@ void verifySortAccuracy(int * array, PmergeMe & vectorSorter)
 	std::vector<int> & sortedVector = vectorSorter.getSortedVector();
 
 	std::sort(control.begin(), control.end());
-	if (control.size() != sortedVector.size())
+	/* if (control.size() != sortedVector.size()) */
+	/* { */
+	/* 	std::cout << RED BOLD "KO: incorrectly sorted vector !" RESET << std::endl; */
+	/* 	std::cout << RED "Vector size is " << sortedVector.size() << ", expected size was " << control.size() << RESET << std::endl; */
+	/* 	return ; */
+	/* } */
+	std::cout << CYAN "CHECKING FOR ERRORS:" RESET << std::endl;
+	bool error = false;
+	for (size_t i = 0, j = 0; i < sortedVector.size() && j < control.size(); j++)
 	{
-		std::cout << RED BOLD "KO: incorrectly sorted vector !" RESET << std::endl;
-		return ;
-	}
-	for (size_t i = 0; i < control.size(); i++)
-	{
-		if (sortedVector[i] != control[i])
+		if (sortedVector[i] != control[j])
 		{
-			std::cout << RED BOLD "KO: incorrectly sorted vector !" RESET << std::endl;
-			return ;
+			std::cout << RED "[" << control[j] << "]" RESET;
+			error = true;
+			continue ;
+		}
+		else {
+			std::cout << GREEN "[" << sortedVector[i] << "]" RESET;
+			i++;
 		}
 	}
-	std::cout << GREEN BOLD "OK: vector properly sorted." RESET << std::endl;
+	if (error)
+	{
+		std::cout << std::endl << RED BOLD "KO: incorrectly sorted vector !" RESET << std::endl;
+	}
+	else {
+		std::cout << std::endl << GREEN BOLD "OK: vector properly sorted." RESET << std::endl;
+	}
 }
 
 int * getArrayToSort( int ac, char **av )

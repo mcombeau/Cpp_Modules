@@ -1,4 +1,5 @@
 #include "PmergeMe.hpp"
+#include "Colors.h"
 #include <ios>
 #include <list>
 #include <sstream>
@@ -222,27 +223,27 @@ std::vector<int> PmergeMe::_createIndexInsertSequence( int pendingSize )
 	std::vector<int> indexSequence;
 
 	indexSequence.push_back(1);
-	for ( int i = 1; i <= pendingSize; i++ )
+	int i = 1;
+	while (i <= pendingSize)
 	{
 		if ( jacobSequence.size() != 0 && lastWasJacobNumber == false )
 		{
 			indexSequence.push_back( jacobSequence[0] );
 			jacobSequence.erase( jacobSequence.begin() );
 			lastWasJacobNumber = true;
+			continue;
 		}
-		else
+		std::vector<int>::iterator iit = indexSequence.begin();
+		for ( ; iit != indexSequence.end(); iit++ )
 		{
-			std::vector<int>::iterator iit = indexSequence.begin();
-			for ( ; iit != indexSequence.end(); iit++ )
+			if ( *iit == i )
 			{
-				if ( *iit == i )
-				{
-					i++;
-				}
+				i++;
 			}
-			indexSequence.push_back( i );
-			lastWasJacobNumber = false;
 		}
+		indexSequence.push_back( i );
+		lastWasJacobNumber = false;
+		i++;
 	}
 	return (indexSequence);
 }
