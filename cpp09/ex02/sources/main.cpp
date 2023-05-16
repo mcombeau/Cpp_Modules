@@ -7,6 +7,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <vector>
+#include <ctime>
 
 int * getArrayToSort( int ac, char **av );
 int getNumber( char * nbStr, int * array );
@@ -18,6 +19,7 @@ void printVector( std::vector<T> & vector, std::string name,
                              std::string color );
 std::string getVectorContentsAsString( std::vector<int> & vector );
 std::string getVectorContentsAsString( std::vector< std::pair<int, int> > & vector );
+void printTime(std::string containerType, std::clock_t time, int elements);
 
 int	main( int ac, char **av )
 {
@@ -31,9 +33,23 @@ int	main( int ac, char **av )
 	try
 	{
 		int * array = getArrayToSort( ac, av );
+
+		std::cout << std::endl << CYAN "INSERTION-MERGE SORT WITH VECTORS" RESET << std::endl;
 		PmergeMe vectorSorter( array, VECTOR );
+		std::clock_t start = std::clock();
 		vectorSorter.sort();
+		std::clock_t vectorTime = std::clock() - start;
 		verifySortAccuracy(array, vectorSorter);
+
+		std::cout << std::endl << CYAN "INSERTION-MERGE SORT WITH LISTS" RESET << std::endl;
+		PmergeMe listSorter( array, LIST );
+		start = std::clock();
+		listSorter.sort();
+		std::clock_t listTime = std::clock() - start;
+
+		printTime("vector", vectorTime, ac - 1);
+		printTime("list", listTime, ac - 1);
+
 		delete [] array;
 	}
 	catch ( std::exception & e )
@@ -47,19 +63,27 @@ int	main( int ac, char **av )
 	return ( 0 );
 }
 
+void printTime(std::string containerType, std::clock_t time, int elements)
+{
+	double clock_per_ms = static_cast<double>(CLOCKS_PER_SEC) / 1000;
+	double timeInMs = time / clock_per_ms;
+
+	std::cout << "Time to process a range of " << elements << " elements with std::"
+		<< containerType << ": " << time << " clock ticks (";
+	std::cout << std::fixed;
+	std::cout.precision( 6 );
+	/* std::cout << timeInSecs << " s, "; */
+	std::cout << timeInMs << " ms)" << std::endl;
+}
+
 void verifySortAccuracy(int * array, PmergeMe & vectorSorter)
 {
 	std::vector<int> control = convertArrayToVector(array);
 	std::vector<int> & sortedVector = vectorSorter.getSortedVector();
 
+	printVector(control, "Before Sort", RESET);
 	std::sort(control.begin(), control.end());
-	/* if (control.size() != sortedVector.size()) */
-	/* { */
-	/* 	std::cout << RED BOLD "KO: incorrectly sorted vector !" RESET << std::endl; */
-	/* 	std::cout << RED "Vector size is " << sortedVector.size() << ", expected size was " << control.size() << RESET << std::endl; */
-	/* 	return ; */
-	/* } */
-	std::cout << CYAN "CHECKING FOR ERRORS:" RESET << std::endl;
+	std::cout << "After Sort vector (size " << sortedVector.size() << ") contains:\t";
 	bool error = false;
 	for (size_t i = 0, j = 0; i < sortedVector.size() && j < control.size(); j++)
 	{

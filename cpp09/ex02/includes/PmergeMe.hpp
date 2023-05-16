@@ -22,20 +22,20 @@
 class PmergeMe
 {
 	private:
+		/* SHARED */
 		bool _container;
+		int _straggler;
 
+		PmergeMe( void );
+		int _getJacobstahlNumber( int n );
+
+		/* VECTOR */
 		std::vector<int> * _unsortedVector;
 		std::vector<int> * _sortedVector;
 
-		std::list<int> * _unsortedList;
-		std::list<int> * _sortedList;
-
-		int _straggler;
-
 		void _fillVectorFromArray( int * array );
-		void _fillListFromArray( int * array );
 		void _sortVector( void );
-		std::vector< std::pair<int, int> > _splitUnsortedVector( void );
+		std::vector< std::pair<int, int> > _splitIntoPairs( std::vector<int> & unsortedVector );
 		void _sortEachPair( std::vector< std::pair<int, int> > & splitVector );
 		void _sortPairsByLargestValue( std::vector< std::pair<int, int> > &
 		                               splitVector );
@@ -46,13 +46,10 @@ class PmergeMe
 		void _createSortedSequence( std::vector< std::pair<int, int> > & splitVector );
 		std::vector<int> _createIndexInsertSequence(int pendingSize);
 		std::vector<int> _buildJacobstahlInsertionSequence( int size );
-		int _getJacobstahlNumber( int n );
 		void _insertAtBisectedIndex( std::vector<int> & vector, int element );
-		int _bisectVector( std::vector<int> vector, int x );
-		void _extractStraggler( void );
-		void _insertStraggler( void );
-
-		void _sortList( void );
+		int _bisect( std::vector<int> vector, int x );
+		void _extractStraggler( std::vector<int> & unsortedVector );
+		void _insertStraggler( std::vector<int> & sortedVector );
 
 		template <typename T>
 		void _printVector( std::vector<T> & vector, std::string name,
@@ -61,7 +58,34 @@ class PmergeMe
 		std::string _getVectorContentsAsString( std::vector< std::pair<int, int> > &
 		                                        vector );
 
-		PmergeMe( void );
+		/* LIST */
+		std::list<int> * _unsortedList;
+		std::list<int> * _sortedList;
+
+		void _fillListFromArray( int * array );
+		void _sortList( void );
+		std::list< std::pair<int, int> > _splitIntoPairs( std::list<int> & unsortedList );
+		void _sortEachPair( std::list< std::pair<int, int> > & splitList );
+		void _sortPairsByLargestValue( std::list< std::pair<int, int> > &
+		                               splitList );
+		void _insertionSortPairs( std::list< std::pair<int, int> > &
+		                          splitList, int n );
+		void _insertElement( std::list< std::pair<int, int> > & splitList,
+		                     std::pair<int, int> element, int n );
+		void _createSortedSequence( std::list< std::pair<int, int> > & splitList );
+		/* std::list<int> _createIndexInsertSequence(int pendingSize); */
+		/* std::list<int> _buildJacobstahlInsertionSequence( int size ); */
+		void _insertAtBisectedIndex( std::list<int> & list, int element );
+		int _bisect( std::list<int> list, int x );
+		void _extractStraggler( std::list<int> & unsortedList );
+		void _insertStraggler( std::list<int> & sortedList );
+
+		template <typename T>
+		void _printList( std::list<T> & list, std::string name,
+		                   std::string color );
+		std::string _getListContentsAsString( std::list<int> & list );
+		std::string _getListContentsAsString( std::list< std::pair<int, int> > &
+		                                        list );
 
 	public:
 		PmergeMe( int* array, bool container );
@@ -71,6 +95,7 @@ class PmergeMe
 		PmergeMe & operator=( PmergeMe & src );
 		void sort( void );
 		std::vector<int> & getSortedVector( void );
+		std::list<int> & getSortedList( void );
 };
 
 #endif
