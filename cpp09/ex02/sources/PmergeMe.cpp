@@ -1,11 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/18 15:18:00 by mcombeau          #+#    #+#             */
+/*   Updated: 2023/05/18 15:18:00 by mcombeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "PmergeMe.hpp"
-#include "Colors.h"
-#include <ios>
-#include <iterator>
-#include <list>
-#include <sstream>
-#include <utility>
-#include <vector>
 
 /* ---------------------------------------------------------- SHARED */
 PmergeMe::PmergeMe( void ) {}
@@ -212,7 +217,7 @@ void PmergeMe::_createSortedSequence( std::vector< std::pair<int, int> > &
 	_printVector( indexSequence, "Index Seq", PURPLE );
 	if (VERBOSE)
 	{
-		std::cout << CYAN "Inserting...\t\t\t\t";
+		std::cout << CYAN << std::setw( 35 ) << std::left << "Inserting...";
 	}
 	std::vector<int>::iterator isit = indexSequence.begin();
 	for (; isit != indexSequence.end(); isit++)
@@ -310,7 +315,8 @@ void PmergeMe::_extractStraggler( std::vector<int> & unsortedVector )
 	unsortedVector.pop_back();
 	if (VERBOSE)
 	{
-		std::cout << CYAN "Straggler = " << _straggler << std::endl;
+		std::cout << CYAN << std::setw( 35 ) << std::left << "Straggler detected... "
+			<< "[" << _straggler << "]" << std::endl;
 		_printVector( *_unsortedVector, "Unsorted", PURPLE );
 	}
 }
@@ -319,7 +325,7 @@ void PmergeMe::_insertStraggler( std::vector<int> & sortedVector )
 {
 	if (VERBOSE)
 	{
-		std::cout << CYAN "Inserting straggler...\t\t\t";
+		std::cout << CYAN << std::setw( 35 ) << std::left << "Inserting straggler...";
 	}
 	_insertAtBisectedIndex( sortedVector, _straggler );
 	if (VERBOSE)
@@ -337,40 +343,9 @@ void PmergeMe::_printVector( std::vector<T> & vector, std::string name,
 	{
 		return ;
 	}
-	std::stringstream ss;
-	ss << name << " vector (size " << vector.size() << ") contains: ";
-	printLine( color, ss.str(), _getVectorContentsAsString( vector ) );
-}
-
-std::string PmergeMe::_getVectorContentsAsString( std::vector<int> & vector )
-{
-	std::stringstream ss;
-	if ( vector.empty() )
-	{
-		return ( "" );
-	}
-	std::vector<int>::iterator it = vector.begin();
-	for ( ; it != vector.end(); it++ )
-	{
-		ss << "[" << *it << "]";
-	}
-	return ( ss.str() );
-}
-
-std::string PmergeMe::_getVectorContentsAsString(
-    std::vector< std::pair<int, int> > & vector )
-{
-	std::stringstream ss;
-	if ( vector.empty() )
-	{
-		return ( "" );
-	}
-	std::vector< std::pair<int, int> >::iterator it = vector.begin();
-	for ( ; it != vector.end(); it++ )
-	{
-		ss << "[" << it->first << "--"  << it->second << "]";
-	}
-	return ( ss.str() );
+	std::vector<T> * vectorToPrint = new std::vector<T>( vector);
+	printContainer( *vectorToPrint, name, color);
+	delete vectorToPrint;
 }
 
 /* ---------------------------------------------------------- LIST */
@@ -523,7 +498,7 @@ void PmergeMe::_createSortedSequence( std::list< std::pair<int, int> > &
 	_printList( indexSequence, "Index Seq", PURPLE );
 	if (VERBOSE)
 	{
-		std::cout << CYAN "Inserting...\t\t\t\t";
+		std::cout << CYAN << std::setw( 35 ) << std::left << "Inserting...";
 	}
 	std::list<int>::iterator isit = indexSequence.begin();
 	for (; isit != indexSequence.end(); isit++)
@@ -629,7 +604,8 @@ void PmergeMe::_extractStraggler( std::list<int> & unsortedList )
 	unsortedList.pop_back();
 	if (VERBOSE)
 	{
-		std::cout << CYAN "Straggler = " << _straggler << std::endl;
+		std::cout << CYAN << std::setw( 35 ) << std::left << "Straggler detected... "
+			<< "[" << _straggler << "]" << std::endl;
 		_printList( *_unsortedList, "Unsorted", PURPLE );
 	}
 }
@@ -638,7 +614,7 @@ void PmergeMe::_insertStraggler( std::list<int> & sortedList )
 {
 	if (VERBOSE)
 	{
-		std::cout << CYAN "Inserting straggler...\t\t\t";
+		std::cout << CYAN << std::setw( 35 ) << std::left << "Inserting straggler...";
 	}
 	_insertAtBisectedIndex( sortedList, _straggler );
 	if (VERBOSE)
@@ -656,38 +632,7 @@ void PmergeMe::_printList( std::list<T> & list, std::string name,
 	{
 		return ;
 	}
-	std::stringstream ss;
-	ss << name << " list (size " << list.size() << ") contains: ";
-	printLine( color, ss.str(), _getListContentsAsString( list ) );
-}
-
-std::string PmergeMe::_getListContentsAsString( std::list<int> & list )
-{
-	std::stringstream ss;
-	if ( list.empty() )
-	{
-		return ( "" );
-	}
-	std::list<int>::iterator it = list.begin();
-	for ( ; it != list.end(); it++ )
-	{
-		ss << "[" << *it << "]";
-	}
-	return ( ss.str() );
-}
-
-std::string PmergeMe::_getListContentsAsString(
-    std::list< std::pair<int, int> > & list )
-{
-	std::stringstream ss;
-	if ( list.empty() )
-	{
-		return ( "" );
-	}
-	std::list< std::pair<int, int> >::iterator it = list.begin();
-	for ( ; it != list.end(); it++ )
-	{
-		ss << "[" << it->first << "--"  << it->second << "]";
-	}
-	return ( ss.str() );
+	std::list<T> * listToPrint = new std::list<T>( list );
+	printContainer( *listToPrint, name, color);
+	delete listToPrint;
 }

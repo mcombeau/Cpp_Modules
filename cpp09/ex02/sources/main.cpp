@@ -1,24 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/18 15:16:22 by mcombeau          #+#    #+#             */
+/*   Updated: 2023/05/18 15:16:22 by mcombeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "PmergeMe.hpp"
-#include <algorithm>
-#include <cstdlib>
-#include <exception>
-#include <limits>
-#include <ostream>
-#include <sstream>
-#include <stdexcept>
-#include <vector>
-#include <ctime>
 
 int * getArrayToSort( int ac, char **av );
 int getNumber( char * nbStr, int * array );
 bool isADuplicate( int * array, int nb );
-void verifySortAccuracy(int * array, PmergeMe & vectorSorter);
-std::vector<int> & convertArrayToVector(int * array);
 template <typename T>
-void printVector( std::vector<T> & vector, std::string name,
-                             std::string color );
-std::string getVectorContentsAsString( std::vector<int> & vector );
-std::string getVectorContentsAsString( std::vector< std::pair<int, int> > & vector );
+void verifySortAccuracy( int * array, T & resultContainer );
+std::vector<int> & convertArrayToVector(int * array);
 void printTime(std::string containerType, std::clock_t time, int elements);
 
 int	main( int ac, char **av )
@@ -34,19 +33,21 @@ int	main( int ac, char **av )
 	{
 		int * array = getArrayToSort( ac, av );
 
-		std::cout << std::endl << CYAN "INSERTION-MERGE SORT WITH VECTORS" RESET << std::endl;
+		std::cout << CYAN "---- Insertion-merge sort with std::vector" RESET << std::endl;
 		PmergeMe vectorSorter( array, VECTOR );
 		std::clock_t start = std::clock();
 		vectorSorter.sort();
 		std::clock_t vectorTime = std::clock() - start;
-		verifySortAccuracy(array, vectorSorter);
+		verifySortAccuracy(array, vectorSorter.getSortedVector());
 
-		std::cout << std::endl << CYAN "INSERTION-MERGE SORT WITH LISTS" RESET << std::endl;
+		std::cout << std::endl << CYAN "---- Insertion-merge sort with std::list" RESET << std::endl;
 		PmergeMe listSorter( array, LIST );
 		start = std::clock();
 		listSorter.sort();
 		std::clock_t listTime = std::clock() - start;
+		verifySortAccuracy(array, listSorter.getSortedList());
 
+		std::cout << std::endl << CYAN "---- Timing" RESET << std::endl;
 		printTime("vector", vectorTime, ac - 1);
 		printTime("list", listTime, ac - 1);
 
@@ -72,39 +73,32 @@ void printTime(std::string containerType, std::clock_t time, int elements)
 		<< containerType << ": " << time << " clock ticks (";
 	std::cout << std::fixed;
 	std::cout.precision( 6 );
-	/* std::cout << timeInSecs << " s, "; */
 	std::cout << timeInMs << " ms)" << std::endl;
 }
 
-void verifySortAccuracy(int * array, PmergeMe & vectorSorter)
+template <typename T>
+void verifySortAccuracy( int * array, T & resultContainer )
 {
 	std::vector<int> control = convertArrayToVector(array);
-	std::vector<int> & sortedVector = vectorSorter.getSortedVector();
 
-	printVector(control, "Before Sort", RESET);
+	printContainer(control, "Before Sort", RESET);
 	std::sort(control.begin(), control.end());
-	std::cout << "After Sort vector (size " << sortedVector.size() << ") contains:\t";
-	bool error = false;
-	for (size_t i = 0, j = 0; i < sortedVector.size() && j < control.size(); j++)
+
+	std::vector<int>::iterator controlit = control.begin();
+	typename T::iterator resultit = resultContainer.begin();
+	for ( ; resultit != resultContainer.end() && controlit != control.end(); controlit++)
 	{
-		if (sortedVector[i] != control[j])
+		if ( *resultit != *controlit )
 		{
-			std::cout << RED "[" << control[j] << "]" RESET;
-			error = true;
-			continue ;
+			printContainer( resultContainer, "After Sort", RED );
+			printContainer(control, "Expected", CYAN);
+			std::cout << std::endl << RED BOLD ">>> KO: incorrectly sorted !" RESET << std::endl;
+			return ;
 		}
-		else {
-			std::cout << GREEN "[" << sortedVector[i] << "]" RESET;
-			i++;
-		}
+		resultit++;
 	}
-	if (error)
-	{
-		std::cout << std::endl << RED BOLD "KO: incorrectly sorted vector !" RESET << std::endl;
-	}
-	else {
-		std::cout << std::endl << GREEN BOLD "OK: vector properly sorted." RESET << std::endl;
-	}
+		printContainer( resultContainer, "After Sort", GREEN );
+		std::cout << std::endl << GREEN BOLD ">>> OK: properly sorted." RESET << std::endl;
 }
 
 int * getArrayToSort( int ac, char **av )
@@ -115,7 +109,6 @@ int * getArrayToSort( int ac, char **av )
 	{
 		int nb = getNumber( av[i + 1], array );
 		array[i] = nb;
-		/* std::cout << CYAN "array[" << i << "] = " << array[i] << RESET << std::endl; */
 		i++;
 	}
 	return ( array );
@@ -162,20 +155,11 @@ std::vector<int> & convertArrayToVector(int * array)
 
 void printLine( std::string color, std::string key, std::string value)
 {
-	std::cout << color << std::setw( 40 ) << std::left << key
+	std::cout << color << std::setw( 35 ) << std::left << key
 		<< value << RESET << std::endl;
 }
 
-template <typename T>
-void printVector( std::vector<T> & vector, std::string name,
-                             std::string color )
-{
-	std::stringstream ss;
-	ss << name << " vector (size " << vector.size() << ") contains: ";
-	printLine( color, ss.str(), getVectorContentsAsString( vector ) );
-}
-
-std::string getVectorContentsAsString( std::vector<int> & vector )
+std::string getContentsAsString( std::vector<int> & vector )
 {
 	std::stringstream ss;
 	if ( vector.empty() )
@@ -190,8 +174,7 @@ std::string getVectorContentsAsString( std::vector<int> & vector )
 	return ( ss.str() );
 }
 
-std::string getVectorContentsAsString(
-    std::vector< std::pair<int, int> > & vector )
+std::string getContentsAsString( std::vector< std::pair<int, int> > & vector )
 {
 	std::stringstream ss;
 	if ( vector.empty() )
@@ -201,7 +184,37 @@ std::string getVectorContentsAsString(
 	std::vector< std::pair<int, int> >::iterator it = vector.begin();
 	for ( ; it != vector.end(); it++ )
 	{
-		std::cout << "[" << it->first << "--"  << it->second << "]";
+		ss << "[" << it->first << "--"  << it->second << "]";
+	}
+	return ( ss.str() );
+}
+
+std::string getContentsAsString( std::list<int> & list )
+{
+	std::stringstream ss;
+	if ( list.empty() )
+	{
+		return ( "" );
+	}
+	std::list<int>::iterator it = list.begin();
+	for ( ; it != list.end(); it++ )
+	{
+		ss << "[" << *it << "]";
+	}
+	return ( ss.str() );
+}
+
+std::string getContentsAsString( std::list< std::pair<int, int> > & list )
+{
+	std::stringstream ss;
+	if ( list.empty() )
+	{
+		return ( "" );
+	}
+	std::list< std::pair<int, int> >::iterator it = list.begin();
+	for ( ; it != list.end(); it++ )
+	{
+		ss << "[" << it->first << "--"  << it->second << "]";
 	}
 	return ( ss.str() );
 }

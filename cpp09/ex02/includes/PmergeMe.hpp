@@ -1,26 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PmergeMe.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/18 15:16:16 by mcombeau          #+#    #+#             */
+/*   Updated: 2023/05/18 15:16:16 by mcombeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PLEASE_MERGE_ME_HPP
 #define PLEASE_MERGE_ME_HPP
 
-#include "Colors.h"
-#include <cctype>
-#include <cstddef>
-#include <cstdlib>
-#include <exception>
-#include <iomanip>
-#include <iostream>
-#include <limits>
-#include <list>
-#include <sstream>
-#include <stdexcept>
-#include <string>
-#include <vector>
+#include "utils.hpp"
 
-#define VERBOSE 1
 #define VECTOR 0
 #define LIST 1
-
-void printLine( std::string color, std::string key, std::string value);
 
 class PmergeMe
 {
