@@ -32,7 +32,7 @@ PmergeMe::PmergeMe( int* array, bool container ) : _container( container )
 		_fillListFromArray( array );
 	}
 }
-
+ 
 PmergeMe::PmergeMe( PmergeMe & src )
 {
 	( void )src;
@@ -207,21 +207,17 @@ void PmergeMe::_createSortedSequence( std::vector< std::pair<int, int> > &
 	}
 	_printVector( *_sortedVector, "Sorted", GREEN );
 	_printVector( pending, "Pending", CYAN );
-	std::vector<int> indexSequence = _createIndexInsertSequence(pending.size());
+	std::vector<int> indexSequence = _createIndexInsertSequence( pending );
 
 	_printVector( indexSequence, "Index Seq", PURPLE );
-	std::vector<int>::iterator isit = indexSequence.begin();
 	if (VERBOSE)
 	{
 		std::cout << CYAN "Inserting...\t\t\t\t";
 	}
+	std::vector<int>::iterator isit = indexSequence.begin();
 	for (; isit != indexSequence.end(); isit++)
 	{
 		int numberToInsert = pending[*isit - 1];
-		if (VERBOSE)
-		{
-			std::cout << "[" << numberToInsert << "]";
-		}
 		_insertAtBisectedIndex( *_sortedVector, numberToInsert );
 	}
 	if (VERBOSE)
@@ -231,17 +227,18 @@ void PmergeMe::_createSortedSequence( std::vector< std::pair<int, int> > &
 	}
 }
 
-std::vector<int> PmergeMe::_createIndexInsertSequence( int pendingSize )
+std::vector<int> PmergeMe::_createIndexInsertSequence( std::vector<int> pending )
 {
 	bool lastWasJacobNumber = false;
+	int pendingSize = pending.size();
 	std::vector<int> jacobSequence = _buildJacobstahlInsertionSequence(
 	                                     pendingSize);
 	_printVector( jacobSequence, "Jacobstahl", PURPLE );
 	std::vector<int> indexSequence;
 
-	indexSequence.push_back(1);
+	indexSequence.push_back( 1 );
 	int i = 1;
-	while (i <= pendingSize)
+	while ( i <= pendingSize )
 	{
 		if ( jacobSequence.size() != 0 && lastWasJacobNumber == false )
 		{
@@ -267,6 +264,10 @@ std::vector<int> PmergeMe::_createIndexInsertSequence( int pendingSize )
 
 void PmergeMe::_insertAtBisectedIndex( std::vector<int> & vector, int element )
 {
+	if (VERBOSE)
+	{
+		std::cout << "[" << element << "]";
+	}
 	int index = _bisect( vector, element );
 	vector.insert( vector.begin() + index, element );
 }
@@ -316,10 +317,14 @@ void PmergeMe::_extractStraggler( std::vector<int> & unsortedVector )
 
 void PmergeMe::_insertStraggler( std::vector<int> & sortedVector )
 {
+	if (VERBOSE)
+	{
+		std::cout << CYAN "Inserting straggler...\t\t\t";
+	}
 	_insertAtBisectedIndex( sortedVector, _straggler );
 	if (VERBOSE)
 	{
-		std::cout << CYAN "Inserting straggler...\t\t\t[" << _straggler << "]" RESET << std::endl;
+		std::cout <<  RESET << std::endl;
 		_printVector( sortedVector, "Sorted", GREEN );
 	}
 }
@@ -332,9 +337,9 @@ void PmergeMe::_printVector( std::vector<T> & vector, std::string name,
 	{
 		return ;
 	}
-	std::cout << color << name
-	          << " vector (size " << vector.size() << ") contains:\t"
-	          << _getVectorContentsAsString( vector ) << RESET << std::endl;
+	std::stringstream ss;
+	ss << name << " vector (size " << vector.size() << ") contains: ";
+	printLine( color, ss.str(), _getVectorContentsAsString( vector ) );
 }
 
 std::string PmergeMe::_getVectorContentsAsString( std::vector<int> & vector )
@@ -363,7 +368,7 @@ std::string PmergeMe::_getVectorContentsAsString(
 	std::vector< std::pair<int, int> >::iterator it = vector.begin();
 	for ( ; it != vector.end(); it++ )
 	{
-		std::cout << "[" << it->first << "--"  << it->second << "]";
+		ss << "[" << it->first << "--"  << it->second << "]";
 	}
 	return ( ss.str() );
 }
@@ -394,11 +399,11 @@ void PmergeMe::_sortList( void )
 	std::list< std::pair<int, int> > splitList = _splitIntoPairs( *_unsortedList );
 	_sortEachPair( splitList );
 	_sortPairsByLargestValue( splitList );
-	/* _createSortedSequence( splitList ); */
-	/* if ( hasStraggler ) */
-	/* { */
-	/* 	_insertStraggler( *_sortedList ); */
-	/* } */
+	_createSortedSequence( splitList );
+	if ( hasStraggler )
+	{
+		_insertStraggler( *_sortedList );
+	}
 }
 
 std::list< std::pair<int, int> > PmergeMe::_splitIntoPairs( std::list<int> & unsortedList )
@@ -500,117 +505,123 @@ void PmergeMe::_insertElement( std::list< std::pair<int, int> > & splitList,
 	}
 }
 
-/* void PmergeMe::_createSortedSequence( std::list< std::pair<int, int> > & */
-/*                                       splitList ) */
-/* { */
-/* 	std::list<int> pending; */
+void PmergeMe::_createSortedSequence( std::list< std::pair<int, int> > &
+                                      splitList )
+{
+	std::list<int> pending;
 
-/* 	std::list< std::pair<int, int> >::iterator it = splitList.begin(); */
-/* 	for ( ; it != splitList.end(); it++ ) */
-/* 	{ */
-/* 		_sortedList->push_back( it->second ); */
-/* 		pending.push_back( it->first ); */
-/* 	} */
-/* 	_printList( *_sortedList, "Sorted", GREEN ); */
-/* 	_printList( pending, "Pending", CYAN ); */
-/* 	std::list<int> indexSequence = _createIndexInsertSequence(pending.size()); */
+	std::list< std::pair<int, int> >::iterator it = splitList.begin();
+	for ( ; it != splitList.end(); it++ )
+	{
+		_sortedList->push_back( it->second );
+		pending.push_back( it->first );
+	}
+	_printList( *_sortedList, "Sorted", GREEN );
+	_printList( pending, "Pending", CYAN );
+	std::list<int> indexSequence = _createIndexInsertSequence( pending );
 
-/* 	_printList( indexSequence, "Index Seq", PURPLE ); */
-/* 	std::list<int>::iterator isit = indexSequence.begin(); */
-/* 	if (VERBOSE) */
-/* 	{ */
-/* 		std::cout << CYAN "Inserting...\t\t\t\t"; */
-/* 	} */
-/* 	for (; isit != indexSequence.end(); isit++) */
-/* 	{ */
-/* 		int index = *isit; */
-/* 		std::list<int>::iterator pit = pending.begin(); */
-/* 		std::advance(pit, index - 1); */
-/* 		int numberToInsert = *pit; */
-/* 		if (VERBOSE) */
-/* 		{ */
-/* 			std::cout << "[" << numberToInsert << "]"; */
-/* 		} */
-/* 		_insertAtBisectedIndex( *_sortedList, numberToInsert ); */
-/* 	} */
-/* 	if (VERBOSE) */
-/* 	{ */
-/* 		std::cout << RESET << std::endl; */
-/* 		_printVector( *_sortedVector, "Sorted", GREEN ); */
-/* 	} */
-/* } */
+	_printList( indexSequence, "Index Seq", PURPLE );
+	if (VERBOSE)
+	{
+		std::cout << CYAN "Inserting...\t\t\t\t";
+	}
+	std::list<int>::iterator isit = indexSequence.begin();
+	for (; isit != indexSequence.end(); isit++)
+	{
+		int index = *isit;
+		std::list<int>::iterator pit = pending.begin();
+		std::advance(pit, index - 1);
+		int numberToInsert = *pit;
+		_insertAtBisectedIndex( *_sortedList, numberToInsert );
+	}
+	if (VERBOSE)
+	{
+		std::cout << RESET << std::endl;
+		_printList( *_sortedList, "Sorted", GREEN );
+	}
+}
 
-/* std::list<int> PmergeMe::_createIndexInsertSequence( int pendingSize ) */
-/* { */
-/* 	bool lastWasJacobNumber = false; */
-/* 	std::list<int> jacobSequence = _buildJacobstahlInsertionSequence( */
-/* 	                                     pendingSize); */
-/* 	_printList( jacobSequence, "Jacobstahl", PURPLE ); */
-/* 	std::list<int> indexSequence; */
+std::list<int> PmergeMe::_createIndexInsertSequence( std::list<int> pending )
+{
+	bool lastWasJacobNumber = false;
+	int pendingSize = pending.size();
+	std::list<int> jacobSequence = _buildJacobstahlInsertionSequence(
+	                                     pending );
+	_printList( jacobSequence, "Jacobstahl", PURPLE );
+	std::list<int> indexSequence;
 
-/* 	indexSequence.push_back(1); */
-/* 	int i = 1; */
-/* 	while (i <= pendingSize) */
-/* 	{ */
-/* 		/1* if ( jacobSequence.size() != 0 && lastWasJacobNumber == false ) *1/ */
-/* 		/1* { *1/ */
-/* 		/1* 	indexSequence.push_back( jacobSequence[0] ); *1/ */
-/* 		/1* 	jacobSequence.erase( jacobSequence.begin() ); *1/ */
-/* 		/1* 	lastWasJacobNumber = true; *1/ */
-/* 		/1* 	continue; *1/ */
-/* 		/1* } *1/ */
-/* 		/1* std::vector<int>::iterator iit = indexSequence.begin(); *1/ */
-/* 		/1* for ( ; iit != indexSequence.end(); iit++ ) *1/ */
-/* 		/1* { *1/ */
-/* 		/1* 	if ( *iit == i ) *1/ */
-/* 		/1* 	{ *1/ */
-/* 		/1* 		i++; *1/ */
-/* 		/1* 	} *1/ */
-/* 		/1* } *1/ */
-/* 		/1* indexSequence.push_back( i ); *1/ */
-/* 		/1* lastWasJacobNumber = false; *1/ */
-/* 		/1* i++; *1/ */
-/* 	} */
-/* 	return (indexSequence); */
-/* } */
+	indexSequence.push_back( 1 );
+	int i = 1;
+	while (i <= pendingSize)
+	{
+		if ( jacobSequence.size() != 0 && lastWasJacobNumber == false )
+		{
+			indexSequence.push_back( *jacobSequence.begin() );
+			jacobSequence.erase( jacobSequence.begin() );
+			lastWasJacobNumber = true;
+			continue;
+		}
+		std::list<int>::iterator iit = indexSequence.begin();
+		for ( ; iit != indexSequence.end(); iit++ )
+		{
+			if ( *iit == i )
+			{
+				i++;
+			}
+		}
+		indexSequence.push_back( i );
+		lastWasJacobNumber = false;
+		i++;
+	}
+	return (indexSequence);
+}
 
-/* void PmergeMe::_insertAtBisectedIndex( std::list<int> & list, int element ) */
-/* { */
-/* 	/1* int index = _bisect( list, element ); *1/ */
-/* 	/1* list.insert( list.begin() + index, element ); *1/ */
-/* } */
+void PmergeMe::_insertAtBisectedIndex( std::list<int> & list, int element )
+{
+	if (VERBOSE)
+	{
+		std::cout << "[" << element << "]";
+	}
+	int pos = _bisect( list, element );
+	std::list<int>::iterator it = list.begin();
+	std::advance(it, pos);
+	list.insert( it, element );
+}
 
-/* std::list<int> PmergeMe::_buildJacobstahlInsertionSequence( int size ) */
-/* { */
-/* 	std::list<int> jacobSequence; */
-/* 	int jacobIndex = 3; */
-/* 	while ( _getJacobstahlNumber( jacobIndex ) < size - 1 ) */
-/* 	{ */
-/* 		jacobSequence.push_back( _getJacobstahlNumber( jacobIndex ) ); */
-/* 		jacobIndex++; */
-/* 	} */
-/* 	return ( jacobSequence ); */
-/* } */
+std::list<int> PmergeMe::_buildJacobstahlInsertionSequence( std::list<int> pending )
+{
+	std::list<int> jacobSequence;
+	int size = pending.size();
+	int jacobIndex = 3;
+	while ( _getJacobstahlNumber( jacobIndex ) < size - 1 )
+	{
+		jacobSequence.push_back( _getJacobstahlNumber( jacobIndex ) );
+		jacobIndex++;
+	}
+	return ( jacobSequence );
+}
 
-/* int PmergeMe::_bisect( std::list<int> list, int x ) */
-/* { */
-/* 	int lo = 0; */
-/* 	int hi = list.size(); */
+int PmergeMe::_bisect( std::list<int> list, int x )
+{
+	int lo = 0;
+	int hi = list.size();
 
-/* 	while ( lo < hi ) */
-/* 	{ */
-/* 		int mid = ( lo + hi ) / 2; */
-/* 		if ( x  < list[mid] ) */
-/* 		{ */
-/* 			hi = mid; */
-/* 		} */
-/* 		else */
-/* 		{ */
-/* 			lo = mid + 1; */
-/* 		} */
-/* 	} */
-/* 	return ( lo ); */
-/* } */
+	while ( lo < hi )
+	{
+		int mid = ( lo + hi ) / 2;
+		std::list<int>::iterator it = list.begin();
+		std::advance(it, mid);
+		if ( x  < *it )
+		{
+			hi = mid;
+		}
+		else
+		{
+			lo = mid + 1;
+		}
+	}
+	return ( lo );
+}
 
 void PmergeMe::_extractStraggler( std::list<int> & unsortedList )
 {
@@ -623,15 +634,19 @@ void PmergeMe::_extractStraggler( std::list<int> & unsortedList )
 	}
 }
 
-/* void PmergeMe::_insertStraggler( std::list<int> & sortedList ) */
-/* { */
-/* 	_insertAtBisectedIndex( sortedList, _straggler ); */
-/* 	if (VERBOSE) */
-/* 	{ */
-/* 		std::cout << CYAN "Inserting straggler...\t\t\t[" << _straggler << "]" RESET << std::endl; */
-/* 		_printList( sortedList, "Sorted", GREEN ); */
-/* 	} */
-/* } */
+void PmergeMe::_insertStraggler( std::list<int> & sortedList )
+{
+	if (VERBOSE)
+	{
+		std::cout << CYAN "Inserting straggler...\t\t\t";
+	}
+	_insertAtBisectedIndex( sortedList, _straggler );
+	if (VERBOSE)
+	{
+		std::cout <<  RESET << std::endl;
+		_printList( sortedList, "Sorted ", GREEN );
+	}
+}
 
 template <typename T>
 void PmergeMe::_printList( std::list<T> & list, std::string name,
@@ -641,9 +656,9 @@ void PmergeMe::_printList( std::list<T> & list, std::string name,
 	{
 		return ;
 	}
-	std::cout << color << name
-	          << " list (size " << list.size() << ") contains:\t"
-	          << _getListContentsAsString( list ) << RESET << std::endl;
+	std::stringstream ss;
+	ss << name << " list (size " << list.size() << ") contains: ";
+	printLine( color, ss.str(), _getListContentsAsString( list ) );
 }
 
 std::string PmergeMe::_getListContentsAsString( std::list<int> & list )
@@ -672,7 +687,7 @@ std::string PmergeMe::_getListContentsAsString(
 	std::list< std::pair<int, int> >::iterator it = list.begin();
 	for ( ; it != list.end(); it++ )
 	{
-		std::cout << "[" << it->first << "--"  << it->second << "]";
+		ss << "[" << it->first << "--"  << it->second << "]";
 	}
 	return ( ss.str() );
 }

@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <exception>
+#include <iomanip>
 #include <iostream>
 #include <limits>
 #include <list>
@@ -18,6 +19,8 @@
 #define VERBOSE 1
 #define VECTOR 0
 #define LIST 1
+
+void printLine( std::string color, std::string key, std::string value);
 
 class PmergeMe
 {
@@ -44,7 +47,7 @@ class PmergeMe
 		void _insertElement( std::vector< std::pair<int, int> > & splitVector,
 		                     std::pair<int, int> element, int n );
 		void _createSortedSequence( std::vector< std::pair<int, int> > & splitVector );
-		std::vector<int> _createIndexInsertSequence(int pendingSize);
+		std::vector<int> _createIndexInsertSequence( std::vector<int> pending );
 		std::vector<int> _buildJacobstahlInsertionSequence( int size );
 		void _insertAtBisectedIndex( std::vector<int> & vector, int element );
 		int _bisect( std::vector<int> vector, int x );
@@ -73,8 +76,8 @@ class PmergeMe
 		void _insertElement( std::list< std::pair<int, int> > & splitList,
 		                     std::pair<int, int> element, int n );
 		void _createSortedSequence( std::list< std::pair<int, int> > & splitList );
-		/* std::list<int> _createIndexInsertSequence(int pendingSize); */
-		/* std::list<int> _buildJacobstahlInsertionSequence( int size ); */
+		std::list<int> _createIndexInsertSequence( std::list<int> pending );
+		std::list<int> _buildJacobstahlInsertionSequence( std::list<int> pending );
 		void _insertAtBisectedIndex( std::list<int> & list, int element );
 		int _bisect( std::list<int> list, int x );
 		void _extractStraggler( std::list<int> & unsortedList );

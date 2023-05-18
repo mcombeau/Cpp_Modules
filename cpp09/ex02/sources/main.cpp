@@ -160,13 +160,19 @@ std::vector<int> & convertArrayToVector(int * array)
 	return (*vector);
 }
 
+void printLine( std::string color, std::string key, std::string value)
+{
+	std::cout << color << std::setw( 40 ) << std::left << key
+		<< value << RESET << std::endl;
+}
+
 template <typename T>
 void printVector( std::vector<T> & vector, std::string name,
                              std::string color )
 {
-	std::cout << color << name
-	          << " vector (size " << vector.size() << ") contains:\t"
-	          << getVectorContentsAsString( vector ) << RESET << std::endl;
+	std::stringstream ss;
+	ss << name << " vector (size " << vector.size() << ") contains: ";
+	printLine( color, ss.str(), getVectorContentsAsString( vector ) );
 }
 
 std::string getVectorContentsAsString( std::vector<int> & vector )
