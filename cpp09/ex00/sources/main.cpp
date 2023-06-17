@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:53:11 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/04/25 12:53:11 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/06/17 15:12:40 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	main( int ac, char **av )
 	catch ( std::exception &e )
 	{
 		std::cerr << RED "Error: " << e.what() << RESET << std::endl;
+		delete btc;
+		delete fs;
 		return ( 1 );
 	}
 	delete btc;
@@ -64,6 +66,7 @@ std::fstream * openFileStream( char * filename )
 	fs->open( filename, std::fstream::in );
 	if ( fs->fail() )
 	{
+		delete fs;
 		throw ( std::runtime_error( path + ": could not open file" ) );
 	}
 	return ( fs );
