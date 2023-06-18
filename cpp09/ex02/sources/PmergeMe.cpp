@@ -11,6 +11,10 @@
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+#include <algorithm>
+#include <iterator>
+#include <list>
+#include <vector>
 
 /* ---------------------------------------------------------- SHARED */
 PmergeMe::PmergeMe( void ) {}
@@ -92,6 +96,15 @@ void PmergeMe::_fillVectorFromArray( int * array, int array_size )
 void PmergeMe::_sortVector( void )
 {
 	_printVector( *_unsortedVector, "Unsorted", PURPLE );
+	if ( _isVectorAlreadySorted() == true )
+	{
+		std::vector<int>::iterator it = _unsortedVector->begin();
+		for ( ; it != _unsortedVector->end(); it++ )
+		{
+			_sortedVector->push_back( *it );
+		}
+		return ;
+	}
 	bool hasStraggler = _unsortedVector->size() % 2 != 0;
 	if ( hasStraggler )
 	{
@@ -105,6 +118,20 @@ void PmergeMe::_sortVector( void )
 	{
 		_insertStraggler( *_sortedVector );
 	}
+}
+
+bool PmergeMe::_isVectorAlreadySorted( void )
+{
+	std::vector<int>::iterator it = _unsortedVector->begin();
+	for ( ; it != _unsortedVector->end(); it++ )
+	{
+		std::vector<int>::iterator next = it + 1;
+		if ( next != _unsortedVector->end() && *it > *next )
+		{
+			return ( false );
+		}
+	}
+	return ( true );
 }
 
 std::vector< std::pair<int, int> > PmergeMe::_splitIntoPairs( std::vector<int> & unsortedVector )
@@ -236,12 +263,16 @@ std::vector<int> PmergeMe::_createIndexInsertSequence( std::vector<int> pending 
 {
 	bool lastWasJacobNumber = false;
 	int pendingSize = pending.size();
-	std::vector<int> jacobSequence = _buildJacobstahlInsertionSequence(
-	                                     pendingSize);
-	_printVector( jacobSequence, "Jacobstahl", PURPLE );
 	std::vector<int> indexSequence;
 
 	indexSequence.push_back( 1 );
+	if (pendingSize == 1)
+	{
+		return ( indexSequence );
+	}
+	std::vector<int> jacobSequence = _buildJacobstahlInsertionSequence(
+	                                     pendingSize);
+	_printVector( jacobSequence, "Jacobstahl", PURPLE );
 	int i = 1;
 	while ( i <= pendingSize )
 	{
@@ -366,6 +397,15 @@ void PmergeMe::_fillListFromArray( int * array, int array_size )
 void PmergeMe::_sortList( void )
 {
 	_printList( *_unsortedList, "Unsorted", PURPLE );
+	if ( _isListAlreadySorted() == true )
+	{
+		std::list<int>::iterator it = _unsortedList->begin();
+		for ( ; it != _unsortedList->end(); it++ )
+		{
+			_sortedList->push_back( *it );
+		}
+		return ;
+	}
 	bool hasStraggler = _unsortedList->size() % 2 != 0;
 	if ( hasStraggler )
 	{
@@ -379,6 +419,21 @@ void PmergeMe::_sortList( void )
 	{
 		_insertStraggler( *_sortedList );
 	}
+}
+
+bool PmergeMe::_isListAlreadySorted( void )
+{
+	std::list<int>::iterator it = _unsortedList->begin();
+	for ( ; it != _unsortedList->end(); it++ )
+	{
+		std::list<int>::iterator next = it;
+		std::advance(next, 1);
+		if ( next != _unsortedList->end() && *it > *next )
+		{
+			return ( false );
+		}
+	}
+	return ( true );
 }
 
 std::list< std::pair<int, int> > PmergeMe::_splitIntoPairs( std::list<int> & unsortedList )
@@ -520,12 +575,16 @@ std::list<int> PmergeMe::_createIndexInsertSequence( std::list<int> pending )
 {
 	bool lastWasJacobNumber = false;
 	int pendingSize = pending.size();
-	std::list<int> jacobSequence = _buildJacobstahlInsertionSequence(
-	                                     pending );
-	_printList( jacobSequence, "Jacobstahl", PURPLE );
 	std::list<int> indexSequence;
 
 	indexSequence.push_back( 1 );
+	if (pendingSize == 1)
+	{
+		return ( indexSequence );
+	}
+	std::list<int> jacobSequence = _buildJacobstahlInsertionSequence(
+	                                     pending );
+	_printList( jacobSequence, "Jacobstahl", PURPLE );
 	int i = 1;
 	while (i <= pendingSize)
 	{

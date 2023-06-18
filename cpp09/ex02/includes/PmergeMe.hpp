@@ -34,6 +34,7 @@ class PmergeMe
 
 		void _fillVectorFromArray( int * array, int array_size );
 		void _sortVector( void );
+		bool _isVectorAlreadySorted( void );
 		std::vector< std::pair<int, int> > _splitIntoPairs( std::vector<int> & unsortedVector );
 		void _sortEachPair( std::vector< std::pair<int, int> > & splitVector );
 		void _sortPairsByLargestValue( std::vector< std::pair<int, int> > &
@@ -63,6 +64,7 @@ class PmergeMe
 
 		void _fillListFromArray( int * array, int array_size );
 		void _sortList( void );
+		bool _isListAlreadySorted( void );
 		std::list< std::pair<int, int> > _splitIntoPairs( std::list<int> & unsortedList );
 		void _sortEachPair( std::list< std::pair<int, int> > & splitList );
 		void _sortPairsByLargestValue( std::list< std::pair<int, int> > &
