@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "RPN.hpp"
+#include <sstream>
 
 RPN::RPN( void ) {}
 
@@ -119,12 +120,23 @@ int RPN::_calculateResult( std::string & operation, int first, int second )
 			res = first * second;
 			break;
 		case '/':
-			res = first / second;
+			res = _handleDivision( first, second );
 			break;
 		default:
 			throw ( std::runtime_error( operation + ": invalid operator !" ) );
 	}
 	return ( res );
+}
+
+int RPN::_handleDivision( int first, int second )
+{
+	if ( second == 0 )
+	{
+		std::stringstream ss;
+		ss << first << " " << second << " /" << ": Illegal operation: cannot divide by 0!";
+		throw ( std::runtime_error( ss.str() ) );
+	}
+	return ( first / second );
 }
 
 bool RPN::_isOperand( std::string & string ) const

@@ -39,6 +39,7 @@ class RPN
 		void _handleOperator( std::string & element );
 		int _getNextOperand( void );
 		int _calculateResult( std::string & operation, int first, int second );
+		int _handleDivision( int first, int second );
 
 		bool _isOperand( std::string & string ) const;
 		bool _isOperator( std::string & string ) const;
