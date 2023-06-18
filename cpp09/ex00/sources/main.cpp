@@ -25,7 +25,6 @@ int	main( int ac, char **av )
 	{
 		checkArgs( ac, av );
 		fs = openFileStream( av[1] );
-		( void )fs;
 		btc = new BitcoinExchange();
 		evaluateInput( *btc, *fs );
 	}
@@ -61,6 +60,10 @@ std::fstream * openFileStream( char * filename )
 	if ( ( filecheck.st_mode & S_IFREG ) == 0 )
 	{
 		throw ( std::runtime_error( path + ": is a directory" ) );
+	}
+	if ( ( filecheck.st_mode & S_IXUSR ) != 0 )
+	{
+		throw ( std::runtime_error( path + ": is an executable" ) );
 	}
 	std::fstream * fs = new std::fstream();
 	fs->open( filename, std::fstream::in );
