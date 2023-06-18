@@ -32,7 +32,7 @@ class PmergeMe
 		std::vector<int> * _unsortedVector;
 		std::vector<int> * _sortedVector;
 
-		void _fillVectorFromArray( int * array );
+		void _fillVectorFromArray( int * array, int array_size );
 		void _sortVector( void );
 		std::vector< std::pair<int, int> > _splitIntoPairs( std::vector<int> & unsortedVector );
 		void _sortEachPair( std::vector< std::pair<int, int> > & splitVector );
@@ -61,7 +61,7 @@ class PmergeMe
 		std::list<int> * _unsortedList;
 		std::list<int> * _sortedList;
 
-		void _fillListFromArray( int * array );
+		void _fillListFromArray( int * array, int array_size );
 		void _sortList( void );
 		std::list< std::pair<int, int> > _splitIntoPairs( std::list<int> & unsortedList );
 		void _sortEachPair( std::list< std::pair<int, int> > & splitList );
@@ -87,7 +87,7 @@ class PmergeMe
 		                                        list );
 
 	public:
-		PmergeMe( int* array, bool container );
+		PmergeMe( int* array, int array_size, bool container );
 		PmergeMe( PmergeMe & src );
 		~PmergeMe( void );
 

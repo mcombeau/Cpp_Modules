@@ -13,7 +13,7 @@
 #ifndef UTILS_HPP
 # define UTILS_HPP
 
-#define VERBOSE 1
+#define VERBOSE 0
 
 #include "Colors.h"
 #include <algorithm>

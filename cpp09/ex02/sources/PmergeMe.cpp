@@ -22,7 +22,7 @@ PmergeMe::~PmergeMe( void ) {
 	delete _sortedList;
 }
 
-PmergeMe::PmergeMe( int* array, bool container ) : _container( container )
+PmergeMe::PmergeMe( int* array, int array_size, bool container ) : _container( container )
 {
 	_unsortedVector = new std::vector<int>();
 	_sortedVector = new std::vector<int>();
@@ -30,11 +30,11 @@ PmergeMe::PmergeMe( int* array, bool container ) : _container( container )
 	_sortedList = new std::list<int>();
 	if ( container == VECTOR )
 	{
-		_fillVectorFromArray( array );
+		_fillVectorFromArray( array, array_size );
 	}
 	else if ( container == LIST )
 	{
-		_fillListFromArray( array );
+		_fillListFromArray( array, array_size );
 	}
 }
  
@@ -81,9 +81,9 @@ std::vector<int> & PmergeMe::getSortedVector( void )
 	return (*_sortedVector);
 }
 
-void PmergeMe::_fillVectorFromArray( int * array )
+void PmergeMe::_fillVectorFromArray( int * array, int array_size )
 {
-	for ( int i = 0; array[i]; i++ )
+	for ( int i = 0; i < array_size; i++ )
 	{
 		_unsortedVector->push_back( array[i] );
 	}
@@ -355,9 +355,9 @@ std::list<int> & PmergeMe::getSortedList( void )
 	return (*_sortedList);
 }
 
-void PmergeMe::_fillListFromArray( int * array )
+void PmergeMe::_fillListFromArray( int * array, int array_size )
 {
-	for ( int i = 0; array[i]; i++ )
+	for ( int i = 0; i < array_size; i++ )
 	{
 		_unsortedList->push_back( array[i] );
 	}
