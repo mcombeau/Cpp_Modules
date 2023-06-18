@@ -57,4 +57,15 @@ void printContainer( std::list<T> & list, std::string name, std::string color )
 	printLine( color, ss.str(), getContentsAsString( list ) );
 }
 
+int * getArrayToSort( int ac, char **av );
+int getNumber( char * nbStr, int * array, int array_size );
+bool isADuplicate( int * array, int array_size, int nb );
+template <typename T>
+void verifySortAccuracy( int * array, int array_size, T & resultContainer );
+std::vector<int> * convertArrayToVector( int * array, int array_size );
+void printTime(std::string containerType, std::clock_t time, int elements);
+void testPmergeMe( int ac, char **av );
+std::clock_t test_vector( int * array, int array_size);
+std::clock_t test_list( int * array, int array_size );
+
 #endif

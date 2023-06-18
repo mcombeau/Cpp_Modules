@@ -11,15 +11,42 @@
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+#include "utils.hpp"
 #include <cstring>
 
-int * getArrayToSort( int ac, char **av );
-int getNumber( char * nbStr, int * array, int array_size );
-bool isADuplicate( int * array, int array_size, int nb );
-template <typename T>
-void verifySortAccuracy( int * array, int array_size, T & resultContainer );
-std::vector<int> * convertArrayToVector( int * array, int array_size );
-void printTime(std::string containerType, std::clock_t time, int elements);
+int	main( int ac, char **av )
+{
+	if ( ac < 2 )
+	{
+		std::cerr << RED "Usage: ./PmergeMe [integers to sort]" RESET << std::endl;
+		return ( 1 );
+	}
+	try
+	{
+		testPmergeMe( ac, av );
+	}
+	catch ( std::exception & e )
+	{
+		std::cerr << RED "Error: " << e.what() << RESET << std::endl;
+		return ( 1 );
+	}
+	return ( 0 );
+}
+
+void testPmergeMe( int ac, char **av )
+{
+	int array_size = ac - 1;
+	int * array = getArrayToSort( array_size, av );
+	
+	std::clock_t vectorTime = test_vector( array, array_size );
+	std::clock_t listTime = test_list( array, array_size );
+	
+	std::cout << std::endl << CYAN "---- Timing" RESET << std::endl;
+	printTime("vector", vectorTime, ac - 1);
+	printTime("list", listTime, ac - 1);
+
+	delete [] array;
+}
 
 std::clock_t test_vector( int * array, int array_size)
 {
@@ -41,37 +68,6 @@ std::clock_t test_list( int * array, int array_size )
 	std::clock_t listTime = std::clock() - start;
 	verifySortAccuracy( array, array_size, listSorter.getSortedList() );
 	return ( listTime );
-}
-
-int	main( int ac, char **av )
-{
-	if ( ac < 2 )
-	{
-		std::cerr << RED "Usage: ./PmergeMe [integers to sort]" RESET << std::endl;
-		return ( 1 );
-	}
-
-	/* int * array = NULL; */
-	try
-	{
-		int array_size = ac - 1;
-		int * array = getArrayToSort( array_size, av );
-		
-		std::clock_t vectorTime = test_vector( array, array_size );
-		std::clock_t listTime = test_list( array, array_size );
-
-		std::cout << std::endl << CYAN "---- Timing" RESET << std::endl;
-		printTime("vector", vectorTime, ac - 1);
-		printTime("list", listTime, ac - 1);
-
-		delete [] array;
-	}
-	catch ( std::exception & e )
-	{
-		std::cerr << RED "Error: " << e.what() << RESET << std::endl;
-		/* delete [] array; */
-	}
-	return ( 0 );
 }
 
 void printTime(std::string containerType, std::clock_t time, int elements)
