@@ -94,6 +94,10 @@ void BitcoinExchange::outputExchangeValueOnDate( std::string & dateStr,
 
 	time_t date = _getEpochFromDateString( dateStr );
 	double value = _getValueFromString( valueStr );
+	if ( value < 0 || value > 1000 )
+	{
+		throw std::out_of_range( "invalid value: must be between 0 and 1000" );
+	}
 	double exchangeRate = _getExchangeRateOnDate( date );
 	double exchangeValue = getExchangeValueOnDate( dateStr, valueStr );
 
