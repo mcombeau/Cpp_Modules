@@ -45,3 +45,4 @@
 *.json
 .cache
 forbidden*
+vgcore.*
