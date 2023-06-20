@@ -42,8 +42,22 @@ BitcoinExchange & BitcoinExchange::operator=( BitcoinExchange & src )
 
 void BitcoinExchange::_fillExchangeRateTable( void )
 {
+	std::string path = "data/data.csv";
+	struct stat filecheck;
+	if ( stat( path.c_str(), &filecheck ) != 0 )
+	{
+		throw ( std::runtime_error( path + ": invalid file" ) );
+	}
+	if ( ( filecheck.st_mode & S_IFREG ) == 0 )
+	{
+		throw ( std::runtime_error( path + ": is a directory" ) );
+	}
+	if ( ( filecheck.st_mode & S_IXUSR ) != 0 )
+	{
+		throw ( std::runtime_error( path + ": is an executable" ) );
+	}
 	std::fstream fs;
-	fs.open( "data/data.csv", std::fstream::in );
+	fs.open( path.c_str(), std::fstream::in );
 	if ( fs.fail() )
 	{
 		throw ( std::runtime_error( "Could not open data file" ) );
