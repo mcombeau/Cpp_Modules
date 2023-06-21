@@ -27,7 +27,7 @@ Clone this repository and `cd` into `cpp09/ex02`. Then `make` to compile. Run th
 ./RPN <Reverse_Polish_Notation_expression>
 ```
 
-Spaces do not matter in the RPN expression, each digit is treated as a separate number. The two folliwing notations are equivalent:
+Spaces do not matter in the RPN expression, each digit is treated as a separate number. The two following notations are equivalent:
 
 ```
 ./RPN "2 3 + 1 -"
