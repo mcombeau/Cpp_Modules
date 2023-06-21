@@ -45,7 +45,7 @@ The third exercise requires us to implement a Ford-Johnson merge-insertion sort 
 Clone this repository and `cd` into `cpp09/ex02`. Then `make` to compile. Run the program with:
 
 ```
-./PmergeMe <numbers_so_sort>
+./PmergeMe <numbers_to_sort>
 ./PmergeMe 9 3 1 15 6 30 8 7 11
 ```
 
