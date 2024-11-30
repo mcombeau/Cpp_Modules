@@ -6,6 +6,8 @@
 
 A collection of modules that make up 42 school's C++ piscine. The modules gradually introduce students to concepts related to object-oriented programming, such as classes, inheritance, ad-hoc polymorphism, templates, containers, and more.
 
+> This project has been archived in the state it was in at the time of evaluation.
+
 ## Status
 Validated:
 
